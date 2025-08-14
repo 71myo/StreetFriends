@@ -26,101 +26,49 @@ struct LaunchView: View {
                     .shadow(color: .black.opacity(0.10), radius: 2, x: 0, y: -2)
                     .offset(x: geometry.size.width * -0.2, y: geometry.size.height * 0.18)
                 
-                Image(.effectExclamation)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.045)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 3 : -3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.44, y: geometry.size.height * -0.72)
+                LaunchAssetView(geometry: geometry, imageName: "effectExclamation",
+                                widthMultiplier: 0.045, xOffsetMultiplier: -0.44, yOffsetMultiplier: -0.72,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
 
-                Image(.imgCat1)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.65)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 3 : -3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.48, y: geometry.size.height * -0.59)
+                LaunchAssetView(geometry: geometry, imageName: "imgCat1",
+                                widthMultiplier: 0.65, xOffsetMultiplier: -0.48, yOffsetMultiplier: -0.59,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
 
-                Image(.effectBrackets)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.45)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? -3 : 3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * 0.1, y: geometry.size.height * -0.52)
+                LaunchAssetView(geometry: geometry, imageName: "effectBrackets",
+                                widthMultiplier: 0.45, xOffsetMultiplier: 0.1, yOffsetMultiplier: -0.52,
+                                rotationDegrees: -3, isAnimating: $isAnimating)
 
-                Image(.imgCat2)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.65)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? -3 : 3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * 0.19, y: geometry.size.height * -0.58)
-
-                Image(.imgStreetText)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.65)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 1 : -1))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.25, y: geometry.size.height * -0.35)
-
-                Image(.imgFriendsText)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.6)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 1 : -1))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(y: geometry.size.height * -0.25)
+                LaunchAssetView(geometry: geometry, imageName: "imgCat2",
+                                widthMultiplier: 0.65, xOffsetMultiplier: 0.19, yOffsetMultiplier: -0.58,
+                                rotationDegrees: -3, isAnimating: $isAnimating)
                 
-                Image(.imgCat3)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.5)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 3 : -3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.4, y: geometry.size.height * -0.21)
+                LaunchAssetView(geometry: geometry, imageName: "imgStreetText",
+                                widthMultiplier: 0.65, xOffsetMultiplier: -0.25, yOffsetMultiplier: -0.35,
+                                rotationDegrees: 1, isAnimating: $isAnimating)
                 
-                Image(.effectZz)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 3 : -3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.55, y: geometry.size.height * -0.15)
+                LaunchAssetView(geometry: geometry, imageName: "imgFriendsText",
+                                widthMultiplier: 0.6, xOffsetMultiplier: 0, yOffsetMultiplier: -0.25,
+                                rotationDegrees: 1, isAnimating: $isAnimating)
                 
-                Image(.imgCat4)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.6)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? -3 : 3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.48, y: geometry.size.height * 0.1)
+                LaunchAssetView(geometry: geometry, imageName: "imgCat3",
+                                widthMultiplier: 0.5, xOffsetMultiplier: -0.4, yOffsetMultiplier: -0.21,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
                 
-                Image(.effectWave)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.1)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 3 : -3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * -0.18, y: geometry.size.height * 0.15)
+                LaunchAssetView(geometry: geometry, imageName: "effectZz",
+                                widthMultiplier: 0.07, xOffsetMultiplier: -0.55, yOffsetMultiplier: -0.15,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
                 
-                Image(.imgCat5)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geometry.size.width * 0.8)
-                    .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
-                    .rotationEffect(.degrees(isAnimating ? 3 : -3))
-                    .animation(.spring(duration: 0.3).repeatCount(4), value: isAnimating)
-                    .offset(x: geometry.size.width * 0.12, y: geometry.size.height * 0.19)
+                LaunchAssetView(geometry: geometry, imageName: "imgCat4",
+                                widthMultiplier: 0.6, xOffsetMultiplier: -0.48, yOffsetMultiplier: 0.1,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
+                
+                LaunchAssetView(geometry: geometry, imageName: "effectWave",
+                                widthMultiplier: 0.1, xOffsetMultiplier: -0.18, yOffsetMultiplier: 0.15,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
+                
+                LaunchAssetView(geometry: geometry, imageName: "imgCat5",
+                                widthMultiplier: 0.8, xOffsetMultiplier: 0.12, yOffsetMultiplier: 0.19,
+                                rotationDegrees: 3, isAnimating: $isAnimating)
             } //: ZSTACK
             .onAppear {
                 isAnimating.toggle()
