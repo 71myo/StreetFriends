@@ -13,7 +13,7 @@ struct ContentView: View {
     
     // MARK: - BODY
     var body: some View {
-        NavigationStack {
+        ZStack {
             if isLaunch {
                 LaunchView()
                     .transition(.opacity)
