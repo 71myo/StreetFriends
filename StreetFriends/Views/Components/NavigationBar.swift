@@ -23,10 +23,9 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
     
     // MARK: - BODY
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             Text(title)
                 .font(.pretendard(.semiBold, size: 18))
-                .frame(maxWidth: .infinity, alignment: .center)
             
             HStack {
                 leadingContent
@@ -37,8 +36,10 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
         .padding(.horizontal, 18)
         .padding(.vertical, 10)
         .frame(maxWidth: .infinity, minHeight: 44)
-        .background(Color.white)
-        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1)
+        .background(
+            Color.white.ignoresSafeArea(edges: .top)
+                .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1)
+        )
     }
 }
 
