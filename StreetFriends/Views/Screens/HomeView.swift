@@ -29,29 +29,19 @@ struct HomeView: View {
                     VStack {
                         SearchBar(searchText: $searchText)
                         
-                        Text("가장 자주 만난 친구")
-                            .font(.pretendard(.semiBold, size: 18))
-                            .foregroundStyle(.netural80)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 32)
+                        SectionHeaderView(type: .plain,
+                                          title: "가장 자주 만난 친구",
+                                          destination: {})
+                        .padding(.top, 32)
                         
                         PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
                                                      catName: "찐빵이",
                                                      recentEncountersCount: 12))
                         .padding(.top, 8)
                         
-                        HStack(spacing: 6) {
-                            Text("즐겨찾는 친구")
-                                .font(.pretendard(.semiBold, size: 18))
-                                .foregroundStyle(.netural80)
-                            
-                            Image(.chevronRight)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16, height: 16)
-                                .foregroundStyle(.netural40)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        SectionHeaderView(type: .navigation,
+                                          title: "즐겨찾는 친구",
+                                          destination: {})
                         .padding(.top, 40)
                         
                         ScrollView(.horizontal) {
@@ -67,18 +57,9 @@ struct HomeView: View {
                         }
                         .scrollIndicators(.hidden)
                         
-                        HStack(spacing: 6) {
-                            Text("모든 친구")
-                                .font(.pretendard(.semiBold, size: 18))
-                                .foregroundStyle(.netural80)
-                            
-                            Image(.chevronRight)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16, height: 16)
-                                .foregroundStyle(.netural40)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        SectionHeaderView(type: .navigation,
+                                          title: "모든 친구",
+                                          destination: {})
                         .padding(.top, 40)
                         
                         LazyVGrid(columns: columns, spacing: 4) {
@@ -89,9 +70,7 @@ struct HomeView: View {
                                     .frame(height: 109)
                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                             }
-                        }
-                        
-                        
+                        } //: GRID
                     } //: VSTACK
                     .padding(.horizontal, 20)
                     .padding(.vertical, 18)
