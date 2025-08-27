@@ -22,6 +22,17 @@ struct HomeView: View {
                 ScrollView {
                     VStack {
                         SearchBar(searchText: $searchText)
+                        
+                        Text("가장 자주 만난 친구")
+                            .font(.pretendard(.semiBold, size: 18))
+                            .foregroundStyle(.netural80)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 32)
+                        
+                        PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
+                                                     catName: "찐빵이",
+                                                     recentEncountersCount: 12))
+                        .padding(.top, 8)
                     } //: VSTACK
                     .padding(.horizontal, 20)
                     .padding(.top, 18)
