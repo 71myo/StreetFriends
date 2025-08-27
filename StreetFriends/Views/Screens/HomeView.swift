@@ -36,7 +36,8 @@ struct HomeView: View {
                         
                         PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
                                                      catName: "찐빵이",
-                                                     recentEncountersCount: 12))
+                                                     recentEncountersCount: 12),
+                                         destination: {})
                         .padding(.top, 8)
                         
                         SectionHeaderView(type: .navigation,
@@ -47,11 +48,15 @@ struct HomeView: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 ForEach(0..<9) { cat in
-                                    Image(.sampleCat)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 130, height: 130)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    NavigationLink {
+                                        
+                                    } label: {
+                                        Image(.sampleCat)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 130, height: 130)
+                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    }
                                 }
                             }
                         }
@@ -64,11 +69,15 @@ struct HomeView: View {
                         
                         LazyVGrid(columns: columns, spacing: 4) {
                             ForEach(0..<9) { cat in
-                                Image(.sampleCat)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(height: 109)
-                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                NavigationLink {
+                                    
+                                } label: {
+                                    Image(.sampleCat)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(height: 109)
+                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                }
                             }
                         } //: GRID
                     } //: VSTACK

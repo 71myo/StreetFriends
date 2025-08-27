@@ -12,27 +12,33 @@ enum PolaroidInfo {
     case detail(catImage: UIImage, encounterNote: String, encounterDate: Date)
 }
 
-struct PolaroidCardView: View {
-    // MARK: - PROPERTY
+struct PolaroidCardView<Destination: View>: View {
+    // MARK: - PROPERTIES
     let info: PolaroidInfo
+    
+    @ViewBuilder let destination: Destination
     
     // MARK: - BODY
     var body: some View {
-        ZStack {
-            // 폴라로이드 배경
-            Rectangle()
-                .foregroundStyle(.white)
-                .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-            
-            // 내용물
-            VStack(alignment: .leading) {
-                photoSection
+        NavigationLink {
+            destination
+        } label: {
+            ZStack {
+                // 폴라로이드 배경
+                Rectangle()
+                    .foregroundStyle(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
                 
-                textSection
-            } //: VSTACK(내용물)
-            .padding(16)
-        } //: ZSTACK
-        .frame(height: cardHeight)
+                // 내용물
+                VStack(alignment: .leading) {
+                    photoSection
+                    
+                    textSection
+                } //: VSTACK(내용물)
+                .padding(16)
+            } //: ZSTACK
+            .frame(height: cardHeight)
+        }
     }
     
     // MARK: - SUBVIEWS
@@ -116,7 +122,7 @@ struct PolaroidCardView: View {
         info: .home(
             catImage: UIImage(resource: .sampleCat),
             catName: "찐빵이",
-            recentEncountersCount: 12)
+            recentEncountersCount: 12), destination: {}
     )
     .padding()
 }
@@ -134,7 +140,7 @@ struct PolaroidCardView: View {
                        사람을 경계하진 않는데 그렇다고 만지면 또 자리를 피한다
                        """,
             encounterDate: .now
-        )
+        ), destination: {}
     )
     .padding()
 }
