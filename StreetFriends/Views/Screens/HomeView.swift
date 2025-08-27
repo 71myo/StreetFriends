@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
+    // MARK: - PROPERTY
+    @State private var searchText: String = ""
+    
+    // MARK: - BODY
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -17,8 +21,10 @@ struct HomeView: View {
                 
                 ScrollView {
                     VStack {
-                        Text("Hello, World!")
+                        SearchBar(searchText: $searchText)
                     } //: VSTACK
+                    .padding(.horizontal, 20)
+                    .padding(.top, 18)
                 } //: SCROLL
             } //: VSTACK
             .background(
