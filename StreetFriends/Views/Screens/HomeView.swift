@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     // MARK: - PROPERTIES
     @State private var searchText: String = ""
+    @State private var isCatFavorite: Bool = false
     
     let columns = [
         GridItem(.flexible(), spacing: 4),
@@ -51,11 +52,8 @@ struct HomeView: View {
                                     NavigationLink {
                                         
                                     } label: {
-                                        Image(.sampleCat)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 130, height: 130)
-                                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                                        CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
+                                            .frame(height: 130)
                                     }
                                 }
                             }
@@ -72,11 +70,7 @@ struct HomeView: View {
                                 NavigationLink {
                                     
                                 } label: {
-                                    Image(.sampleCat)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(height: 109)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                                    CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
                                 }
                             }
                         } //: GRID
