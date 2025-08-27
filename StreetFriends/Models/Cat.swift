@@ -15,6 +15,8 @@ final class Cat {
     var name: String
     var creationDate: Date // 정렬용
     
+    var isFavotite: Bool
+    
     var representativeEncounter: Encounter? // 대표 Encounter(대표 사진 선택용)
     
     @Relationship(deleteRule: .cascade, inverse: \Encounter.cat)
@@ -27,5 +29,6 @@ final class Cat {
     init(name: String) {
         self.name = name
         self.creationDate = Date()
+        self.isFavotite = false
     }
 }
