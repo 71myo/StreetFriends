@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: - PROPERTY
     @State private var isLaunch: Bool = true
     
+    // MARK: - BODY
     var body: some View {
         ZStack {
             if isLaunch {
                 LaunchView()
                     .transition(.opacity)
-                
             } else {
-                Text("HomeView")
+                HomeView()
                     .transition(.opacity)
             }
         }

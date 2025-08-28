@@ -16,11 +16,11 @@ final class Encounter: Identifiable {
     var note: String // 만남 일지
     
     @Attribute(.externalStorage)
-    var photo: Data?
+    var photo: Data
     
     var cat: Cat?
     
-    init(date: Date, note: String, photo: Data?) {
+    init(date: Date, note: String, photo: Data) {
         self.date = date
         self.note = note
         self.photo = photo
