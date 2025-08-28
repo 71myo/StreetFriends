@@ -11,7 +11,6 @@ struct SearchBar: View {
     // MARK: - PROPERTIES
     @Binding var searchText: String
     let dismissAction: () -> Void
-    @FocusState private var isFocused: Bool
     
     // MARK: - BODY
     var body: some View {
@@ -21,11 +20,14 @@ struct SearchBar: View {
                     Image(.search)
                         .foregroundStyle(.netural40)
                     
-                    TextField("친구 검색", text: $searchText)
-                        .foregroundStyle(.netural80)
-                        .font(.pretendard(.regular, size: 18))
-                        .tint(.blue50)
-                        .focused($isFocused)
+                    SearchTextField(text: $searchText,
+                                    placeholder: "친구 검색",
+                                    autofocus: true) {
+                        dismissAction()
+                    }
+                                    .foregroundStyle(.netural80)
+                                    .font(.pretendard(.regular, size: 18))
+                                    .tint(.blue50)
                     
                     if !searchText.isEmpty {
                         Button {
@@ -55,10 +57,6 @@ struct SearchBar: View {
         }
         .background(Color.white.ignoresSafeArea(edges: .top)
             .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1))
-        .onAppear {
-            isFocused = true
-        }
-        
     }
 }
 
