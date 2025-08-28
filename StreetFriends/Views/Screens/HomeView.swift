@@ -11,6 +11,7 @@ struct HomeView: View {
     // MARK: - PROPERTIES
     @State private var searchText: String = ""
     @State private var isCatFavorite: Bool = false
+    @State private var isSearching: Bool = false
     
     let columns = [
         GridItem(.flexible(), spacing: 4),
@@ -24,16 +25,28 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 NavigationBar(title: "친구들",
                               leading: {},
-                              trailing: { Button { } label: {Image(.addCat).foregroundStyle(.netural80)} })
+                              trailing: {
+                    HStack(spacing: 12) {
+                        Button {
+                            isSearching = true
+                        } label: {
+                            Image(.search).foregroundStyle(.netural80)
+                        }
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(.addCat).foregroundStyle(.netural80)
+                        }
+                    }
+                })
                 
                 ScrollView {
                     VStack {
-                        SearchBar(searchText: $searchText)
-                        
                         SectionHeaderView(type: .plain,
                                           title: "가장 자주 만난 친구",
                                           destination: {})
-                        .padding(.top, 32)
+                        .padding(.top, 10)
                         
                         PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
                                                      catName: "찐빵이",
@@ -85,6 +98,24 @@ struct HomeView: View {
                     .scaledToFill()
             )
         } //: NAVIGATION
+        .overlay(alignment: .top) {
+            ZStack(alignment: .top) {
+                if isSearching {
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            isSearching = false
+                            searchText = ""
+                        }
+                    
+                    SearchBar(searchText: $searchText) {
+                        isSearching = false
+                    }
+                    .transition(.move(edge: .top))
+                }
+            }
+            .animation(.easeInOut(duration: 0.3), value: isSearching)
+        }
     }
 }
 
