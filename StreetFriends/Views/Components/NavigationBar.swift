@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
+    enum Style {
+        case solid
+        case clear
+    }
+    
     // MARK: - PROPERTIES
     let title: String
+    let style: Style
     let leadingContent: LeadingContent
     let trailingContent: TrailingContent
     
     init(title: String,
+         style: Style = .solid,
+         titleColor: Color = .netural80,
          @ViewBuilder leading: () -> LeadingContent,
          @ViewBuilder trailing: () -> TrailingContent) {
         self.title = title
+        self.style = style
         self.leadingContent = leading()
         self.trailingContent = trailing()
     }
@@ -26,19 +35,31 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
         ZStack {
             Text(title)
                 .font(.pretendard(.semiBold, size: 18))
+                .foregroundStyle(style == .solid ? .netural80 : .white)
             
             HStack {
                 leadingContent
+                    .foregroundStyle(style == .solid ? .netural80 : .white)
                 Spacer()
                 trailingContent
+                    .foregroundStyle(style == .solid ? .netural80 : .white)
             }
         }
         .padding(.horizontal, 18)
         .padding(.vertical, 10)
         .frame(maxWidth: .infinity, minHeight: 44)
         .background(
-            Color.white.ignoresSafeArea(edges: .top)
-                .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1)
+            Group {
+                switch style {
+                case .solid:
+                    Color.white
+                        .shadow(color: .black.opacity(0.2), radius: 1, x: 0, y: 1)
+                case .clear:
+                    Color.clear
+                        .shadow(color: .black.opacity(0.0), radius: 0, x: 0, y: 0)
+                }
+            }
+            .ignoresSafeArea(edges: .top)
         )
     }
 }
@@ -58,6 +79,19 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
         leading: { Button { } label: { Image(.chevronLeft) } },
         trailing: {  }
     )
+}
+
+#Preview("왼쪽에 버튼 하나/Clear Ver") {
+    ZStack {
+        Color.black
+        
+        NavigationBar(
+            title: "친구들",
+            style: .clear,
+            leading: { Button { } label: { Image(.chevronLeft) } },
+            trailing: {  }
+        )
+    }
 }
 
 #Preview("오른쪽에 버튼 두개") {

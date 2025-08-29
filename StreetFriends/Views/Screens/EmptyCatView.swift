@@ -15,8 +15,8 @@ struct EmptyCatView: View {
                 leading: {},
                 trailing: {
                     HStack(spacing: 12) {
-                        Button { } label: {Image(.search).foregroundStyle(.netural80)}
-                        Button { } label: {Image(.addCat).foregroundStyle(.netural80)}
+                        Button { } label: {Image(.search)}
+                        Button { } label: {Image(.addCat)}
                     }
                 }
             )

@@ -27,17 +27,9 @@ struct HomeView: View {
                               leading: {},
                               trailing: {
                     HStack(spacing: 12) {
-                        Button {
-                            isSearching = true
-                        } label: {
-                            Image(.search).foregroundStyle(.netural80)
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Image(.addCat).foregroundStyle(.netural80)
-                        }
+                        Button { isSearching = true } label: { Image(.search) }
+                    
+                        NavigationLink { AddCatChoiceView() } label: { Image(.addCat) }
                     }
                 })
                 
