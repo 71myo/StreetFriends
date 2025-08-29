@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct CatNameInputView: View {
+    // MARK: - PROPERTIES
     @Environment(\.dismiss) var dismiss
     @State private var name: String = ""
-    
+    @State private var goNext = false
+    private var trimmedName: String {
+        name.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    private var canGoNext: Bool { !trimmedName.isEmpty }
+    // MARK: - BODY
     var body: some View {
         ZStack {
             GeometryReader { proxy in
@@ -35,24 +41,34 @@ struct CatNameInputView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 40)
                     
-                    AppTextField(
+                    AppInputField(
                         text: $name,
-                        placeholder: "이름을 입력하세요.",
-                        autofocus: true,
-                        returnKeyType: .next
-                    ) {  }
-                        .padding(10)
-                        .frame(height: 44)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .padding(.top, 20)
+                        placeholder: "8글자 이하의 이름을 입력하세요.",
+                        autoFocus: true,
+                        maxLength: 8) { _ in }
+                    .padding(10)
+                    .frame(height: 44)
+                    .background(Color.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding(.top, 20)
                     
                     Spacer()
+
+                    PrimaryButton(kind: .next, isEnabled: canGoNext) {
+                        goNext = true
+                    }
+                    .navigationDestination(isPresented: $goNext) {
+                        EncounterInputView(catName: trimmedName)
+                    }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             } //: 전체 VSTACK
         } //: ZSTACK
         .navigationBarBackButtonHidden()
+        .onAppear {
+            name = trimmedName
+        }
     }
 }
 

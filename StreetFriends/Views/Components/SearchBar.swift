@@ -20,12 +20,12 @@ struct SearchBar: View {
                     Image(.search)
                         .foregroundStyle(.netural40)
                     
-                    AppTextField(
-                        text: $searchText,
-                        placeholder: "친구 검색",
-                        autofocus: true,
-                        returnKeyType: .search
-                    ) { dismissAction() }
+                    AppInputField(text: $searchText,
+                                  placeholder: "친구 검색",
+                                  submitLabel: .search,
+                                  autoFocus: true) { query in
+                        dismissAction()
+                    }
                 } //: HSTACK(서치 부분)
                 .padding(10)
                 .frame(height: 44)

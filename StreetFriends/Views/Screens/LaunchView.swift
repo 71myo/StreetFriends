@@ -20,19 +20,19 @@ struct LaunchView: View {
                     .ignoresSafeArea()
                 
                 LaunchAssetView(geometry: proxy, imageName: "effectExclamation",
-                                widthMultiplier: 0.045, xOffsetMultiplier: -0.3, yOffsetMultiplier: -0.57,
+                                widthMultiplier: 0.045, xOffsetMultiplier: -0.28, yOffsetMultiplier: -0.56,
                                 rotationDegrees: 3, isAnimating: $isAnimating)
 
                 LaunchAssetView(geometry: proxy, imageName: "imgCat1",
-                                widthMultiplier: 0.65, xOffsetMultiplier: -0.35, yOffsetMultiplier: -0.44,
+                                widthMultiplier: 0.65, xOffsetMultiplier: -0.35, yOffsetMultiplier: -0.43,
                                 rotationDegrees: 3, isAnimating: $isAnimating)
 
                 LaunchAssetView(geometry: proxy, imageName: "effectBrackets",
-                                widthMultiplier: 0.45, xOffsetMultiplier: 0.27, yOffsetMultiplier: -0.35,
+                                widthMultiplier: 0.45, xOffsetMultiplier: 0.27, yOffsetMultiplier: -0.34,
                                 rotationDegrees: -3, isAnimating: $isAnimating)
 
                 LaunchAssetView(geometry: proxy, imageName: "imgCat2",
-                                widthMultiplier: 0.65, xOffsetMultiplier: 0.35, yOffsetMultiplier: -0.42,
+                                widthMultiplier: 0.65, xOffsetMultiplier: 0.35, yOffsetMultiplier: -0.41,
                                 rotationDegrees: -3, isAnimating: $isAnimating)
                 
                 LaunchAssetView(geometry: proxy, imageName: "imgStreetText",
