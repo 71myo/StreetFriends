@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CatNameInputView: View {
     // MARK: - PROPERTIES
+    @Environment(Router.self) private var router
     @Environment(\.dismiss) var dismiss
     @State private var name: String = ""
-    @State private var goNext = false
     private var trimmedName: String {
         name.trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -55,10 +55,7 @@ struct CatNameInputView: View {
                     Spacer()
 
                     PrimaryButton(kind: .next, isEnabled: canGoNext) {
-                        goNext = true
-                    }
-                    .navigationDestination(isPresented: $goNext) {
-                        EncounterInputView(catName: trimmedName)
+                        router.push(.encounterInput(catName: trimmedName))
                     }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)

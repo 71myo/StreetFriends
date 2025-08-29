@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddCatChoiceView: View {
+    @Environment(Router.self) private var router
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -51,8 +52,8 @@ struct AddCatChoiceView: View {
                         }
                         Spacer()
                         
-                        NavigationLink {
-                            CatNameInputView()
+                        Button {
+                            router.push(.catNameInput)
                         } label: {
                             ZStack(alignment: .center) {
                                 Image(.addNewFriend)

@@ -10,6 +10,7 @@ import PhotosUI
 
 struct EncounterInputView: View {
     // MARK: - PROPERTIES
+    @Environment(Router.self) private var router
     @Environment(\.dismiss) var dismiss
     let catName: String
     
@@ -135,7 +136,9 @@ struct EncounterInputView: View {
                             }
                         }
                         
-                        PrimaryButton(kind: .save) { }
+                        PrimaryButton(kind: .save) {
+                            router.popToRoot()
+                        }
                     } //: 콘텐츠 VSTACK
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
