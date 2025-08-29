@@ -14,36 +14,30 @@ struct ContentView: View {
     
     // MARK: - BODY
     var body: some View {
-        NavigationStack(path: $router.path) {
-            Group {
-                if isLaunch {
-                    LaunchView()
-                        .transition(.opacity)
-                } else {
-                    HomeView()
-                        .transition(.opacity)
+        if isLaunch {
+            LaunchView()
+                .transition(.opacity)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            self.isLaunch = false
+                        }
+                    }
                 }
+        } else {
+            NavigationStack(path: $router.path) {
+                HomeView()
+                    .transition(.opacity)
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .addCatChoice: AddCatChoiceView()
+                        case .catNameInput: CatNameInputView()
+                        case .encounterInput(let name): EncounterInputView(catName: name)
+                        }
+                    }
             }
-            .navigationDestination(for: Route.self) { route in
-                switch route {
-                case .addCatChoice:
-                    AddCatChoiceView()
-                case .catNameInput:
-                    CatNameInputView()
-                case .encounterInput(let name):
-                    EncounterInputView(catName: name)
-                }
-            }
+            .environment(router)
         }
-        .environment(router)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.isLaunch = false
-                }
-            }
-        }
-        
     }
 }
 
