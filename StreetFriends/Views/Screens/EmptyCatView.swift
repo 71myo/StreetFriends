@@ -21,8 +21,8 @@ struct EmptyCatView: View {
                 }
             )
             
-            VStack {
-                HStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                HStack(alignment: .bottom, spacing: 8.5) {
                     Text("또는 버튼 누르기")
                         .font(.pretendard(.medium, size: 18))
                         .foregroundStyle(.netural40)

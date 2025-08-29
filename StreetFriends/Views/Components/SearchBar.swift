@@ -20,23 +20,12 @@ struct SearchBar: View {
                     Image(.search)
                         .foregroundStyle(.netural40)
                     
-                    SearchTextField(text: $searchText,
-                                    placeholder: "친구 검색",
-                                    autofocus: true) {
-                        dismissAction()
-                    }
-                                    .foregroundStyle(.netural80)
-                                    .font(.pretendard(.regular, size: 18))
-                                    .tint(.blue50)
-                    
-                    if !searchText.isEmpty {
-                        Button {
-                            searchText = ""
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundStyle(.blue50)
-                        }
-                    }
+                    AppTextField(
+                        text: $searchText,
+                        placeholder: "친구 검색",
+                        autofocus: true,
+                        returnKeyType: .search
+                    ) { dismissAction() }
                 } //: HSTACK(서치 부분)
                 .padding(10)
                 .frame(height: 44)

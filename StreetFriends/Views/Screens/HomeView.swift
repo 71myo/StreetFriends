@@ -22,78 +22,89 @@ struct HomeView: View {
     // MARK: - BODY
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                NavigationBar(title: "친구들",
-                              leading: {},
-                              trailing: {
-                    HStack(spacing: 12) {
-                        Button { isSearching = true } label: { Image(.search) }
-                    
-                        NavigationLink { AddCatChoiceView() } label: { Image(.addCat) }
-                    }
-                })
+            ZStack {
+                GeometryReader { proxy in
+                    Image(.homeBackground)
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea(.keyboard)
+                } //: GEOMETRY
                 
-                ScrollView {
-                    VStack {
-                        SectionHeaderView(type: .plain,
-                                          title: "가장 자주 만난 친구",
-                                          destination: {})
-                        .padding(.top, 10)
-                        
-                        PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
-                                                     catName: "찐빵이",
-                                                     recentEncountersCount: 12),
-                                         destination: {})
-                        .padding(.top, 8)
-                        
-                        SectionHeaderView(type: .navigation,
-                                          title: "즐겨찾는 친구",
-                                          destination: {})
-                        .padding(.top, 40)
-                        
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(0..<9) { cat in
-                                    NavigationLink {
-                                        
-                                    } label: {
-                                        CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
-                                            .frame(height: 130)
+                VStack(spacing: 0) {
+                    NavigationBar(title: "친구들",
+                                  leading: {},
+                                  trailing: {
+                        HStack(spacing: 12) {
+                            Button { isSearching = true } label: { Image(.search) }
+                            
+                            NavigationLink { AddCatChoiceView() } label: { Image(.addCat) }
+                        }
+                    })
+                    
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            // MARK: - 가장 자주 만난 친구 섹션
+                            VStack(spacing: 12) {
+                                SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
+                                
+                                
+                                PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
+                                                             catName: "찐빵이",
+                                                             recentEncountersCount: 12),
+                                                 destination: {})
+                                
+                            }
+                            
+                            // MARK: - 즐겨찾는 친구 섹션
+                            VStack(spacing: 12) {
+                                SectionHeaderView(type: .navigation,
+                                                  title: "즐겨찾는 친구",
+                                                  destination: {})
+
+                                ScrollView(.horizontal) {
+                                    HStack {
+                                        ForEach(0..<9) { cat in
+                                            NavigationLink {
+                                                
+                                            } label: {
+                                                CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
+                                                    .frame(height: 130)
+                                            }
+                                        }
                                     }
                                 }
+                                .scrollIndicators(.hidden)
                             }
-                        }
-                        .scrollIndicators(.hidden)
-                        
-                        SectionHeaderView(type: .navigation,
-                                          title: "모든 친구",
-                                          destination: {})
-                        .padding(.top, 40)
-                        
-                        LazyVGrid(columns: columns, spacing: 4) {
-                            ForEach(0..<9) { cat in
-                                NavigationLink {
-                                    
-                                } label: {
-                                    CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
-                                }
+                            .padding(.top, 40)
+                            
+                            // MARK: - 모든 친구 섹션
+                            VStack(spacing: 12) {
+                                SectionHeaderView(type: .navigation,
+                                                  title: "모든 친구",
+                                                  destination: {})
+                                
+                                LazyVGrid(columns: columns, spacing: 4) {
+                                    ForEach(0..<9) { cat in
+                                        NavigationLink {
+                                            
+                                        } label: {
+                                            CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
+                                        }
+                                    }
+                                } //: GRID
                             }
-                        } //: GRID
-                    } //: VSTACK
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 18)
-                } //: SCROLL
-            } //: VSTACK
-            .background(
-                Image(.homeBackground)
-                    .resizable()
-                    .scaledToFill()
-            )
+                            .padding(.top, 40)
+                        } //: 전체 VSTACK
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 20)
+                    } //: SCROLL
+                } //: VSTACK
+            } //: ZSTACK
         } //: NAVIGATION
         .overlay(alignment: .top) {
             ZStack(alignment: .top) {
                 if isSearching {
-                    Color.black.opacity(0.3)
+                    Color.black.opacity(0.2)
                         .ignoresSafeArea()
                         .onTapGesture {
                             isSearching = false

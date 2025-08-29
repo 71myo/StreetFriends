@@ -1,5 +1,5 @@
 //
-//  SearchTextField.swift
+//  AppTextField.swift
 //  StreetFriends
 //
 //  Created by Hyojeong on 8/29/25.
@@ -8,21 +8,27 @@
 import SwiftUI
 import UIKit
 
-struct SearchTextField: UIViewRepresentable {
+struct AppTextField: UIViewRepresentable {
     @Binding var text: String
     var placeholder: String = ""
     var autofocus: Bool = false
+    var returnKeyType: UIReturnKeyType = .default // .search, .next(CatName)
+    var fontSize: CGFloat = 18
     var onSubmit: () -> Void = {}
     
     func makeUIView(context: Context) -> UITextField {
         let tf = UITextField()
         tf.placeholder = placeholder
-        tf.returnKeyType = .search                 // 엔터 라벨: "검색"
+        tf.returnKeyType = returnKeyType
         tf.enablesReturnKeyAutomatically = true    // 입력 없으면 리턴키 회색 비활성화
-        tf.clearButtonMode = .never                // 시스템 X 버튼 비활성화(커스텀 사용)
+        tf.clearButtonMode = .whileEditing                // 시스템 X 버튼 비활성화
         tf.autocorrectionType = .no
+        tf.spellCheckingType = .no
+        tf.autocapitalizationType = .none
 
-        tf.font = UIFont(name: "Pretendard-Regular", size: 18)
+        tf.font = UIFont(name: "Pretendard-Regular", size: fontSize)
+        tf.textColor = .netural80
+        tf.tintColor = .blue50
         
         tf.addTarget(context.coordinator, action: #selector(Coordinator.textChanged), for: .editingChanged)
         tf.delegate = context.coordinator
@@ -49,7 +55,7 @@ struct SearchTextField: UIViewRepresentable {
         }
         @objc func textChanged(_ sender: UITextField) { text = sender.text ?? "" }
         func textFieldShouldReturn(_ tf: UITextField) -> Bool {
-            guard !(tf.text ?? "").isEmpty else { return false }
+            guard !(tf.text ?? "").isEmpty else { return false } // 비어있으면 submit 막기
             onSubmit()
             return true
         }
