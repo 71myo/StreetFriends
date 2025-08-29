@@ -12,7 +12,6 @@ struct AppInputField: View {
     @Binding var text: String
     var placeholder: String
     var submitLabel: SubmitLabel = .done
-    var autoFocus: Bool = false
     var maxLength: Int? = nil
     var fontSize: CGFloat = 18
     var onSubmit: (String) -> Void
@@ -45,6 +44,6 @@ struct AppInputField: View {
                 }
             }
         } //: HSTACK
-        .task { if autoFocus { isFocused = true }}
+        .task { isFocused = true }
     }
 }

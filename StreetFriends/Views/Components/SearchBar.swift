@@ -22,8 +22,7 @@ struct SearchBar: View {
                     
                     AppInputField(text: $searchText,
                                   placeholder: "친구 검색",
-                                  submitLabel: .search,
-                                  autoFocus: true) { query in
+                                  submitLabel: .search) { query in
                         dismissAction()
                     }
                 } //: HSTACK(서치 부분)

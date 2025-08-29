@@ -44,7 +44,6 @@ struct CatNameInputView: View {
                     AppInputField(
                         text: $name,
                         placeholder: "8글자 이하의 이름을 입력하세요.",
-                        autoFocus: true,
                         maxLength: 8) { _ in }
                     .padding(10)
                     .frame(height: 44)
