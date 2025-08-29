@@ -29,7 +29,7 @@ struct AppInputField: View {
                     text = String(newValue.prefix(max))
                 })
                 .textInputAutocapitalization(.never)
-                .disableAutocorrection(true)
+                .autocorrectionDisabled()
                 .tint(.blue50)
                 .font(.pretendard(.regular, size: fontSize))
             

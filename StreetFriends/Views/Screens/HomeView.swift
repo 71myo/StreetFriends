@@ -44,7 +44,7 @@ struct HomeView: View {
                     ScrollView {
                         VStack(spacing: 0) {
                             // MARK: - 가장 자주 만난 친구 섹션
-                            VStack(spacing: 12) {
+                            VStack(spacing: 16) {
                                 SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
                                 
                                 
