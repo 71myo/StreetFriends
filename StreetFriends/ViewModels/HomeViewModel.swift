@@ -20,6 +20,15 @@ final class HomeViewModel {
     var isLoading: Bool = false
     var error: String?
 
+    // 검색 관련
+    var trimmedText: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
+    var hasQuery: Bool { !trimmedText.isEmpty }
+
+    var filteredCats: [Cat] {
+        guard hasQuery else { return [] }
+        return allCats.filter { $0.name.localizedStandardContains(trimmedText) }
+    }
+    
     @MainActor
     func load(repo: CatRepository) {
         isLoading = true

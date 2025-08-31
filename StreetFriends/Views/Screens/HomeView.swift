@@ -57,7 +57,7 @@ struct HomeView: View {
                                 HStack {
                                     ForEach(viewModel.favorites) { cat in
                                         NavigationLink {
-                                            
+                                            Text(cat.name)
                                         } label: {
                                             CatSquareView(
                                                 catImageData: cat.profilePhoto,
@@ -85,7 +85,7 @@ struct HomeView: View {
                                       spacing: 4) {
                                 ForEach(viewModel.allCats) { cat in
                                     NavigationLink {
-                                        
+                                        Text(cat.name)
                                     } label: {
                                         CatSquareView(
                                             catImageData: cat.profilePhoto,
@@ -116,9 +116,38 @@ struct HomeView: View {
                             viewModel.searchText = ""
                         }
                     
-                    SearchBar(searchText: $viewModel.searchText) {
-                        viewModel.isSearching = false
-                    }
+                    VStack(spacing: 0) {
+                        SearchBar(searchText: $viewModel.searchText) {
+                            viewModel.isSearching = false
+                        }
+                        
+                        if viewModel.hasQuery {
+                            ZStack(alignment: .top) {
+                                Image(.homeBackground)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .ignoresSafeArea(.keyboard)
+                                
+                                if viewModel.filteredCats.isEmpty {
+                                    SearchEmptyView()
+                                        .transition(.opacity)
+                                } else {
+                                    ScrollView {
+                                        VStack {
+                                            ForEach(viewModel.filteredCats) { cat in
+                                                NavigationLink {
+                                                    Text(cat.name)
+                                                } label: {
+                                                    CatSearchRow(cat: cat, query: viewModel.trimmedText)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .transition(.opacity)
+                                }
+                            }
+                        }
+                    } //: 서치바 VSTACK
                     .transition(.move(edge: .top))
                 }
             }
@@ -134,5 +163,6 @@ struct HomeView: View {
     NavigationStack {
         HomeView()
             .environment(Router())
+            .environment(\.catRepository, PreviewCatRepository())
     }
 }

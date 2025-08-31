@@ -10,12 +10,10 @@ import SwiftUI
 struct CatNameInputView: View {
     // MARK: - PROPERTIES
     @Environment(Router.self) private var router
-    @Environment(\.dismiss) var dismiss
     @State private var name: String = ""
-    private var trimmedName: String {
-        name.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
+    private var trimmedName: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
     private var canGoNext: Bool { !trimmedName.isEmpty }
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
@@ -31,7 +29,7 @@ struct CatNameInputView: View {
             VStack(spacing: 0) {
                 NavigationBar(title: "추억쌓기",
                               style: .clear,
-                              leading: { Button { dismiss() } label: { Image(.chevronLeft) } },
+                              leading: { Button { router.pop() } label: { Image(.chevronLeft) } },
                               trailing: {})
                 
                 VStack(spacing: 0)  {

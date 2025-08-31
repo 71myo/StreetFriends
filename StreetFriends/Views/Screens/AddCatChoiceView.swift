@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AddCatChoiceView: View {
     @Environment(Router.self) private var router
-    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -23,7 +22,7 @@ struct AddCatChoiceView: View {
                 VStack(spacing: 0) {
                     NavigationBar(title: "추억쌓기",
                                   style: .clear,
-                                  leading: { Button { dismiss() } label: { Image(.chevronLeft) } },
+                                  leading: { Button { router.pop() } label: { Image(.chevronLeft) } },
                                   trailing: {})
                     
                     VStack(spacing: 0) {

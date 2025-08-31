@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Cat {
+final class Cat: Identifiable {
     @Attribute(.unique) var id: UUID  = UUID()
     
     var name: String

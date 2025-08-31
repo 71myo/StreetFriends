@@ -34,13 +34,7 @@ final class EncounterInputViewModel {
         defer { isSaving = false }
         
         do {
-            let saved = try repo.createCatWithFirstEncounter(name: name,
-                                                     date: date,
-                                                     note: note,
-                                                     photoData: photoData)
-            print("✅ 저장 성공: \(saved.name)")
-            print("   첫 만남 날짜: \(saved.firstMetDate?.description ?? "없음")")
-            print("   일지: \(saved.encounters.first?.note ?? "없음")")
+            _ = try repo.createCatWithFirstEncounter(name: name, date: date, note: note, photoData: photoData)
             return true
         } catch {
             print("저장 실패: \(error)")
