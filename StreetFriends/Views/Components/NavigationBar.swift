@@ -69,7 +69,7 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
     NavigationBar(
         title: "친구들",
         leading: {  },
-        trailing: { Button { } label: { Image(.addCat) } }
+        trailing: { Button { } label: { Image(.addCatData) } }
     )
 }
 

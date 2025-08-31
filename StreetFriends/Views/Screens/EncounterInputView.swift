@@ -59,7 +59,11 @@ struct EncounterInputView: View {
                                                     .resizable()
                                                     .scaledToFill()
                                             } else {
-                                                Image(.picture)
+                                                Image(.addCatPicture)
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 48, height: 48)
+                                                    .foregroundStyle(.netural40)
                                             }
                                         }
                                     }

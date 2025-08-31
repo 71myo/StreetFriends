@@ -37,7 +37,7 @@ struct HomeView: View {
                     HStack(spacing: 12) {
                         Button { isSearching = true } label: { Image(.search) }
                         
-                        Button { router.push(.addCatChoice) } label: { Image(.addCat) }
+                        Button { router.push(.addCatChoice) } label: { Image(.addCatData) }
                     }
                 })
                 
