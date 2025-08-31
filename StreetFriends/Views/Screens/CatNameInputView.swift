@@ -58,7 +58,7 @@ struct CatNameInputView: View {
                     }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                .padding(.bottom, 12)
             } //: 전체 VSTACK
         } //: ZSTACK
         .navigationBarBackButtonHidden()
@@ -70,4 +70,5 @@ struct CatNameInputView: View {
 
 #Preview {
     CatNameInputView()
+        .environment(Router())
 }

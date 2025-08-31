@@ -15,8 +15,8 @@ struct SearchBar: View {
     // MARK: - BODY
     var body: some View {
         VStack {
-            HStack(spacing: 10) {
-                HStack {
+            HStack(spacing: 8) {
+                HStack(spacing: 8) {
                     Image(.search)
                         .foregroundStyle(.netural40)
                     
@@ -36,7 +36,7 @@ struct SearchBar: View {
                     dismissAction()
                 } label: {
                     Text("취소")
-                        .foregroundStyle(.blue50)
+                        .foregroundStyle(.green)
                         .font(.pretendard(.regular, size: 18))
                 }
             } //: HSTACK

@@ -23,13 +23,13 @@ struct AppInputField: View {
             TextField(placeholder, text: $text)
                 .focused($isFocused)
                 .submitLabel(submitLabel)
-                .onChange(of: text, { oldValue, newValue in
+                .onChange(of: text) { oldValue, newValue in
                     guard let max = maxLength, newValue.count > max else { return }
                     text = String(newValue.prefix(max))
-                })
+                }
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
-                .tint(.blue50)
+                .tint(.green60)
                 .font(.pretendard(.regular, size: fontSize))
             
             Spacer()

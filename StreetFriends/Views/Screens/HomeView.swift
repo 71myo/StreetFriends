@@ -96,7 +96,8 @@ struct HomeView: View {
                         .padding(.top, 40)
                     } //: 전체 VSTACK
                     .padding(.horizontal, 20)
-                    .padding(.vertical, 20)
+                    .padding(.top, 20)
+                    .padding(.bottom, 12)
                 } //: SCROLL
             } //: VSTACK
         } //: ZSTACK
@@ -124,5 +125,6 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView()
+            .environment(Router())
     }
 }
