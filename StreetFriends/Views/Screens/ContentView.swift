@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     // MARK: - PROPERTY
+    @Environment(\.modelContext) private var modelContext
     @State private var router = Router()
     @State private var isLaunch: Bool = true
     
@@ -36,6 +38,7 @@ struct ContentView: View {
                         }
                     }
             }
+            .environment(\.catRepository, SwiftDataCatRepository(context: modelContext))
             .environment(router)
         }
     }

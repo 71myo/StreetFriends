@@ -9,21 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     // MARK: - PROPERTIES
+    @Environment(\.catRepository) private var catRepository
     @Environment(Router.self) private var router
-    @State private var searchText: String = ""
-    @State private var isCatFavorite: Bool = false
-    @State private var isSearching: Bool = false
-    
-    let columns = [
-        GridItem(.flexible(), spacing: 4),
-        GridItem(.flexible(), spacing: 4),
-        GridItem(.flexible(), spacing: 4)
-    ]
-    
+    @State private var viewModel = HomeViewModel()
+        
     // MARK: - BODY
     var body: some View {
         ZStack {
-            GeometryReader { proxy in
+            GeometryReader { _ in
                 Image(.homeBackground)
                     .resizable()
                     .scaledToFill()
@@ -35,7 +28,7 @@ struct HomeView: View {
                               leading: {},
                               trailing: {
                     HStack(spacing: 12) {
-                        Button { isSearching = true } label: { Image(.search) }
+                        Button { viewModel.isSearching = true } label: { Image(.search) }
                         
                         Button { router.push(.addCatChoice) } label: { Image(.addCatData) }
                     }
@@ -52,7 +45,6 @@ struct HomeView: View {
                                                          catName: "찐빵이",
                                                          recentEncountersCount: 12),
                                              destination: {})
-                            
                         }
                         
                         // MARK: - 즐겨찾는 친구 섹션
@@ -63,12 +55,18 @@ struct HomeView: View {
                             
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(0..<9) { cat in
+                                    ForEach(viewModel.favorites) { cat in
                                         NavigationLink {
                                             
                                         } label: {
-                                            CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
-                                                .frame(height: 130)
+                                            CatSquareView(
+                                                catImageData: cat.profilePhoto,
+                                                type: .favorite(
+                                                    isOn: cat.isFavorite,
+                                                    action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }
+                                                )
+                                            )
+                                            .frame(height: 130)
                                         }
                                     }
                                 }
@@ -83,12 +81,19 @@ struct HomeView: View {
                                               title: "모든 친구",
                                               destination: {})
                             
-                            LazyVGrid(columns: columns, spacing: 4) {
-                                ForEach(0..<9) { cat in
+                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3),
+                                      spacing: 4) {
+                                ForEach(viewModel.allCats) { cat in
                                     NavigationLink {
                                         
                                     } label: {
-                                        CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
+                                        CatSquareView(
+                                            catImageData: cat.profilePhoto,
+                                            type: .favorite(
+                                                isOn: cat.isFavorite,
+                                                action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }
+                                            )
+                                        )
                                     }
                                 }
                             } //: GRID
@@ -103,21 +108,24 @@ struct HomeView: View {
         } //: ZSTACK
         .overlay(alignment: .top) {
             ZStack(alignment: .top) {
-                if isSearching {
+                if viewModel.isSearching {
                     Color.black.opacity(0.2)
                         .ignoresSafeArea()
                         .onTapGesture {
-                            isSearching = false
-                            searchText = ""
+                            viewModel.isSearching = false
+                            viewModel.searchText = ""
                         }
                     
-                    SearchBar(searchText: $searchText) {
-                        isSearching = false
+                    SearchBar(searchText: $viewModel.searchText) {
+                        viewModel.isSearching = false
                     }
                     .transition(.move(edge: .top))
                 }
             }
-            .animation(.easeInOut(duration: 0.3), value: isSearching)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+        }
+        .task {
+            await MainActor.run { viewModel.load(repo: catRepository) }
         }
     }
 }

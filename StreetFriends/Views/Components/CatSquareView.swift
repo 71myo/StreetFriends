@@ -9,12 +9,12 @@ import SwiftUI
 
 enum CatSquareType {
     case standard
-    case favorite(isFavorite: Binding<Bool>)
+    case favorite(isOn: Bool, action: () -> Void)
 }
 
 struct CatSquareView: View {
     // MARK: - PROPERTIES
-    let catImage: UIImage
+    let catImageData: Data?
     let type: CatSquareType
     
     // MARK: - BODY
@@ -22,18 +22,24 @@ struct CatSquareView: View {
         Color.clear
             .aspectRatio(1, contentMode: .fit)
             .overlay(
-                Image(uiImage: catImage)
-                    .resizable()
-                    .scaledToFill()
+                Group {
+                    if let data = catImageData, let ui = UIImage(data: data) {
+                        Image(uiImage: ui)
+                            .resizable()
+                            .scaledToFill()
+                    } else {
+                        Image(.sampleCat) // fallback
+                            .resizable()
+                            .scaledToFill()
+                    }
+                }
             )
             .overlay(alignment: .topTrailing) {
-                if case .favorite(let isFavorite) = type {
+                if case let .favorite(isOn, action) = type {
                     Button {
-                        withAnimation {
-                            isFavorite.wrappedValue.toggle()
-                        }
+                        withAnimation { action() }
                     } label: {
-                        Image(isFavorite.wrappedValue ? .selectTrue : .selectFalse)
+                        Image(isOn ? .selectTrue : .selectFalse)
                     }
                     .offset(x: -5, y: 5)
                 }
@@ -43,6 +49,6 @@ struct CatSquareView: View {
 }
 
 #Preview {
-    CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: .constant(true)))
+    CatSquareView(catImageData: nil, type: .favorite(isOn: true, action: {}))
         .frame(height: 130)
 }
