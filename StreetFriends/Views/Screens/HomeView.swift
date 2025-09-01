@@ -51,7 +51,7 @@ struct HomeView: View {
                         VStack(spacing: 12) {
                             SectionHeaderView(type: .navigation,
                                               title: "즐겨찾는 친구",
-                                              destination: {})
+                                              destination: { FavoriteCatsGridView() })
                             
                             ScrollView(.horizontal) {
                                 HStack {
@@ -63,6 +63,7 @@ struct HomeView: View {
                                                 catImageData: cat.profilePhoto,
                                                 type: .favorite(
                                                     isOn: cat.isFavorite,
+                                                    name: cat.name,
                                                     action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }
                                                 )
                                             )
@@ -79,7 +80,7 @@ struct HomeView: View {
                         VStack(spacing: 12) {
                             SectionHeaderView(type: .navigation,
                                               title: "모든 친구",
-                                              destination: {})
+                                              destination: { AllCatsGridView() })
                             
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3),
                                       spacing: 4) {
@@ -91,6 +92,7 @@ struct HomeView: View {
                                             catImageData: cat.profilePhoto,
                                             type: .favorite(
                                                 isOn: cat.isFavorite,
+                                                name: cat.name,
                                                 action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }
                                             )
                                         )
@@ -107,49 +109,10 @@ struct HomeView: View {
             } //: VSTACK
         } //: ZSTACK
         .overlay(alignment: .top) {
-            ZStack(alignment: .top) {
-                if viewModel.isSearching {
-                    Color.black.opacity(0.2)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            viewModel.isSearching = false
-                            viewModel.searchText = ""
-                        }
-                    
-                    VStack(spacing: 0) {
-                        SearchBar(searchText: $viewModel.searchText) {
-                            viewModel.isSearching = false
-                        }
-                        
-                        if viewModel.hasQuery {
-                            ZStack(alignment: .top) {
-                                Image(.homeBackground)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .ignoresSafeArea(.keyboard)
-                                
-                                if viewModel.filteredCats.isEmpty {
-                                    SearchEmptyView()
-                                        .transition(.opacity)
-                                } else {
-                                    ScrollView {
-                                        VStack {
-                                            ForEach(viewModel.filteredCats) { cat in
-                                                NavigationLink {
-                                                    Text(cat.name)
-                                                } label: {
-                                                    CatSearchRow(cat: cat, query: viewModel.trimmedText)
-                                                }
-                                            }
-                                        }
-                                    }
-                                    .transition(.opacity)
-                                }
-                            }
-                        }
-                    } //: 서치바 VSTACK
-                    .transition(.move(edge: .top))
-                }
+            CatSearchOverlay(isPresented: $viewModel.isSearching,
+                             searchText: $viewModel.searchText,
+                             results: viewModel.filteredCats) { cat in
+                
             }
             .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
         }
@@ -163,6 +126,6 @@ struct HomeView: View {
     NavigationStack {
         HomeView()
             .environment(Router())
-            .environment(\.catRepository, PreviewCatRepository())
     }
+    .environment(\.catRepository, PreviewCatRepository())
 }

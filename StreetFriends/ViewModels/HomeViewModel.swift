@@ -22,10 +22,9 @@ final class HomeViewModel {
 
     // 검색 관련
     var trimmedText: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
-    var hasQuery: Bool { !trimmedText.isEmpty }
 
     var filteredCats: [Cat] {
-        guard hasQuery else { return [] }
+        guard !trimmedText.isEmpty else { return [] }
         return allCats.filter { $0.name.localizedStandardContains(trimmedText) }
     }
     
