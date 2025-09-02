@@ -15,14 +15,14 @@ struct EmptyCatView: View {
                 leading: {},
                 trailing: {
                     HStack(spacing: 12) {
-                        Button { } label: {Image(.search).foregroundStyle(.netural80)}
-                        Button { } label: {Image(.addCat).foregroundStyle(.netural80)}
+                        Button { } label: {Image(.search)}
+                        Button { } label: {Image(.addCatData)}
                     }
                 }
             )
             
-            VStack {
-                HStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                HStack(alignment: .bottom, spacing: 8.5) {
                     Text("또는 버튼 누르기")
                         .font(.pretendard(.medium, size: 18))
                         .foregroundStyle(.netural40)

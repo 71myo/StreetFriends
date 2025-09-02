@@ -9,112 +9,84 @@ import SwiftUI
 
 struct HomeView: View {
     // MARK: - PROPERTIES
-    @State private var searchText: String = ""
-    @State private var isCatFavorite: Bool = false
-    @State private var isSearching: Bool = false
-    
-    let columns = [
-        GridItem(.flexible(), spacing: 4),
-        GridItem(.flexible(), spacing: 4),
-        GridItem(.flexible(), spacing: 4)
-    ]
-    
+    @Environment(\.catRepository) private var catRepository
+    @Environment(Router.self) private var router
+    @State private var viewModel = HomeViewModel()
+        
     // MARK: - BODY
     var body: some View {
-        NavigationStack {
+        ZStack {
+            GeometryReader { _ in
+                Image(.homeBackground)
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea(.keyboard)
+            } //: GEOMETRY
+            
             VStack(spacing: 0) {
                 NavigationBar(title: "친구들",
                               leading: {},
                               trailing: {
                     HStack(spacing: 12) {
-                        Button {
-                            isSearching = true
-                        } label: {
-                            Image(.search).foregroundStyle(.netural80)
-                        }
+                        Button { viewModel.isSearching = true } label: { Image(.search) }
                         
-                        Button {
-                            
-                        } label: {
-                            Image(.addCat).foregroundStyle(.netural80)
-                        }
+                        Button { router.push(.addCatChoice) } label: { Image(.addCatData) }
                     }
                 })
                 
                 ScrollView {
-                    VStack {
-                        SectionHeaderView(type: .plain,
-                                          title: "가장 자주 만난 친구",
-                                          destination: {})
-                        .padding(.top, 10)
-                        
-                        PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
-                                                     catName: "찐빵이",
-                                                     recentEncountersCount: 12),
-                                         destination: {})
-                        .padding(.top, 8)
-                        
-                        SectionHeaderView(type: .navigation,
-                                          title: "즐겨찾는 친구",
-                                          destination: {})
-                        .padding(.top, 40)
-                        
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(0..<9) { cat in
-                                    NavigationLink {
-                                        
-                                    } label: {
-                                        CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
-                                            .frame(height: 130)
-                                    }
-                                }
-                            }
+                    VStack(spacing: 0) {
+                        // MARK: - 가장 자주 만난 친구 섹션
+                        VStack(spacing: 16) {
+                            SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
+                            
+                            
+                            PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
+                                                         catName: "찐빵이",
+                                                         recentEncountersCount: 12),
+                                             destination: {})
                         }
-                        .scrollIndicators(.hidden)
                         
-                        SectionHeaderView(type: .navigation,
-                                          title: "모든 친구",
-                                          destination: {})
+                        // MARK: - 즐겨찾는 친구 섹션
+                        VStack(spacing: 12) {
+                            SectionHeaderView(type: .navigation,
+                                              title: "즐겨찾는 친구",
+                                              destination: { FavoriteCatsGridView() })
+                            
+                            FavoriteCatsHScroll(cats: viewModel.favorites,
+                                                onSelect: { cat in /* 디테일뷰 이동 */ },
+                                                onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
+                        }
                         .padding(.top, 40)
                         
-                        LazyVGrid(columns: columns, spacing: 4) {
-                            ForEach(0..<9) { cat in
-                                NavigationLink {
-                                    
-                                } label: {
-                                    CatSquareView(catImage: .sampleCat, type: .favorite(isFavorite: $isCatFavorite))
-                                }
-                            }
-                        } //: GRID
-                    } //: VSTACK
+                        // MARK: - 모든 친구 섹션
+                        VStack(spacing: 12) {
+                            SectionHeaderView(type: .navigation,
+                                              title: "모든 친구",
+                                              destination: { AllCatsGridView() })
+                            
+                            CatsGridView(cats: viewModel.allCats,
+                                         onSelect: { cat in /* 디테일뷰 이동 */ },
+                                         onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
+                        }
+                        .padding(.top, 40)
+                    } //: 전체 VSTACK
                     .padding(.horizontal, 20)
-                    .padding(.vertical, 18)
+                    .padding(.top, 20)
+                    .padding(.bottom, 12)
                 } //: SCROLL
             } //: VSTACK
-            .background(
-                Image(.homeBackground)
-                    .resizable()
-                    .scaledToFill()
-            )
-        } //: NAVIGATION
+        } //: ZSTACK
         .overlay(alignment: .top) {
-            ZStack(alignment: .top) {
-                if isSearching {
-                    Color.black.opacity(0.3)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            isSearching = false
-                            searchText = ""
-                        }
-                    
-                    SearchBar(searchText: $searchText) {
-                        isSearching = false
-                    }
-                    .transition(.move(edge: .top))
-                }
+            CatSearchOverlay(isPresented: $viewModel.isSearching,
+                             searchText: $viewModel.searchText,
+                             results: viewModel.filteredCats) { cat in
+                
             }
-            .animation(.easeInOut(duration: 0.3), value: isSearching)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+        }
+        .task {
+            await MainActor.run { viewModel.load(repo: catRepository) }
         }
     }
 }
@@ -122,5 +94,7 @@ struct HomeView: View {
 #Preview {
     NavigationStack {
         HomeView()
+            .environment(Router())
     }
+    .environment(\.catRepository, PreviewCatRepository())
 }

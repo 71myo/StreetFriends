@@ -40,7 +40,7 @@ struct SectionHeaderView<Destination: View>: View {
                     Image(.chevronRight)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 16, height: 16)
+                        .frame(width: 24, height: 24)
                         .foregroundStyle(.netural40)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

@@ -15,27 +15,15 @@ struct SearchBar: View {
     // MARK: - BODY
     var body: some View {
         VStack {
-            HStack(spacing: 10) {
-                HStack {
+            HStack(spacing: 8) {
+                HStack(spacing: 8) {
                     Image(.search)
                         .foregroundStyle(.netural40)
                     
-                    SearchTextField(text: $searchText,
-                                    placeholder: "친구 검색",
-                                    autofocus: true) {
+                    AppInputField(text: $searchText,
+                                  placeholder: "친구 검색",
+                                  submitLabel: .search) { query in
                         dismissAction()
-                    }
-                                    .foregroundStyle(.netural80)
-                                    .font(.pretendard(.regular, size: 18))
-                                    .tint(.blue50)
-                    
-                    if !searchText.isEmpty {
-                        Button {
-                            searchText = ""
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .foregroundStyle(.blue50)
-                        }
                     }
                 } //: HSTACK(서치 부분)
                 .padding(10)
@@ -48,7 +36,7 @@ struct SearchBar: View {
                     dismissAction()
                 } label: {
                     Text("취소")
-                        .foregroundStyle(.blue50)
+                        .foregroundStyle(.green)
                         .font(.pretendard(.regular, size: 18))
                 }
             } //: HSTACK
