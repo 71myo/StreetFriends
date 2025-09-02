@@ -35,7 +35,7 @@ struct AddCatChoiceView: View {
                         Spacer()
                         
                         NavigationLink {
-                            
+                            CatSelectView()
                         } label: {
                             ZStack(alignment: .center) {
                                 Image(.addOldFriend)

@@ -30,8 +30,11 @@ enum PreviewFixtures {
 
         let c2 = Cat(name: "탄빵이", isFavorite: false)
         c2.profilePhoto = thumb("TB", .indigo)
+        
+        let c3 = Cat(name: "호빵이", isFavorite: true)
+        c3.profilePhoto = thumb("HB", .brown)
 
-        return [c1, c2]
+        return [c1, c2, c3]
     }
 }
 
@@ -72,7 +75,6 @@ final class PreviewCatRepository: CatRepository {
     ) throws {
         let encounter = Encounter(date: date, note: note, photo: photoData, cat: cat)
         cat.addEncounter(encounter)
-        // 프리뷰 저장소는 메모리 배열이라 따로 save 불필요
     }
 
     func fetchAllCats() throws -> [Cat] {
@@ -94,5 +96,6 @@ final class PreviewCatRepository: CatRepository {
 extension Cat {
     static var previewOne: Cat { PreviewFixtures.sampleCats[0] }
     static var previewTwo: Cat { PreviewFixtures.sampleCats[1] }
+    static var previewThree: Cat { PreviewFixtures.sampleCats[2] }
 }
 #endif

@@ -30,13 +30,9 @@ struct AllCatsGridView: View {
                               trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
                 
                 ScrollView {
-                    LazyVGrid(columns: columns) {
-                        ForEach(viewModel.displayedCats) { cat in
-                            CatSquareView(catImageData: cat.profilePhoto,
-                                          type: .favorite(isOn: cat.isFavorite, name: cat.name,
-                                                          action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }))
-                        }
-                    }
+                    CatsGridView(cats: viewModel.displayedCats,
+                                 onSelect: { cat in /* 디테일뷰 이동 */ },
+                                 onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                 } //: SCROLL
                 .padding(.horizontal, 20)
                 .padding(.top, 40)

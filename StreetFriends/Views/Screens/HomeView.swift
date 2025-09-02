@@ -53,26 +53,9 @@ struct HomeView: View {
                                               title: "즐겨찾는 친구",
                                               destination: { FavoriteCatsGridView() })
                             
-                            ScrollView(.horizontal) {
-                                HStack {
-                                    ForEach(viewModel.favorites) { cat in
-                                        NavigationLink {
-                                            Text(cat.name)
-                                        } label: {
-                                            CatSquareView(
-                                                catImageData: cat.profilePhoto,
-                                                type: .favorite(
-                                                    isOn: cat.isFavorite,
-                                                    name: cat.name,
-                                                    action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }
-                                                )
-                                            )
-                                            .frame(height: 130)
-                                        }
-                                    }
-                                }
-                            }
-                            .scrollIndicators(.hidden)
+                            FavoriteCatsHScroll(cats: viewModel.favorites,
+                                                onSelect: { cat in /* 디테일뷰 이동 */ },
+                                                onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                         }
                         .padding(.top, 40)
                         
@@ -82,23 +65,9 @@ struct HomeView: View {
                                               title: "모든 친구",
                                               destination: { AllCatsGridView() })
                             
-                            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 3),
-                                      spacing: 4) {
-                                ForEach(viewModel.allCats) { cat in
-                                    NavigationLink {
-                                        Text(cat.name)
-                                    } label: {
-                                        CatSquareView(
-                                            catImageData: cat.profilePhoto,
-                                            type: .favorite(
-                                                isOn: cat.isFavorite,
-                                                name: cat.name,
-                                                action: { viewModel.toggleFavorite(cat: cat, repo: catRepository) }
-                                            )
-                                        )
-                                    }
-                                }
-                            } //: GRID
+                            CatsGridView(cats: viewModel.allCats,
+                                         onSelect: { cat in /* 디테일뷰 이동 */ },
+                                         onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                         }
                         .padding(.top, 40)
                     } //: 전체 VSTACK
