@@ -34,7 +34,7 @@ struct ContentView: View {
                         switch route {
                         case .addCatChoice: AddCatChoiceView()
                         case .catNameInput: CatNameInputView()
-                        case .encounterInput(let name): EncounterInputView(catName: name)
+                        case .encounterInput(let name): EncounterInputView(newCatName: name)
                         }
                     }
             }

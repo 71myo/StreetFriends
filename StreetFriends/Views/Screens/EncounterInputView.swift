@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 struct EncounterInputView: View {
     // MARK: - PROPERTIES
     @Environment(\.catRepository) private var catRepository
     @Environment(Router.self) private var router
-    @State private var viewModel = EncounterInputViewModel()
-
-    let catName: String
+    @Environment(\.dismiss) private var dismiss
+    @State private var viewModel: EncounterInputViewModel
     @State private var pickedImage: UIImage? // UI 표시용
+
+    init(newCatName: String) {
+        _viewModel = State(initialValue: EncounterInputViewModel(target: .newCat(name: newCatName)))
+    }
+    
+    init(existingCat: Cat) {
+        _viewModel = State(initialValue: EncounterInputViewModel(target: .existingCat(existingCat)))
+    }
     
     // MARK: - BODY
     var body: some View {
@@ -28,8 +34,8 @@ struct EncounterInputView: View {
             } //: GEOMETRY
             
             VStack(spacing: 0) {
-                NavigationBar(title: catName,
-                              leading: { Button { router.pop() } label: { Image(.chevronLeft) } },
+                NavigationBar(title: viewModel.title,
+                              leading: { Button { dismiss() } label: { Image(.chevronLeft) } },
                               trailing: {})
                 
                 VStack(spacing: 32) {
@@ -40,7 +46,6 @@ struct EncounterInputView: View {
                     // MARK: - 친구 일지 섹션
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "친구 일지") { }
-                        
                         NoteEditorCard(text: $viewModel.note, placeholder: "친구와의 만남을 기록해보세요.")
                             .frame(height: 183)
                     }
@@ -48,17 +53,12 @@ struct EncounterInputView: View {
                     // MARK: - 마주친 날 섹션
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(type: .plain, title: "마주친 날") { }
-                        
-                        
                         DatePickerRow(date: $viewModel.date)
                     }
                     
                     PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {
-                        viewModel.name = catName
                         let ok = viewModel.saveNewCatEncounter(using: catRepository)
-                        if ok {
-                            router.popToRoot()
-                        }
+                        if ok { router.popToRoot() }
                     }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
@@ -69,7 +69,14 @@ struct EncounterInputView: View {
     }
 }
 
-#Preview {
-    EncounterInputView(catName: "찐빵이")
+#Preview("New Cat Flow") {
+    EncounterInputView(newCatName: "찐빵이")
         .environment(Router())
+        .environment(\.catRepository, PreviewCatRepository())
+}
+
+#Preview("Existing Cat Flow") {
+    EncounterInputView(existingCat: .previewOne)
+        .environment(Router())
+        .environment(\.catRepository, PreviewCatRepository())
 }

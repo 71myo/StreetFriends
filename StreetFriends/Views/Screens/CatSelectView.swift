@@ -12,7 +12,7 @@ struct CatSelectView: View {
     @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = CatsBrowserViewModel(scope: .both)
-    private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 3)
+    @State private var selectedCat: Cat?
     
     var body: some View {
         ZStack {
@@ -29,7 +29,6 @@ struct CatSelectView: View {
                               trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
                 
                 ScrollView {
-                    
                     // MARK: - 즐겨찾는 친구 섹션
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .navigation,
@@ -37,7 +36,9 @@ struct CatSelectView: View {
                                           destination: { FavoriteCatsGridView() })
                         
                         FavoriteCatsHScroll(cats: viewModel.favorites,
-                                            onSelect: { cat in /* 디테일뷰 이동 */ },
+                                            onSelect: { cat in
+                                                selectedCat = cat
+                                            },
                                             onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
                     
@@ -47,7 +48,11 @@ struct CatSelectView: View {
                                           title: "모든 친구",
                                           destination: { AllCatsGridView() })
                         
-                        CatsGridView(cats: viewModel.displayedCats, onSelect: { cat in /* 디테일뷰 이동 */ }, onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
+                        CatsGridView(cats: viewModel.displayedCats,
+                                     onSelect: { cat in
+                                        selectedCat = cat
+                                     },
+                                     onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
                     .padding(.top, 40)
                 } //: SCROLL
@@ -63,7 +68,10 @@ struct CatSelectView: View {
                              results: viewModel.searchResults) { cat in
                 
             }
-            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+                             .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+        }
+        .navigationDestination(item: $selectedCat) { cat in
+            EncounterInputView(existingCat: cat)
         }
         .task {
             await MainActor.run { viewModel.load(repo: catRepository) }
