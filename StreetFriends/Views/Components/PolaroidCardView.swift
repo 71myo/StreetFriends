@@ -91,13 +91,14 @@ struct PolaroidCardView<Destination: View>: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text(note)
                     .font(.pretendard(.medium, size: 16))
-                    .foregroundStyle(.netural80)
+                    .foregroundStyle(.netural70)
                     .lineLimit(3)
+                    .multilineTextAlignment(.leading)
                 
                 
                 Text(date, format: .dateTime.year().month().day())
                     .font(.pretendard(.medium, size: 14))
-                    .foregroundStyle(.netural40)
+                    .foregroundStyle(.netural30)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding(.top, 12)

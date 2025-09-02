@@ -17,12 +17,7 @@ struct AllCatsGridView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            GeometryReader { _ in
-                Image(.homeBackground)
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea(.keyboard)
-            } //: GEOMETRY
+            Background()
             
             VStack(spacing: 0) {
                 NavigationBar(title: "모든 친구",

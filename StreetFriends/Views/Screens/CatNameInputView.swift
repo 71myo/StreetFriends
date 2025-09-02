@@ -17,14 +17,7 @@ struct CatNameInputView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            GeometryReader { proxy in
-                Image(.imgBackground)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: proxy.size.height + proxy.safeAreaInsets.top + proxy.safeAreaInsets.bottom)
-                    .ignoresSafeArea()
-                    .ignoresSafeArea(.keyboard)
-            } //: GEOMETRY
+            Background(.imgBackground)
             
             VStack(spacing: 0) {
                 NavigationBar(title: "추억쌓기",
