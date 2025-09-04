@@ -16,6 +16,7 @@ struct CatSquareView: View {
     // MARK: - PROPERTIES
     let catImageData: Data?
     let type: CatSquareType
+    var cornerRadius: CGFloat = 8
     
     // MARK: - BODY
     var body: some View {
@@ -56,7 +57,7 @@ struct CatSquareView: View {
                         .offset(x: 5, y: -5)
                 }
             }
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }
 
