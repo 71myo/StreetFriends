@@ -8,20 +8,19 @@
 import SwiftUI
 
 enum PolaroidInfo {
-    case home(catImage: UIImage, catName: String, recentEncountersCount: Int)
-    case detail(catImage: UIImage, encounterNote: String, encounterDate: Date)
+    case home(cat: Cat, catImageData: Data?, catName: String, recentEncountersCount: Int)
+    case detail(encounter: Encounter, catImageData: Data?, encounterNote: String, encounterDate: Date)
 }
 
 struct PolaroidCardView<Destination: View>: View {
     // MARK: - PROPERTIES
     let info: PolaroidInfo
-    
-    @ViewBuilder let destination: Destination
+    @ViewBuilder var destination: () -> Destination
     
     // MARK: - BODY
     var body: some View {
         NavigationLink {
-            destination
+            destination()
         } label: {
             ZStack {
                 // 폴라로이드 배경
@@ -46,13 +45,15 @@ struct PolaroidCardView<Destination: View>: View {
     @ViewBuilder
     private var photoSection: some View {
         switch info {
-        case .home(let catImage, _, _), .detail(let catImage, _, _):
+        case .home(_, let catImageData, _, _), .detail(_, let catImageData, _, _):
             ZStack(alignment: .topLeading) {
-                Image(uiImage: catImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 240)
-                    .clipped()
+                DataImage(data: catImageData) { img in
+                    img
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 240)
+                        .clipped()
+                }
                 
                 if case .home = info {
                     Image(.crown)
@@ -71,7 +72,7 @@ struct PolaroidCardView<Destination: View>: View {
     @ViewBuilder
     private var textSection: some View {
         switch info {
-        case .home(_, let catName, let count):
+        case .home(_, _, let catName, let count):
             VStack(alignment: .leading, spacing: 5) {
                 Text(catName)
                     .font(.pretendard(.medium, size: 16))
@@ -87,7 +88,7 @@ struct PolaroidCardView<Destination: View>: View {
             
             Spacer()
             
-        case .detail(_, let note, let date):
+        case .detail(_, _, let note, let date):
             VStack(alignment: .leading, spacing: 10) {
                 Text(note)
                     .font(.pretendard(.medium, size: 16))
@@ -95,8 +96,7 @@ struct PolaroidCardView<Destination: View>: View {
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
                 
-                
-                Text(date, format: .dateTime.year().month().day())
+                Text(date.formattedDot)
                     .font(.pretendard(.medium, size: 14))
                     .foregroundStyle(.netural30)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -121,7 +121,7 @@ struct PolaroidCardView<Destination: View>: View {
 #Preview("home") {
     PolaroidCardView(
         info: .home(
-            catImage: UIImage(resource: .sampleCat),
+            cat: .previewOne, catImageData: nil,
             catName: "찐빵이",
             recentEncountersCount: 12), destination: {}
     )
@@ -129,15 +129,17 @@ struct PolaroidCardView<Destination: View>: View {
 }
 
 #Preview("detail") {
+    let encounter = Cat.previewOne.encounters.first!
+    
     PolaroidCardView(
         info: .detail(
-            catImage: UIImage(resource: .sampleCat),
+            encounter: encounter, catImageData: nil,
             encounterNote: """
                        철길 지나가다가 만난 치즈고양이
                        원래 있던 친구가 입양가고 새로운 친구가 왔다!
                        얼굴이 뭔가 빵실해서 찐빵이라고 부르기로 했다
-                                       
-                       처음 만났는데 멋있는 자세로 그루밍을 하는 모습ㅋㅋ 
+
+                       처음 만났는데 멋있는 자세로 그루밍을 하는 모습ㅋㅋ
                        사람을 경계하진 않는데 그렇다고 만지면 또 자리를 피한다
                        """,
             encounterDate: .now

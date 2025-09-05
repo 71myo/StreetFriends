@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct CatsGridView: View {
+struct CatsGridView<Destination: View>: View {
     // MARK: - PROPERTIES
     let cats: [Cat]
     var columns: Int = 3
     var spacing: CGFloat = 4
-    let onSelect: (Cat) -> Void
+    let destination: (Cat) -> Destination
     let onToggleFavorite: (Cat) -> Void
     
     private var gridItems: [GridItem] {
@@ -22,8 +22,8 @@ struct CatsGridView: View {
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: spacing) {
             ForEach(cats) { cat in
-                Button {
-                    onSelect(cat)
+                NavigationLink {
+                    destination(cat)
                 } label: {
                     CatSquareView(
                         catImageData: cat.profilePhoto,
@@ -40,5 +40,5 @@ struct CatsGridView: View {
 }
 
 #Preview {
-    CatsGridView(cats: [.previewOne, .previewTwo, .previewThree], onSelect: { _ in }, onToggleFavorite: { _ in })
+    CatsGridView(cats: [.previewOne, .previewTwo, .previewThree], destination: { _ in EmptyView()}, onToggleFavorite: { _ in })
 }

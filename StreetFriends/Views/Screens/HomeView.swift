@@ -35,11 +35,12 @@ struct HomeView: View {
                         VStack(spacing: 16) {
                             SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
                             
-                            
-                            PolaroidCardView(info: .home(catImage: UIImage(resource: .sampleCat),
-                                                         catName: "찐빵이",
-                                                         recentEncountersCount: 12),
-                                             destination: {})
+                            if let cat = viewModel.mostMetCat {
+                                PolaroidCardView(info: .home(cat: cat, catImageData: cat.profilePhoto,
+                                                             catName: cat.name,
+                                                             recentEncountersCount: viewModel.mostMetCount),
+                                                 destination: { CatDetailView(cat: cat) })
+                            }
                         }
                         
                         // MARK: - 즐겨찾는 친구 섹션
@@ -49,7 +50,7 @@ struct HomeView: View {
                                               destination: { FavoriteCatsGridView() })
                             
                             FavoriteCatsHScroll(cats: viewModel.favorites,
-                                                onSelect: { cat in /* 디테일뷰 이동 */ },
+                                                destination: { cat in CatDetailView(cat: cat) },
                                                 onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                         }
                         .padding(.top, 40)
@@ -61,7 +62,7 @@ struct HomeView: View {
                                               destination: { AllCatsGridView() })
                             
                             CatsGridView(cats: viewModel.allCats,
-                                         onSelect: { cat in /* 디테일뷰 이동 */ },
+                                         destination: { cat in CatDetailView(cat: cat) },
                                          onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                         }
                         .padding(.top, 40)

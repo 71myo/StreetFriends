@@ -26,7 +26,7 @@ struct AllCatsGridView: View {
                 
                 ScrollView {
                     CatsGridView(cats: viewModel.displayedCats,
-                                 onSelect: { cat in /* 디테일뷰 이동 */ },
+                                 destination: { cat in CatDetailView(cat: cat) },
                                  onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                 } //: SCROLL
                 .padding(.horizontal, 20)

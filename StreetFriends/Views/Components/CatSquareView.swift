@@ -23,20 +23,8 @@ struct CatSquareView: View {
         Color.clear
             .aspectRatio(1, contentMode: .fit)
             .overlay(
-                Group {
-                    if let data = catImageData, let ui = UIImage(data: data) {
-                        Image(uiImage: ui)
-                            .resizable()
-                            .scaledToFill()
-                    } else {
-                        Rectangle()
-                            .foregroundStyle(.netural30)
-                        
-                        Image(.mysteryCat)
-                            .resizable()
-                            .scaledToFit()
-                            .padding(10)
-                    }
+                DataImage(data: catImageData) { img in
+                    img.resizable().scaledToFill()
                 }
             )
             .overlay(alignment: .topTrailing) {

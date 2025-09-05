@@ -31,8 +31,8 @@ struct CatSelectView: View {
                                           destination: { FavoriteCatsGridView() })
                         
                         FavoriteCatsHScroll(cats: viewModel.favorites,
-                                            onSelect: { cat in
-                                                selectedCat = cat
+                                            destination: { cat in
+                                            EncounterInputView(existingCat: cat)
                                             },
                                             onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
@@ -44,8 +44,8 @@ struct CatSelectView: View {
                                           destination: { AllCatsGridView() })
                         
                         CatsGridView(cats: viewModel.displayedCats,
-                                     onSelect: { cat in
-                                        selectedCat = cat
+                                     destination: { cat in
+                                        EncounterInputView(existingCat: cat)
                                      },
                                      onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }

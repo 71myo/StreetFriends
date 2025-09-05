@@ -22,7 +22,7 @@ struct ResizableHeaderScrollView<Header: View, Content: View>: View {
             let safeArea = $0.safeAreaInsets
             
             ScrollView(.vertical) {
-                LazyVStack(pinnedViews: [.sectionHeaders]) {
+                LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
                     Section {
                         content
                     } header: {
