@@ -7,24 +7,27 @@
 
 import SwiftUI
 
+/// 상단 헤더가 스크롤에 따라 최소/최대로 리사이즈되는 컨테이너
 struct ResizableHeaderScrollView<Header: View, Content: View>: View {
-    var minimumHeight: CGFloat
-    var maximumHeight: CGFloat
-
-    /// Resize Progress, SafeArea Values
-    @ViewBuilder var header: (CGFloat, EdgeInsets) -> Header
-    @ViewBuilder var content: Content
-    /// View Properties
-    @State private var offsetY: CGFloat = 0 // 오프셋 스크롤, 위로 스크롤할수록 증가, 내릴 때 음수
+    let minimumHeight: CGFloat
+    let maximumHeight: CGFloat
+    var onProgress: ((CGFloat) -> Void)? = nil
     
+    /// Resize Progress, SafeArea Values 전달
+    @ViewBuilder var header: (_ progress: CGFloat, _ safeArea: EdgeInsets) -> Header
+    @ViewBuilder var content: () -> Content
+    
+    // 스크롤 오프셋(위로 스크롤할수록 증가, 내리면 음수)
+    @State private var offsetY: CGFloat = 0
+
     var body: some View {
-        GeometryReader {
-            let safeArea = $0.safeAreaInsets
+        GeometryReader { proxy in
+            let safeArea = proxy.safeAreaInsets
             
             ScrollView(.vertical) {
                 LazyVStack(spacing: 0, pinnedViews: [.sectionHeaders]) {
                     Section {
-                        content
+                        content()
                     } header: {
                         GeometryReader { _ in
                             let progress: CGFloat = min(max(offsetY / (maximumHeight - minimumHeight), 0), 1)
@@ -32,6 +35,9 @@ struct ResizableHeaderScrollView<Header: View, Content: View>: View {
                             
                             header(progress, safeArea)
                                 .frame(height: resizedHeight, alignment: .bottom)
+                                .onChange(of: progress) { _, newValue in
+                                    onProgress?(newValue)
+                                }
                         }
                         .frame(height: maximumHeight + safeArea.top)
                     }
@@ -40,9 +46,10 @@ struct ResizableHeaderScrollView<Header: View, Content: View>: View {
             /// Offset is needed to calculate the progress value
             .onScrollGeometryChange(for: CGFloat.self) {
                 $0.contentOffset.y + $0.contentInsets.top
-            } action: { oldValue, newValue in
+            } action: { _, newValue in
                 offsetY = newValue
             }
         }
+        .ignoresSafeArea(edges: .top)
     }
 }

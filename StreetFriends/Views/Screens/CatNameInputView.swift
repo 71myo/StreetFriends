@@ -52,7 +52,6 @@ struct CatNameInputView: View {
                 .padding(.bottom, 12)
             } //: 전체 VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
         .onAppear {
             name = trimmedName
         }

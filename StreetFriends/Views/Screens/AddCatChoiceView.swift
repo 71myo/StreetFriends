@@ -68,7 +68,6 @@ struct AddCatChoiceView: View {
                 .padding(.horizontal, 20)
             } //: VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
     }
 }
 

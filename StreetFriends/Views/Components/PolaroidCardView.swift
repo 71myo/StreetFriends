@@ -36,6 +36,7 @@ struct PolaroidCardView<Destination: View>: View {
                 } //: VSTACK(내용물)
                 .padding(16)
             } //: ZSTACK
+            .frame(maxWidth: .infinity)
             .frame(height: cardHeight)
         }
     }

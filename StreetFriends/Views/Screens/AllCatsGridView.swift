@@ -33,7 +33,6 @@ struct AllCatsGridView: View {
                 .padding(.top, 40)
             } //: VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,

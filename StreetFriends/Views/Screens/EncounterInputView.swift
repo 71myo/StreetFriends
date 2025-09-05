@@ -60,7 +60,6 @@ struct EncounterInputView: View {
                 .padding(.bottom, 12)
             } //: 전체 VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
     }
 }
 

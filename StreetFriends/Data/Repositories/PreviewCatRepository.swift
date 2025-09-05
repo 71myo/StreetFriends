@@ -57,9 +57,14 @@ enum PreviewFixtures {
             photo: thumb("JJ-2", .teal)
         ))
         c1.addEncounter(Encounter(
-            date: daysAgo(1),
+            date: daysAgo(2),
             note: "오늘은 츄르를 받아먹었다!",
             photo: thumb("JJ-3", .yellow)
+        ))
+        c1.addEncounter(Encounter(
+            date: daysAgo(1),
+            note: "찐빵이가 갑자기 날 아는 채도 안 한다. 이 자식이 버르장머리가 없다!!!",
+            photo: thumb("JJ-4", .green)
         ))
         
         // 탄빵이

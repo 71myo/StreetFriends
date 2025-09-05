@@ -56,7 +56,6 @@ struct CatSelectView: View {
                 .padding(.bottom, 12)
             } //: VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
