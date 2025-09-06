@@ -9,11 +9,17 @@ import SwiftUI
 
 struct CatDetailView: View {
     // MARK: - PROPERTIES
+    @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
+    
+    @State private var viewModel: CatDetailViewModel
     @State private var headerProgress: CGFloat = 0
     
-    let cat: Cat
     private var isCollapsed: Bool { headerProgress >= 0.85 }
+    
+    init(cat: Cat) {
+        _viewModel = State(initialValue: CatDetailViewModel(cat: cat))
+    }
     
     // MARK: - BODY
     var body: some View {
@@ -25,15 +31,17 @@ struct CatDetailView: View {
                                       onProgress: { headerProgress = $0 }
             ) { progress, safeArea in
                 // MARK: - HEADER
-                CatDetailHeader(imageData: cat.profilePhoto,
-                                name: cat.name,
-                                firstMetDateText: "첫만남 : \(cat.firstMetDate?.yearMonthKR ?? "미정")",
+                CatDetailHeader(imageData: viewModel.cat.profilePhoto,
+                                name: viewModel.cat.name,
+                                firstMetDateText: "첫만남 : \(viewModel.cat.firstMetDate?.yearMonthKR ?? "미정")",
                                 maxHeight: 284,
                                 progress: progress)
             } content: {
                 // MARK: - CONTENT
                 VStack(spacing: 40) {
-                    ForEach(cat.encounters) { encounter in
+                    let encounters = viewModel.cat.encounters.sorted { $0.date > $1.date }
+                    
+                    ForEach(encounters) { encounter in
                         PolaroidCardView(
                             info: .detail(encounter: encounter,
                                           catImageData: encounter.photo,
@@ -41,22 +49,40 @@ struct CatDetailView: View {
                                           encounterDate: encounter.date),
                             destination: {}
                         )
-                        .debugBorder(.blue)
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
-                .debugBorder(.green)
             } //: RESIZABLE HEADER SCROLLVIEW
             .safeAreaInset(edge: .top) {
                 NavigationBar(
-                    title: isCollapsed ? cat.name : "",
+                    title: isCollapsed ? viewModel.cat.name : "",
                     style: isCollapsed ? .solid : .clear,
                     leading: { Button { dismiss() } label: { Image(.chevronLeftPaper) } },
                     trailing: {
                         HStack(spacing: 12) {
-                            Button {} label: { Image(.selectTrue) } // TODO: 즐겨찾기 액션 연결
-                            Button {} label: { Image(.morePaper) }
+                            Button {
+                                viewModel.togggleFavorite(using: catRepository)
+                            } label: {
+                                Image(viewModel.cat.isFavorite ? .selectTrue : .selectFalse)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 24, height: 24)
+                            }
+                            
+                            Menu {
+                                Button("프로필 수정") {
+                                    
+                                }
+                                Button("프로필 공유") {
+                                    
+                                }
+                                Button("친구 삭제") {
+                                    
+                                }
+                            } label: {
+                                Image(.morePaper)
+                            }
                         }
                     }
                 )
@@ -68,11 +94,5 @@ struct CatDetailView: View {
 
 #Preview {
     CatDetailView(cat: .previewOne)
-}
-
-extension View {
-    func debugBorder(_ color: Color = .red) -> some View {
-        overlay(Rectangle().stroke(color, lineWidth: 1))
-    }
 }
 

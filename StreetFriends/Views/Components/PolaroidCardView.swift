@@ -29,14 +29,12 @@ struct PolaroidCardView<Destination: View>: View {
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
                 
                 // 내용물
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     photoSection
-                    
                     textSection
                 } //: VSTACK(내용물)
                 .padding(16)
             } //: ZSTACK
-            .frame(maxWidth: .infinity)
             .frame(height: cardHeight)
         }
     }
@@ -80,29 +78,27 @@ struct PolaroidCardView<Destination: View>: View {
                     .foregroundStyle(.netural80)
                     .lineLimit(1)
                 
-                
                 Text("30일간 \(count)번 마주쳤어요")
                     .font(.pretendard(.medium, size: 14))
                     .foregroundStyle(.netural40)
             }
             .padding(.top, 12)
             
-            Spacer()
-            
         case .detail(_, _, let note, let date):
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(note)
                     .font(.pretendard(.medium, size: 16))
                     .foregroundStyle(.netural70)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 
                 Text(date.formattedDot)
                     .font(.pretendard(.medium, size: 14))
                     .foregroundStyle(.netural30)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .frame(maxWidth: .infinity, alignment: .bottomTrailing)
             }
-            .padding(.top, 12)
+            .padding(.top, 16)
         }
     }
     
@@ -113,17 +109,18 @@ struct PolaroidCardView<Destination: View>: View {
             return 325
             
         case .detail:
-            return 380
+            return 373
         }
     }
 }
 
 // MARK: - PREVIEW
 #Preview("home") {
+    let cat: Cat = .previewOne
     PolaroidCardView(
         info: .home(
-            cat: .previewOne, catImageData: nil,
-            catName: "찐빵이",
+            cat: cat, catImageData: cat.profilePhoto,
+            catName: cat.name,
             recentEncountersCount: 12), destination: {}
     )
     .padding()
@@ -134,7 +131,7 @@ struct PolaroidCardView<Destination: View>: View {
     
     PolaroidCardView(
         info: .detail(
-            encounter: encounter, catImageData: nil,
+            encounter: encounter, catImageData: encounter.photo,
             encounterNote: """
                        철길 지나가다가 만난 치즈고양이
                        원래 있던 친구가 입양가고 새로운 친구가 왔다!
