@@ -30,4 +30,13 @@ final class CatDetailViewModel {
             self.error = error.localizedDescription
         }
     }
+    
+    @MainActor
+    func delete(repo: CatRepository) {
+        do {
+            try repo.deleteCat(cat)
+        } catch {
+            self.error = error.localizedDescription
+        }
+    }
 }

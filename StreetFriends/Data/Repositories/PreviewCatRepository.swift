@@ -146,6 +146,10 @@ final class PreviewCatRepository: CatRepository {
         cats.filter { $0.isFavorite }
             .sorted { $0.creationDate > $1.creationDate }
     }
+    
+    func deleteCat(_ cat: Cat) throws {
+        cats.removeAll { $0.id == cat.id }
+    }
 }
 
 // MARK: - 편의 확장 (원클릭 접근)

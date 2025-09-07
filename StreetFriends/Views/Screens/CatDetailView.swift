@@ -13,8 +13,8 @@ struct CatDetailView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var viewModel: CatDetailViewModel
+    @State private var showDeleteAlert = false
     @State private var headerProgress: CGFloat = 0
-    
     private var isCollapsed: Bool { headerProgress >= 0.85 }
     
     init(cat: Cat) {
@@ -78,7 +78,7 @@ struct CatDetailView: View {
                                     
                                 }
                                 Button("친구 삭제") {
-                                    
+                                    showDeleteAlert = true
                                 }
                             } label: {
                                 Image(.morePaper)
@@ -88,6 +88,16 @@ struct CatDetailView: View {
                 )
                 .animation(.easeInOut(duration: 0.4), value: isCollapsed)
             }
+        } //: ZSTACK
+        .alert("\(viewModel.cat.name)를 친구에서 삭제할까요?", isPresented: $showDeleteAlert) {
+            Button("삭제", role: .destructive) {
+                viewModel.delete(repo: catRepository)
+                dismiss()
+            }
+            
+            Button("취소", role: .cancel) {}
+        } message: {
+            Text("삭제 후에는 친구 목록에서\n더 이상 볼 수 없어요.")
         }
     }
 }

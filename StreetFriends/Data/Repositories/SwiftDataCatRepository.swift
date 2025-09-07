@@ -57,4 +57,9 @@ final class SwiftDataCatRepository: CatRepository {
         )
         return try context.fetch(descriptor)
     }
+    
+    func deleteCat(_ cat: Cat) throws {
+        context.delete(cat)
+        try context.save()
+    }
 }
