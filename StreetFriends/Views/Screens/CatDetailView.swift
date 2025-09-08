@@ -89,15 +89,13 @@ struct CatDetailView: View {
                 .animation(.easeInOut(duration: 0.4), value: isCollapsed)
             }
         } //: ZSTACK
-        .alert("\(viewModel.cat.name)를 친구에서 삭제할까요?", isPresented: $showDeleteAlert) {
-            Button("삭제", role: .destructive) {
-                viewModel.delete(repo: catRepository)
-                dismiss()
+        .overlay {
+            if showDeleteAlert {
+                DeleteAlert(name: viewModel.cat.name, isPresented: $showDeleteAlert) {
+                    viewModel.delete(repo: catRepository)
+                    dismiss()
+                }
             }
-            
-            Button("취소", role: .cancel) {}
-        } message: {
-            Text("삭제 후에는 친구 목록에서\n더 이상 볼 수 없어요.")
         }
     }
 }
