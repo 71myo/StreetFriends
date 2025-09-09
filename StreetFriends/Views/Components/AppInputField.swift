@@ -15,15 +15,19 @@ struct AppInputField: View {
     var maxLength: Int? = nil
     var fontSize: CGFloat = 18
     var autoFocus: Bool = true
+    var externalFocus: FocusState<Bool>.Binding? // 넘기는 거 없으면 내부 포커스 사용
     var onSubmit: (String) -> Void
     
-    @FocusState private var isFocused: Bool
+    @FocusState private var internalFocus: Bool
+    private var appliedFocus: FocusState<Bool>.Binding {
+        externalFocus ?? $internalFocus
+    }
     
     // MARK: - BODY
     var body: some View {
         HStack {
             TextField(placeholder, text: $text)
-                .focused($isFocused)
+                .focused(appliedFocus)
                 .submitLabel(submitLabel)
                 .onChange(of: text) { oldValue, newValue in
                     guard let max = maxLength, newValue.count > max else { return }
@@ -46,6 +50,6 @@ struct AppInputField: View {
                 }
             }
         } //: HSTACK
-        .task { autoFocus ? (isFocused = true) : (isFocused = false) }
+        .task { if autoFocus { appliedFocus.wrappedValue = true } }
     }
 }

@@ -15,6 +15,7 @@ struct CatDetailEditView: View {
     
     @State private var isPickingPhoto = false
     @State private var pickerItem: PhotosPickerItem?
+    @FocusState private var nameFocused: Bool
     
     init(cat: Cat) {
         _viewModel = .init(initialValue: CatDetailEditViewModel(cat: cat))
@@ -24,42 +25,53 @@ struct CatDetailEditView: View {
         ZStack {
             Background()
 
-            VStack(spacing: 40) {
-                // MARK: - CAT HEADER IMAGE
-                CatDetailHeader(imageData: viewModel.pickedPhotoData ?? viewModel.profilePhotoData,
-                                mode: .fixed(maxHeight: 284))
+            ScrollView {
+                VStack(spacing: 0) {
+                    // MARK: - CAT HEADER IMAGE
+                    CatDetailHeader(imageData: viewModel.pickedPhotoData ?? viewModel.profilePhotoData,
+                                    mode: .fixed(maxHeight: 284))
                     .padding(.horizontal, -20)
-
-                // MARK: - NAME SECTION
-                VStack(spacing: 12) {
-                    SectionHeaderView(type: .plain, title: "이름", destination: {})
-                    AppInputField(text: $viewModel.name, placeholder: "8글자 이하의 이름을 입력하세요.", maxLength: 8,
-                        autoFocus: false) { _ in }
-                        .padding(10)
-                        .frame(height: 44)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    // MARK: - NAME SECTION
+                    VStack(spacing: 12) {
+                        SectionHeaderView(type: .plain, title: "이름", destination: {})
+                        AppInputField(text: $viewModel.name,
+                                      placeholder: "8글자 이하의 이름을 입력하세요.",
+                                      maxLength: 8,
+                                      autoFocus: false,
+                                      externalFocus: $nameFocused) { _ in }
+                            .padding(10)
+                            .frame(height: 44)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                    }
+                    .padding(.top, 40)
+                    
+                    // MARK: - FIRST DATE SECTION
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionHeaderView(type: .plain, title: "첫만남", destination: {})
+                        DatePickerRow(date: $viewModel.firstMetDate)
+                    }
+                    .padding(.top, 40)
+                } //: 전체 VSTACK
+                .padding(.horizontal, 20)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    nameFocused = false
                 }
-                
-                // MARK: - FIRST DATE SECTION
-                VStack(alignment: .leading, spacing: 12) {
-                    SectionHeaderView(type: .plain, title: "첫만남", destination: {})
-                    DatePickerRow(date: $viewModel.firstMetDate)
-                }
-                
-                Spacer()
-                
-                // MARK: - SAVE BUTTON
+            } //: SCROLLVIEW
+            .safeAreaInset(edge: .bottom) {
                 PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {
                     let ok = viewModel.save(using: catRepository)
                     if ok { dismiss() }
                 }
-            } //: 전체 VSTACK
-            .ignoresSafeArea()
-            .padding(.horizontal, 20)
-            .padding(.bottom, 12)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 12)
+            }
+            .scrollDisabled(true)
+            .ignoresSafeArea(edges: .top)
         } //: ZSTACK
-        .overlay(alignment: .top) {
+        .safeAreaInset(edge: .top) {
             NavigationBar(title: "",
                           style: .clear,
                           leading: { Button { dismiss() } label: { Image(.chevronLeftPaper) } },
@@ -82,3 +94,4 @@ struct CatDetailEditView: View {
 #Preview {
     CatDetailEditView(cat: .previewOne)
 }
+
