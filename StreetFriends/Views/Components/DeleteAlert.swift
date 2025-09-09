@@ -61,7 +61,7 @@ struct DeleteAlert: View {
                 } //: HSTACK
                 .frame(height: 44)
             } //: VSTACK
-            .background(Color.white, in: RoundedRectangle(cornerRadius: 12))
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 52)
         }
     }

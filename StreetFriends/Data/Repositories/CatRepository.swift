@@ -36,4 +36,7 @@ protocol CatRepository {
     
     // 고양이 삭제
     func deleteCat(_ cat: Cat) throws
+    
+    // 고양이 수정 저장
+    func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws
 }

@@ -39,4 +39,8 @@ final class CatDetailViewModel {
             self.error = error.localizedDescription
         }
     }
+    
+    func makeEditorViewModel() -> CatDetailEditViewModel {
+        .init(cat: cat)
+    }
 }

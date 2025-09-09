@@ -150,6 +150,10 @@ final class PreviewCatRepository: CatRepository {
     func deleteCat(_ cat: Cat) throws {
         cats.removeAll { $0.id == cat.id }
     }
+    
+    func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
+        
+    }
 }
 
 // MARK: - 편의 확장 (원클릭 접근)

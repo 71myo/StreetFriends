@@ -32,10 +32,9 @@ struct CatDetailView: View {
             ) { progress, safeArea in
                 // MARK: - HEADER
                 CatDetailHeader(imageData: viewModel.cat.profilePhoto,
-                                name: viewModel.cat.name,
-                                firstMetDateText: "첫만남 : \(viewModel.cat.firstMetDate?.yearMonthKR ?? "미정")",
-                                maxHeight: 284,
-                                progress: progress)
+                                mode: .dynamic(maxHeight: 284, fadeProgress: progress),
+                                info: .init(name: viewModel.cat.name,
+                                            firstMetDateText: "첫만남 : \(viewModel.cat.firstMetDate?.yearMonthKR ?? "미정")"))
             } content: {
                 // MARK: - CONTENT
                 VStack(spacing: 40) {
@@ -71,9 +70,12 @@ struct CatDetailView: View {
                             }
                             
                             Menu {
-                                Button("프로필 수정") {
-                                    
+                                NavigationLink {
+                                    CatDetailEditView(cat: viewModel.cat)
+                                } label: {
+                                    Text("프로필 수정")
                                 }
+                                
                                 Button("프로필 공유") {
                                     
                                 }
@@ -101,6 +103,8 @@ struct CatDetailView: View {
 }
 
 #Preview {
-    CatDetailView(cat: .previewOne)
+    NavigationStack {
+        CatDetailView(cat: .previewOne)
+    }
 }
 

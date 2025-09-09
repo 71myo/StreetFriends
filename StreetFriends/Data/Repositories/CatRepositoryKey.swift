@@ -35,6 +35,10 @@ private struct DevNullCatRepository: CatRepository {
     func deleteCat(_ cat: Cat) throws {
         fatalError( "CatRepository not injected")
     }
+    
+    func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
+        fatalError( "CatRepository not injected")
+    }
 }
 
 extension EnvironmentValues {
