@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeleteAlert: View {
+struct CustomAlert: View {
     let name: String
     @Binding var isPresented: Bool
     var onDelete: () -> Void
@@ -68,5 +68,5 @@ struct DeleteAlert: View {
 }
 
 #Preview {
-    DeleteAlert(name: "찐빵이", isPresented: .constant(true), onDelete: {})
+    CustomAlert(name: "찐빵이", isPresented: .constant(true), onDelete: {})
 }
