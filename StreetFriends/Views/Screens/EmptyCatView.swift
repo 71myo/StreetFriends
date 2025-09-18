@@ -51,9 +51,7 @@ struct EmptyCatView: View {
             .padding(.horizontal, 20)
         } //: VSTACK
         .background(
-            Image(.homeBackground)
-                .resizable()
-                .scaledToFill()
+            Background()
         )
     }
 }

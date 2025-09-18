@@ -61,6 +61,7 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
             }
             .ignoresSafeArea(edges: .top)
         )
+        .navigationBarBackButtonHidden()
     }
 }
 

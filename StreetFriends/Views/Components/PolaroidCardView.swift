@@ -7,37 +7,34 @@
 
 import SwiftUI
 
-enum PolaroidInfo {
-    case home(catImage: UIImage, catName: String, recentEncountersCount: Int)
-    case detail(catImage: UIImage, encounterNote: String, encounterDate: Date)
-}
-
 struct PolaroidCardView<Destination: View>: View {
+    // MARK: - ENUM
+    enum PolaroidInfo {
+        case home(cat: Cat, catImageData: Data?, catName: String, recentEncountersCount: Int)
+        case detail(encounter: Encounter, catImageData: Data?, encounterNote: String, encounterDate: Date)
+    }
+    
     // MARK: - PROPERTIES
     let info: PolaroidInfo
-    
-    @ViewBuilder let destination: Destination
+    @ViewBuilder var destination: () -> Destination
     
     // MARK: - BODY
     var body: some View {
         NavigationLink {
-            destination
+            destination()
         } label: {
-            ZStack {
+            // 내용물
+            VStack(alignment: .leading, spacing: 0) {
+                photoSection
+                textSection
+            } //: VSTACK(내용물)
+            .padding(16)
+            .background(
                 // 폴라로이드 배경
                 Rectangle()
                     .foregroundStyle(.white)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-                
-                // 내용물
-                VStack(alignment: .leading) {
-                    photoSection
-                    
-                    textSection
-                } //: VSTACK(내용물)
-                .padding(16)
-            } //: ZSTACK
-            .frame(height: cardHeight)
+            )
         }
     }
     
@@ -46,13 +43,15 @@ struct PolaroidCardView<Destination: View>: View {
     @ViewBuilder
     private var photoSection: some View {
         switch info {
-        case .home(let catImage, _, _), .detail(let catImage, _, _):
+        case .home(_, let catImageData, _, _), .detail(_, let catImageData, _, _):
             ZStack(alignment: .topLeading) {
-                Image(uiImage: catImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 240)
-                    .clipped()
+                DataImage(data: catImageData) { img in
+                    img
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 240)
+                        .clipped()
+                }
                 
                 if case .home = info {
                     Image(.crown)
@@ -71,13 +70,12 @@ struct PolaroidCardView<Destination: View>: View {
     @ViewBuilder
     private var textSection: some View {
         switch info {
-        case .home(_, let catName, let count):
+        case .home(_, _, let catName, let count):
             VStack(alignment: .leading, spacing: 5) {
                 Text(catName)
                     .font(.pretendard(.medium, size: 16))
                     .foregroundStyle(.netural80)
                     .lineLimit(1)
-                
                 
                 Text("30일간 \(count)번 마주쳤어요")
                     .font(.pretendard(.medium, size: 14))
@@ -85,58 +83,48 @@ struct PolaroidCardView<Destination: View>: View {
             }
             .padding(.top, 12)
             
-            Spacer()
-            
-        case .detail(_, let note, let date):
-            VStack(alignment: .leading, spacing: 10) {
+        case .detail(_, _, let note, let date):
+            VStack(alignment: .leading, spacing: 4) {
                 Text(note)
                     .font(.pretendard(.medium, size: 16))
-                    .foregroundStyle(.netural80)
+                    .foregroundStyle(.netural70)
                     .lineLimit(3)
+                    .multilineTextAlignment(.leading)
                 
-                
-                Text(date, format: .dateTime.year().month().day())
+                Text(date.formattedDot)
                     .font(.pretendard(.medium, size: 14))
-                    .foregroundStyle(.netural40)
+                    .foregroundStyle(.netural30)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .padding(.top, 12)
-        }
-    }
-    
-    // 3. 폴라로이드 높이 계산
-    private var cardHeight: CGFloat {
-        switch info {
-        case .home:
-            return 325
-            
-        case .detail:
-            return 380
+            .padding(.top, 16)
         }
     }
 }
 
 // MARK: - PREVIEW
 #Preview("home") {
+    let cat: Cat = .previewOne
     PolaroidCardView(
         info: .home(
-            catImage: UIImage(resource: .sampleCat),
-            catName: "찐빵이",
+            cat: cat, catImageData: cat.profilePhoto,
+            catName: cat.name,
             recentEncountersCount: 12), destination: {}
     )
     .padding()
 }
 
 #Preview("detail") {
+    let encounter = Cat.previewOne.encounters.first!
+    
     PolaroidCardView(
         info: .detail(
-            catImage: UIImage(resource: .sampleCat),
+            encounter: encounter, catImageData: encounter.photo,
             encounterNote: """
                        철길 지나가다가 만난 치즈고양이
                        원래 있던 친구가 입양가고 새로운 친구가 왔다!
                        얼굴이 뭔가 빵실해서 찐빵이라고 부르기로 했다
-                                       
-                       처음 만났는데 멋있는 자세로 그루밍을 하는 모습ㅋㅋ 
+
+                       처음 만났는데 멋있는 자세로 그루밍을 하는 모습ㅋㅋ
                        사람을 경계하진 않는데 그렇다고 만지면 또 자리를 피한다
                        """,
             encounterDate: .now

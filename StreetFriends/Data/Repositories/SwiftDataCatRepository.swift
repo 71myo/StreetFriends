@@ -57,4 +57,16 @@ final class SwiftDataCatRepository: CatRepository {
         )
         return try context.fetch(descriptor)
     }
+    
+    func deleteCat(_ cat: Cat) throws {
+        context.delete(cat)
+        try context.save()
+    }
+    
+    func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
+        cat.name = name
+        cat.firstMetDate = firstMetDate
+        cat.profilePhoto = profilePhoto
+        try context.save()
+    }
 }

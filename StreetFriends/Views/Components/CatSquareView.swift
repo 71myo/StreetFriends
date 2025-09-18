@@ -16,26 +16,15 @@ struct CatSquareView: View {
     // MARK: - PROPERTIES
     let catImageData: Data?
     let type: CatSquareType
+    var cornerRadius: CGFloat = 8
     
     // MARK: - BODY
     var body: some View {
         Color.clear
             .aspectRatio(1, contentMode: .fit)
             .overlay(
-                Group {
-                    if let data = catImageData, let ui = UIImage(data: data) {
-                        Image(uiImage: ui)
-                            .resizable()
-                            .scaledToFill()
-                    } else {
-                        Rectangle()
-                            .foregroundStyle(.netural30)
-                        
-                        Image(.mysteryCat)
-                            .resizable()
-                            .scaledToFit()
-                            .padding(10)
-                    }
+                DataImage(data: catImageData) { img in
+                    img.resizable().scaledToFill()
                 }
             )
             .overlay(alignment: .topTrailing) {
@@ -56,7 +45,7 @@ struct CatSquareView: View {
                         .offset(x: 5, y: -5)
                 }
             }
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
     }
 }
 

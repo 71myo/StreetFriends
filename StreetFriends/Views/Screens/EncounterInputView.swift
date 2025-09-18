@@ -26,12 +26,7 @@ struct EncounterInputView: View {
     // MARK: - BODY
     var body: some View {
         ZStack {
-            GeometryReader { proxy in
-                Image(.homeBackground)
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea(.keyboard)
-            } //: GEOMETRY
+            Background()
             
             VStack(spacing: 0) {
                 NavigationBar(title: viewModel.title,
@@ -65,7 +60,6 @@ struct EncounterInputView: View {
                 .padding(.bottom, 12)
             } //: 전체 VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
     }
 }
 

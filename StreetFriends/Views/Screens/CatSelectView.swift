@@ -16,12 +16,7 @@ struct CatSelectView: View {
     
     var body: some View {
         ZStack {
-            GeometryReader { _ in
-                Image(.homeBackground)
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea(.keyboard)
-            } //: GEOMETRY
+            Background()
             
             VStack(spacing: 0) {
                 NavigationBar(title: "추억쌓기",
@@ -36,8 +31,8 @@ struct CatSelectView: View {
                                           destination: { FavoriteCatsGridView() })
                         
                         FavoriteCatsHScroll(cats: viewModel.favorites,
-                                            onSelect: { cat in
-                                                selectedCat = cat
+                                            destination: { cat in
+                                            EncounterInputView(existingCat: cat)
                                             },
                                             onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
@@ -49,8 +44,8 @@ struct CatSelectView: View {
                                           destination: { AllCatsGridView() })
                         
                         CatsGridView(cats: viewModel.displayedCats,
-                                     onSelect: { cat in
-                                        selectedCat = cat
+                                     destination: { cat in
+                                        EncounterInputView(existingCat: cat)
                                      },
                                      onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
@@ -61,7 +56,6 @@ struct CatSelectView: View {
                 .padding(.bottom, 12)
             } //: VSTACK
         } //: ZSTACK
-        .navigationBarBackButtonHidden()
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,

@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct FavoriteCatsHScroll: View {
+struct FavoriteCatsHScroll<Destination: View>: View {
     // MARK: - PROPERTIES
     let cats: [Cat]
     var itemHeight: CGFloat = 130
     var spacing: CGFloat = 4
-    let onSelect: (Cat) -> Void
+    let destination: (Cat) -> Destination
     let onToggleFavorite: (Cat) -> Void
 
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: spacing) {
                 ForEach(cats) { cat in
-                    Button {
-                        onSelect(cat)
+                    NavigationLink {
+                        destination(cat)
                     } label: {
                         CatSquareView(
                             catImageData: cat.profilePhoto,
@@ -40,6 +40,8 @@ struct FavoriteCatsHScroll: View {
 }
 
 #Preview {
-    FavoriteCatsHScroll(cats: [.previewOne, .previewTwo, .previewThree], onSelect: {_ in }, onToggleFavorite: {_ in })
+    FavoriteCatsHScroll(cats: [.previewOne, .previewTwo, .previewThree],
+                        destination: { _ in EmptyView()},
+                        onToggleFavorite: {_ in })
         .padding(.horizontal, 20)
 }

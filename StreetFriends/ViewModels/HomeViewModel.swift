@@ -28,6 +28,15 @@ final class HomeViewModel {
         return allCats.filter { $0.name.localizedStandardContains(trimmedText) }
     }
     
+    // 한달 동안 가장 많이 만난 고양이
+    var mostMetCat: Cat? {
+        allCats.max { $0.encounters.count < $1.encounters.count }
+    }
+    
+    var mostMetCount: Int {
+        mostMetCat?.encounters.count ?? 0
+    }
+    
     @MainActor
     func load(repo: CatRepository) {
         isLoading = true

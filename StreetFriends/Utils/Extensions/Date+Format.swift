@@ -14,3 +14,9 @@ extension Date {
         return formatter.string(from: self)
     }
 }
+
+extension Date {
+    var yearMonthKR: String {
+        self.formatted(.dateTime.year().month().locale(Locale(identifier: "ko_KR")))
+    }
+}
