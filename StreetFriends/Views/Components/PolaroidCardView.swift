@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-enum PolaroidInfo {
-    case home(cat: Cat, catImageData: Data?, catName: String, recentEncountersCount: Int)
-    case detail(encounter: Encounter, catImageData: Data?, encounterNote: String, encounterDate: Date)
-}
-
 struct PolaroidCardView<Destination: View>: View {
+    // MARK: - ENUM
+    enum PolaroidInfo {
+        case home(cat: Cat, catImageData: Data?, catName: String, recentEncountersCount: Int)
+        case detail(encounter: Encounter, catImageData: Data?, encounterNote: String, encounterDate: Date)
+    }
+    
     // MARK: - PROPERTIES
     let info: PolaroidInfo
     @ViewBuilder var destination: () -> Destination
@@ -22,20 +23,18 @@ struct PolaroidCardView<Destination: View>: View {
         NavigationLink {
             destination()
         } label: {
-            ZStack {
+            // 내용물
+            VStack(alignment: .leading, spacing: 0) {
+                photoSection
+                textSection
+            } //: VSTACK(내용물)
+            .padding(16)
+            .background(
                 // 폴라로이드 배경
                 Rectangle()
                     .foregroundStyle(.white)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-                
-                // 내용물
-                VStack(alignment: .leading, spacing: 0) {
-                    photoSection
-                    textSection
-                } //: VSTACK(내용물)
-                .padding(16)
-            } //: ZSTACK
-            .frame(height: cardHeight)
+            )
         }
     }
     
@@ -91,25 +90,13 @@ struct PolaroidCardView<Destination: View>: View {
                     .foregroundStyle(.netural70)
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 
                 Text(date.formattedDot)
                     .font(.pretendard(.medium, size: 14))
                     .foregroundStyle(.netural30)
-                    .frame(maxWidth: .infinity, alignment: .bottomTrailing)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding(.top, 16)
-        }
-    }
-    
-    // 3. 폴라로이드 높이 계산
-    private var cardHeight: CGFloat {
-        switch info {
-        case .home:
-            return 325
-            
-        case .detail:
-            return 373
         }
     }
 }
