@@ -28,6 +28,9 @@ protocol CatRepository {
     // 전체 고양이 불러오기
     func fetchAllCats() throws -> [Cat]
     
+    // 하나의 Encounter 불러오기
+    func fetchEncounter(id: UUID) throws -> Encounter?
+    
     // 고양이에 좋아요 기능
     func setFavorite(_ cat: Cat, isFavorite: Bool) throws
     

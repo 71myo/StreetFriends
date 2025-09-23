@@ -46,7 +46,9 @@ struct CatDetailView: View {
                                           catImageData: encounter.photo,
                                           encounterNote: encounter.note,
                                           encounterDate: encounter.date),
-                            destination: {}
+                            destination: {
+                                EncounterDetailView(encounterID: encounter.id)
+                            }
                         )
                     }
                 }

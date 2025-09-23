@@ -69,4 +69,11 @@ final class SwiftDataCatRepository: CatRepository {
         cat.profilePhoto = profilePhoto
         try context.save()
     }
+    
+    func fetchEncounter(id: UUID) throws -> Encounter? {
+        let descriptor = FetchDescriptor<Encounter>(
+            predicate: #Predicate { $0.id == id }
+        )
+        return try context.fetch(descriptor).first
+    }
 }

@@ -154,6 +154,10 @@ final class PreviewCatRepository: CatRepository {
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
         
     }
+    
+    func fetchEncounter(id: UUID) throws -> Encounter? {
+        cats.flatMap { $0.encounters }.first { $0.id == id }
+    }
 }
 
 // MARK: - 편의 확장 (원클릭 접근)
