@@ -43,6 +43,10 @@ private struct DevNullCatRepository: CatRepository {
     func fetchEncounter(id: UUID) throws -> Encounter? {
         fatalError( "CatRepository not injected")
     }
+    
+    func deleteEncounter(id: UUID) throws {
+        fatalError( "CatRepository not injected")
+    }
 }
 
 extension EnvironmentValues {

@@ -71,9 +71,15 @@ final class SwiftDataCatRepository: CatRepository {
     }
     
     func fetchEncounter(id: UUID) throws -> Encounter? {
-        let descriptor = FetchDescriptor<Encounter>(
-            predicate: #Predicate { $0.id == id }
-        )
+        let descriptor = FetchDescriptor<Encounter>(predicate: #Predicate { $0.id == id })
         return try context.fetch(descriptor).first
+    }
+    
+    func deleteEncounter(id: UUID) throws {
+        let descriptor = FetchDescriptor<Encounter>(predicate: #Predicate { $0.id == id })
+        if let encounter = try context.fetch(descriptor).first {
+            context.delete(encounter)
+            try context.save()
+        }
     }
 }

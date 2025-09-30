@@ -12,6 +12,7 @@ struct EncounterDetailView: View {
     @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: EncounterDetailViewModel
+    @State private var showDeleteAlert: Bool = false
     
     init(encounterID: UUID) {
         _viewModel = .init(initialValue: EncounterDetailViewModel(encounterID: encounterID))
@@ -69,9 +70,9 @@ struct EncounterDetailView: View {
                           trailing: {
                 HStack(spacing: 4) {
                     Button {
-                        
+                        viewModel.toggleFavorite(using: catRepository)
                     } label: {
-                        Image(.selectTrue)
+                        Image(viewModel.isFavorite ? .selectTrue : .selectFalse)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
@@ -89,7 +90,7 @@ struct EncounterDetailView: View {
                         }
                         
                         Button("삭제하기") {
-                            
+                            showDeleteAlert = true
                         }
                     } label: {
                         Image(.more)
@@ -99,6 +100,17 @@ struct EncounterDetailView: View {
                     }
                 }
             })
+        }
+        .overlay {
+            if showDeleteAlert {
+                CustomAlert(role: .deleteEncounter, isPresented: $showDeleteAlert, leftAction: { viewModel.deleteEncounter(using: catRepository) }, rightAction: { dismiss() })
+            }
+        }
+        .onChange(of: viewModel.shouldDismiss) { _, go in
+            if go {
+                dismiss()
+                viewModel.shouldDismiss = false
+            }
         }
     }
 }

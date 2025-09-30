@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomAlert: View {
     enum Role {
         case delete(name: String)
+        case deleteEncounter
         case save
     }
     
@@ -19,6 +20,9 @@ struct CustomAlert: View {
         switch role {
         case .delete(let name):
             return "\(name)\(name.eulReul) 친구에서 삭제할까요?"
+        
+        case .deleteEncounter:
+            return "이 기록을 삭제할까요?"
             
         case .save:
             return "저장하지 않고 뒤로 가시나요?"
@@ -29,6 +33,9 @@ struct CustomAlert: View {
         switch role {
         case .delete:
             return "삭제 후에는 친구 목록에서\n더 이상 볼 수 없어요."
+        
+        case .deleteEncounter:
+            return "삭제 후에는 목록에서\n더 이상 볼 수 없어요."
             
         case .save:
             return "변경한 내용은 저장되지 않습니다."
@@ -37,7 +44,7 @@ struct CustomAlert: View {
 
     var leftTitle: String {
         switch role {
-        case .delete:
+        case .delete, .deleteEncounter:
             "삭제"
         case .save:
             "뒤로가기"
@@ -46,7 +53,7 @@ struct CustomAlert: View {
     
     var rightTitle: String {
         switch role {
-        case .delete:
+        case .delete, .deleteEncounter:
             "취소"
         case .save:
             "수정하기"

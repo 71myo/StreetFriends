@@ -158,6 +158,15 @@ final class PreviewCatRepository: CatRepository {
     func fetchEncounter(id: UUID) throws -> Encounter? {
         cats.flatMap { $0.encounters }.first { $0.id == id }
     }
+    
+    func deleteEncounter(id: UUID) throws {
+        for cat in cats {
+            if let idx = cat.encounters.firstIndex(where: { $0.id == id }) {
+                cat.encounters.remove(at: idx)
+                break
+            }
+        }
+    }
 }
 
 // MARK: - 편의 확장 (원클릭 접근)
