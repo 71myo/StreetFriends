@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoteEditorCard: View {
     @Binding var text: String
-    var placeholder: String
+    var placeholder: String = "친구와의 만남을 기록해보세요."
     var maxCount: Int = 150
     
     var body: some View {
@@ -24,7 +24,7 @@ struct NoteEditorCard: View {
                     .autocorrectionDisabled()
                     .tint(.blue50)
                     .overlay(alignment: .topLeading) {
-                        Text("친구와의 만남을 기록해보세요.")
+                        Text(placeholder)
                             .foregroundStyle(text.isEmpty ? .netural50 : .clear)
                             .font(.pretendard(.regular, size: 16))
                             .offset(x: 5, y: 8)
@@ -32,13 +32,13 @@ struct NoteEditorCard: View {
                     .padding(.top, 12)
                     .padding(.horizontal, 12)
                     .onChange(of: text) { _, new in
-                        if new.count > 150 {
-                            text = String(new.prefix(150))
+                        if new.count > maxCount {
+                            text = String(new.prefix(maxCount))
                         }
                     }
                                                 
                 // TEXTEDITOR 우측 하단 글자 수 표기
-                Text("\(text.count)/150")
+                Text("\(text.count)/\(maxCount)")
                     .font(.pretendard(.medium, size: 12))
                     .foregroundStyle(.netural40)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -50,5 +50,5 @@ struct NoteEditorCard: View {
 }
 
 #Preview {
-    NoteEditorCard(text: .constant("프리뷰 노트"), placeholder: "")
+    NoteEditorCard(text: .constant("프리뷰 노트"))
 }

@@ -41,7 +41,7 @@ struct EncounterInputView: View {
                     // MARK: - 친구 일지 섹션
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "친구 일지") { }
-                        NoteEditorCard(text: $viewModel.note, placeholder: "친구와의 만남을 기록해보세요.")
+                        NoteEditorCard(text: $viewModel.note)
                             .frame(height: 183)
                     }
                     

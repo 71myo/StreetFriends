@@ -80,7 +80,7 @@ struct EncounterDetailView: View {
                     
                     Menu {
                         NavigationLink {
-                            
+                            EncounterDetailEditView()
                         } label: {
                             Text("추억 수정")
                         }
@@ -103,7 +103,7 @@ struct EncounterDetailView: View {
         }
         .overlay {
             if showDeleteAlert {
-                CustomAlert(role: .deleteEncounter, isPresented: $showDeleteAlert, leftAction: { viewModel.deleteEncounter(using: catRepository) }, rightAction: { dismiss() })
+                CustomAlert(role: .deleteEncounter, isPresented: $showDeleteAlert, leftAction: { viewModel.deleteEncounter(using: catRepository) }, rightAction: { })
             }
         }
         .onChange(of: viewModel.shouldDismiss) { _, go in
@@ -120,6 +120,8 @@ struct EncounterDetailView: View {
     let encounter = cat.encounters.first!
     let repo = PreviewCatRepository(cats: [cat])
     
-    EncounterDetailView(encounterID: encounter.id)
-        .environment(\.catRepository, repo)
+    NavigationStack {
+        EncounterDetailView(encounterID: encounter.id)
+            .environment(\.catRepository, repo)
+    }
 }

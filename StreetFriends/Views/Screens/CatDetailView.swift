@@ -98,9 +98,7 @@ struct CatDetailView: View {
                 CustomAlert(role: .delete(name: viewModel.cat.name),
                             isPresented: $showDeleteAlert) {
                     viewModel.delete(repo: catRepository)
-                } rightAction: {
-                    dismiss()
-                }
+                } rightAction: { }
             }
         }
     }
