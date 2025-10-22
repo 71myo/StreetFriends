@@ -82,4 +82,12 @@ final class SwiftDataCatRepository: CatRepository {
             try context.save()
         }
     }
+    
+    func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws {
+        guard let encounter = try fetchEncounter(id: id) else { return }
+        encounter.date = date
+        encounter.note = note
+        encounter.photo = photo
+        try context.save()
+    }
 }

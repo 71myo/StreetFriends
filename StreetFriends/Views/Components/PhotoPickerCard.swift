@@ -24,6 +24,10 @@ struct PhotoPickerCard: View {
                         Image(uiImage: ui)
                             .resizable()
                             .scaledToFill()
+                    } else if let data = imageData {
+                        DataImage(data: data) { img in
+                            img.resizable().scaledToFill()
+                        }
                     } else {
                         Image(.addCatPicture)
                             .resizable()

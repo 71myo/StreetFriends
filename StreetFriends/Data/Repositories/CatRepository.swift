@@ -45,4 +45,7 @@ protocol CatRepository {
     
     // 고양이 수정 저장
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws
+    
+    // Encounter 수정 저장
+    func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws
 }

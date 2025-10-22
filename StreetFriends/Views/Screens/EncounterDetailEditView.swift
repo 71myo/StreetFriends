@@ -9,9 +9,15 @@ import SwiftUI
 
 struct EncounterDetailEditView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var viewModel = EncounterDetailEditViewModel()
+    @Environment(\.catRepository) private var catRepository
+    
+    @State private var viewModel: EncounterDetailEditViewModel
     @State private var pickedImage: UIImage? // UI 표시용
-
+    
+    init(encounterID: UUID) {
+        _viewModel = .init(initialValue: EncounterDetailEditViewModel(encounterID: encounterID))
+    }
+    
     var body: some View {
         ZStack(alignment: .bottom) {
             Background()
@@ -41,29 +47,49 @@ struct EncounterDetailEditView: View {
                 .padding(.bottom, 120)
             } //: SCROLL
         } //: ZSTACK
+        .task {
+            viewModel.load(using: catRepository)
+        }
         .safeAreaInset(edge: .top) {
-            NavigationBar(title: "찐빵이",
+            NavigationBar(title: viewModel.catName,
                           leading: {
-                                Button {
-                                    dismiss()
-                                } label: {
-                                    Image(.chevronLeft)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                }
-                            },
+                Button {
+                    viewModel.onTapBack()
+                } label: {
+                    Image(.chevronLeft)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                }
+            },
                           trailing: {})
         }
         .safeAreaInset(edge: .bottom) {
-            PrimaryButton(kind: .save, action: {})
-                .padding(.horizontal, 20).padding(.vertical, 12)
-                .background(Color.white)
-            
+            PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {
+                viewModel.onTapSave(using: catRepository)
+            }
+            .padding(.horizontal, 20).padding(.vertical, 12)
+            .background(Color.white)
+        }
+        .onChange(of: viewModel.shouldDismiss) { _, go in
+            if go { dismiss() }
+        }
+        .overlay {
+            if viewModel.showDiscardAlert {
+                CustomAlert(role: .save,
+                            isPresented: $viewModel.showDiscardAlert,
+                            leftAction: { dismiss() },
+                            rightAction: { viewModel.confirmSaveAndDismiss(using: catRepository) })
+            }
         }
     }
 }
 
 #Preview {
-    EncounterDetailEditView()
+    let cat = Cat.previewOne
+    let encounter = cat.encounters.first!
+    let repo = PreviewCatRepository(cats: [cat])
+    
+    EncounterDetailEditView(encounterID: encounter.id)
+        .environment(\.catRepository, repo)
 }

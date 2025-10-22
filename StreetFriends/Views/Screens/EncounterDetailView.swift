@@ -79,19 +79,19 @@ struct EncounterDetailView: View {
                     }
                     
                     Menu {
-                        NavigationLink {
-                            EncounterDetailEditView()
-                        } label: {
-                            Text("추억 수정")
-                        }
-                        
-                        Button("추억 공유") {
+                            NavigationLink {
+                                EncounterDetailEditView(encounterID: viewModel.id)
+                            } label: {
+                                Text("추억 수정")
+                            }
                             
-                        }
-                        
-                        Button("삭제하기") {
-                            showDeleteAlert = true
-                        }
+                            Button("추억 공유") {
+                                
+                            }
+                            
+                            Button("삭제하기") {
+                                showDeleteAlert = true
+                            }
                     } label: {
                         Image(.more)
                             .resizable()

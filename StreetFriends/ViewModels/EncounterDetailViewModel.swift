@@ -11,9 +11,11 @@ import Observation
 @Observable
 final class EncounterDetailViewModel {
     private let encounterID: UUID
+    var id: UUID { encounterID } // 외부에서 읽도록
     
     // UI PROPERTIES
     var dateText: String = ""
+    var date: Date = .now
     var note: String = ""
     var photoData: Data = Data()
     var catName: String = ""
@@ -42,6 +44,7 @@ final class EncounterDetailViewModel {
             
             note = encounter.note
             photoData = encounter.photo
+            date = encounter.date
             dateText = encounter.date.formattedDot
             catName = encounter.cat?.name ?? ""
             isFavorite = encounter.cat?.isFavorite ?? false
