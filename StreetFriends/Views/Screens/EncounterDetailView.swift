@@ -31,14 +31,16 @@ struct EncounterDetailView: View {
                         .foregroundStyle(.netural60)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    DataImage(data: viewModel.photoData) { img in
-                        img
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 335)
-                            .clipped()
+                    GeometryReader { geo in
+                        DataImage(data: viewModel.photoData, fixedHeight: 335) { img in
+                            img
+                                .resizable()
+                                .scaledToFill()
+                        }
+                        .frame(width: geo.size.width, height: 335)
+                        .padding(.top, 4)
                     }
-                    .padding(.top, 4)
+                    .frame(height: 335)
                     
                     Text(viewModel.note)
                         .font(.pretendard(.medium, size: 16))

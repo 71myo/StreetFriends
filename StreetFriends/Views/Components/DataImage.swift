@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DataImage<Content: View>: View {
     let data: Data?
+    var fixedHeight: CGFloat?
     @ViewBuilder var content: (Image) -> Content
     
     @State private var uiImage: UIImage?
@@ -29,6 +30,8 @@ struct DataImage<Content: View>: View {
                 }
             }
         }
+        .frame(height: fixedHeight)
+        .clipped()
         .task { uiImage = data.flatMap(UIImage.init) }
         .onChange(of: data) { _, newValue in
             uiImage = newValue.flatMap(UIImage.init)
