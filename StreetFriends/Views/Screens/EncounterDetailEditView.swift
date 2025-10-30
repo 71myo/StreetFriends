@@ -25,9 +25,9 @@ struct EncounterDetailEditView: View {
             ScrollView {
                 VStack(spacing: 40) {
                     // MARK: - 사진 섹션
-                    PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData)
+                    PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData, style: .detail)
                         .padding(.top, 24)
-                        .frame(height: 300)
+                        .frame(height: 335)
                     
                     // MARK: - 기록 섹션
                     VStack(spacing: 4) {
