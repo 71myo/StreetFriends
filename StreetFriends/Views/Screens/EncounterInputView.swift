@@ -14,7 +14,7 @@ struct EncounterInputView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: EncounterInputViewModel
     @State private var pickedImage: UIImage? // UI 표시용
-
+    
     init(newCatName: String) {
         _viewModel = State(initialValue: EncounterInputViewModel(target: .newCat(name: newCatName)))
     }
@@ -25,18 +25,15 @@ struct EncounterInputView: View {
     
     // MARK: - BODY
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Background()
             
-            VStack(spacing: 0) {
-                NavigationBar(title: viewModel.title,
-                              leading: { Button { dismiss() } label: { Image(.chevronLeft) } },
-                              trailing: {})
-                
-                VStack(spacing: 32) {
+            ScrollView {
+                VStack(spacing: 40) {
                     // MARK: - 사진 선택
                     PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData)
-                    .padding(.top, 24)
+                        .frame(height: 210)
+                        .padding(.top, 24)
                     
                     // MARK: - 친구 일지 섹션
                     VStack(spacing: 12) {
@@ -50,16 +47,24 @@ struct EncounterInputView: View {
                         SectionHeaderView(type: .plain, title: "마주친 날") { }
                         DatePickerRow(date: $viewModel.date)
                     }
-                    
-                    PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {
-                        let ok = viewModel.saveNewCatEncounter(using: catRepository)
-                        if ok { router.popToRoot() }
-                    }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
-                .padding(.bottom, 12)
-            } //: 전체 VSTACK
+                .padding(.bottom, 120)
+            } //: SCROLL
+            .scrollDismissesKeyboard(.immediately)
         } //: ZSTACK
+        .safeAreaInset(edge: .top) {
+            NavigationBar(title: viewModel.title,
+                          leading: { Button { dismiss() } label: { Image(.chevronLeft) } }, trailing: {})
+        }
+        .safeAreaInset(edge: .bottom) {
+            PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {
+                let ok = viewModel.saveNewCatEncounter(using: catRepository)
+                if ok { router.popToRoot() }
+            }
+            .padding(.horizontal, 20).padding(.vertical, 12)
+            .background(Color.white)
+        }
     }
 }
 

@@ -46,6 +46,7 @@ struct EncounterDetailEditView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 120)
             } //: SCROLL
+            .scrollDismissesKeyboard(.immediately)
         } //: ZSTACK
         .task {
             viewModel.load(using: catRepository)
