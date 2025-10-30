@@ -23,18 +23,20 @@ struct PolaroidCardView<Destination: View>: View {
         NavigationLink {
             destination()
         } label: {
-            // 내용물
-            VStack(alignment: .leading, spacing: 0) {
-                photoSection
-                textSection
-            } //: VSTACK(내용물)
-            .padding(16)
-            .background(
+            ZStack {
                 // 폴라로이드 배경
                 Rectangle()
                     .foregroundStyle(.white)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-            )
+                
+                // 내용물
+                VStack(alignment: .leading, spacing: 0) {
+                    photoSection
+                    textSection
+                }
+                .padding(16)
+            } //: ZSTACK
+            .frame(maxWidth: .infinity)
         }
     }
     
@@ -45,13 +47,16 @@ struct PolaroidCardView<Destination: View>: View {
         switch info {
         case .home(_, let catImageData, _, _), .detail(_, let catImageData, _, _):
             ZStack(alignment: .topLeading) {
-                DataImage(data: catImageData) { img in
-                    img
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 240)
-                        .clipped()
-                }
+                GeometryReader { geo in
+                    DataImage(data: catImageData, fixedHeight: 240) { img in
+                        img
+                            .resizable()
+                            .scaledToFill()
+                    }
+                    .frame(width: geo.size.width, height: 240)
+                    .clipped()
+                } //: GEOMETRY
+                .frame(height: 240)
                 
                 if case .home = info {
                     Image(.crown)

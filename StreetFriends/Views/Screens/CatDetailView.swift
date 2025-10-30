@@ -46,7 +46,9 @@ struct CatDetailView: View {
                                           catImageData: encounter.photo,
                                           encounterNote: encounter.note,
                                           encounterDate: encounter.date),
-                            destination: {}
+                            destination: {
+                                EncounterDetailView(encounterID: encounter.id)
+                            }
                         )
                     }
                 }
@@ -96,9 +98,7 @@ struct CatDetailView: View {
                 CustomAlert(role: .delete(name: viewModel.cat.name),
                             isPresented: $showDeleteAlert) {
                     viewModel.delete(repo: catRepository)
-                } rightAction: {
-                    dismiss()
-                }
+                } rightAction: { }
             }
         }
     }

@@ -22,12 +22,12 @@ final class Cat: Identifiable {
     var encounters: [Encounter] = []
 
     init(name: String,
-         creationgDate: Date = .now,
+         creationDate: Date = .now,
          firstMetDate: Date? = nil,
          profilePhoto: Data? = nil,
          isFavorite: Bool = false) {
         self.name = name
-        self.creationDate = Date()
+        self.creationDate = creationDate
         self.firstMetDate = firstMetDate
         self.profilePhoto = profilePhoto
         self.isFavorite = isFavorite

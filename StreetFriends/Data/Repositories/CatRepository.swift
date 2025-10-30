@@ -28,6 +28,9 @@ protocol CatRepository {
     // 전체 고양이 불러오기
     func fetchAllCats() throws -> [Cat]
     
+    // 하나의 Encounter 불러오기
+    func fetchEncounter(id: UUID) throws -> Encounter?
+    
     // 고양이에 좋아요 기능
     func setFavorite(_ cat: Cat, isFavorite: Bool) throws
     
@@ -37,6 +40,12 @@ protocol CatRepository {
     // 고양이 삭제
     func deleteCat(_ cat: Cat) throws
     
+    // Encounter 삭제
+    func deleteEncounter(id: UUID) throws
+    
     // 고양이 수정 저장
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws
+    
+    // Encounter 수정 저장
+    func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws
 }

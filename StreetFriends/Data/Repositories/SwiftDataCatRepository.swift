@@ -69,4 +69,25 @@ final class SwiftDataCatRepository: CatRepository {
         cat.profilePhoto = profilePhoto
         try context.save()
     }
+    
+    func fetchEncounter(id: UUID) throws -> Encounter? {
+        let descriptor = FetchDescriptor<Encounter>(predicate: #Predicate { $0.id == id })
+        return try context.fetch(descriptor).first
+    }
+    
+    func deleteEncounter(id: UUID) throws {
+        let descriptor = FetchDescriptor<Encounter>(predicate: #Predicate { $0.id == id })
+        if let encounter = try context.fetch(descriptor).first {
+            context.delete(encounter)
+            try context.save()
+        }
+    }
+    
+    func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws {
+        guard let encounter = try fetchEncounter(id: id) else { return }
+        encounter.date = date
+        encounter.note = note
+        encounter.photo = photo
+        try context.save()
+    }
 }
