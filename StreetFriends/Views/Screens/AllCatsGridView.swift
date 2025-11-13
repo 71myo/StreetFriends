@@ -13,17 +13,13 @@ struct AllCatsGridView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel = CatsBrowserViewModel(scope: .all)
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 4), count: 3)
-
+    
     // MARK: - BODY
     var body: some View {
         ZStack {
             Background()
             
             VStack(spacing: 0) {
-                NavigationBar(title: "모든 친구",
-                              leading: { Button { dismiss() } label: {Image(.chevronLeft)} },
-                              trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
-                
                 ScrollView {
                     CatsGridView(cats: viewModel.displayedCats,
                                  destination: { cat in CatDetailView(cat: cat) },
@@ -33,13 +29,18 @@ struct AllCatsGridView: View {
                 .padding(.top, 40)
             } //: VSTACK
         } //: ZSTACK
+        .safeAreaInset(edge: .top) {
+            NavigationBar(title: "모든 친구",
+                          leading: { Button { dismiss() } label: {Image(.chevronLeft)} },
+                          trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
+        }
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
                              results: viewModel.searchResults) { cat in
                 
             }
-            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+                             .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
         }
         .task {
             await MainActor.run { viewModel.load(repo: catRepository) }
