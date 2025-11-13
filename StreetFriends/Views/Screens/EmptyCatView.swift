@@ -9,17 +9,8 @@ import SwiftUI
 
 struct EmptyCatView: View {
     var body: some View {
-        VStack(spacing: 0) {
-            NavigationBar(
-                title: "친구들",
-                leading: {},
-                trailing: {
-                    HStack(spacing: 12) {
-                        Button { } label: {Image(.search)}
-                        Button { } label: {Image(.addCatData)}
-                    }
-                }
-            )
+        ZStack {
+            Background()
             
             VStack(spacing: 0) {
                 HStack(alignment: .bottom, spacing: 8.5) {
@@ -49,10 +40,19 @@ struct EmptyCatView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
-        } //: VSTACK
-        .background(
-            Background()
-        )
+        }
+        .safeAreaInset(edge: .top) {
+            NavigationBar(
+                title: "친구들",
+                leading: {},
+                trailing: {
+                    HStack(spacing: 12) {
+                        Button { } label: {Image(.search)}
+                        Button { } label: {Image(.addCatData)}
+                    }
+                }
+            )
+        }
     }
 }
 

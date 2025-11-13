@@ -19,10 +19,6 @@ struct CatSelectView: View {
             Background()
             
             VStack(spacing: 0) {
-                NavigationBar(title: "추억쌓기",
-                              leading: { Button { dismiss() } label: {Image(.chevronLeft)} },
-                              trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
-                
                 ScrollView {
                     // MARK: - 즐겨찾는 친구 섹션
                     VStack(spacing: 12) {
@@ -56,6 +52,11 @@ struct CatSelectView: View {
                 .padding(.bottom, 12)
             } //: VSTACK
         } //: ZSTACK
+        .safeAreaInset(edge: .top) {
+            NavigationBar(title: "추억쌓기",
+                          leading: { Button { dismiss() } label: {Image(.chevronLeft)} },
+                          trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
+        }
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
