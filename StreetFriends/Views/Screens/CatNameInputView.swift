@@ -17,7 +17,7 @@ struct CatNameInputView: View {
     
     // MARK: - BODY
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Background(.imgBackground)
             
             VStack(spacing: 0)  {
@@ -37,14 +37,7 @@ struct CatNameInputView: View {
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
                     .padding(.top, 20)
-                
-                Spacer()
-                
-                PrimaryButton(kind: .next, isEnabled: canGoNext) {
-                    router.push(.encounterInput(catName: trimmedName))
-                }
             } //: 콘텐츠 VSTACK
-            .padding(.horizontal, 20)
             .padding(.bottom, 12)
             .contentShape(Rectangle())
             .onTapGesture { nameFocused = false }
@@ -55,6 +48,12 @@ struct CatNameInputView: View {
                           leading: { Button { router.pop() } label: { Image(.chevronLeft) } },
                           trailing: {})
         }
+        .safeAreaInset(edge: .bottom) {
+            PrimaryButton(kind: .next, isEnabled: canGoNext) {
+                router.push(.encounterInput(catName: trimmedName))
+            }
+        }
+        .padding(.horizontal, 20)
         .onAppear {
             name = trimmedName
         }
