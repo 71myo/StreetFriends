@@ -34,13 +34,12 @@ final class CatsBrowserViewModel {
     // 검색 파생값
     var trimmedQuery: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
     var searchResults: [Cat] {
-        let q = trimmedQuery.searchFolded
-        guard !q.isEmpty else { return [] }
+        guard !trimmedQuery.isEmpty else { return [] }
         switch scope {
         case .all, .both:
-            return allCats.filter { $0.name.searchFolded.contains(q) }
+            return allCats.filter { $0.name.searchFolded.contains(trimmedQuery) }
         case .favorites:
-            return favorites.filter { $0.name.searchFolded.contains(q) }
+            return favorites.filter { $0.name.searchFolded.contains(trimmedQuery) }
         }
     }
     
