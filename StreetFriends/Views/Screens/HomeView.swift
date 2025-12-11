@@ -82,8 +82,8 @@ struct HomeView: View {
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
-                             results: viewModel.filteredCats) { cat in
-            }.animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+                             results: viewModel.filteredCats)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
         }
     }
 }

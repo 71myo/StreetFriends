@@ -60,10 +60,8 @@ struct CatSelectView: View {
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
-                             results: viewModel.searchResults) { cat in
-                
-            }
-                             .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+                             results: viewModel.searchResults)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
         }
         .navigationDestination(item: $selectedCat) { cat in
             EncounterInputView(existingCat: cat)
