@@ -18,6 +18,11 @@ struct CatSquareView: View {
     let type: CatSquareType
     var cornerRadius: CGFloat = 8
     
+    private var isFavoriteType: Bool {
+        if case .favorite = type { return true }
+        return false
+    }
+    
     // MARK: - BODY
     var body: some View {
         Color.clear
@@ -27,6 +32,12 @@ struct CatSquareView: View {
                     img.resizable().scaledToFill()
                 }
             )
+            .overlay {
+                if isFavoriteType {
+                    LinearGradient(colors: [.clear, .black.opacity(0.4)],
+                                   startPoint: .top, endPoint: .bottom)
+                }
+            }
             .overlay(alignment: .topTrailing) {
                 if case let .favorite(isOn, _, action) = type {
                     Button {
