@@ -12,7 +12,6 @@ struct CatSearchOverlay: View {
     @Binding var isPresented: Bool /// isSearching
     @Binding var searchText: String
     let results: [Cat] /// searchResults
-    let onSelect: (Cat) -> Void
     
     private var trimmed: String {
         searchText.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -52,8 +51,8 @@ struct CatSearchOverlay: View {
                                 ScrollView {
                                     VStack(spacing: 0) {
                                         ForEach(results) { cat in
-                                            Button {
-                                                onSelect(cat)
+                                            NavigationLink {
+                                                CatDetailView(cat: cat)
                                             } label: {
                                                 CatSearchRow(cat: cat, query: trimmed)
                                             }
@@ -72,5 +71,5 @@ struct CatSearchOverlay: View {
 }
 
 #Preview {
-    CatSearchOverlay(isPresented: .constant(true), searchText: .constant("빵"), results: [.previewOne, .previewTwo], onSelect: {_ in })
+    CatSearchOverlay(isPresented: .constant(true), searchText: .constant("빵"), results: [.previewOne, .previewTwo])
 }
