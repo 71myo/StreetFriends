@@ -19,13 +19,16 @@ final class HomeViewModel {
     var allCats: [Cat] = []
     var isLoading: Bool = false
     var error: String?
-
+    var isEmptyState: Bool {
+        allCats.isEmpty
+    }
+    
     // 검색 관련
-    var trimmedText: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
-
     var filteredCats: [Cat] {
-        guard !trimmedText.isEmpty else { return [] }
-        return allCats.filter { $0.name.localizedStandardContains(trimmedText) }
+        let trimmedText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let q = trimmedText.searchFolded
+        guard !q.isEmpty else { return [] }
+        return allCats.filter { $0.name.searchFolded.contains(q) }
     }
     
     // 한달 동안 가장 많이 만난 고양이

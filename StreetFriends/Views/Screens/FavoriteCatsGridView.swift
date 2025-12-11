@@ -37,10 +37,8 @@ struct FavoriteCatsGridView: View {
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
-                             results: viewModel.searchResults) { cat in
-                
-            }
-                             .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
+                             results: viewModel.searchResults)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
         }
         .task {
             await MainActor.run { viewModel.load(repo: catRepository) }

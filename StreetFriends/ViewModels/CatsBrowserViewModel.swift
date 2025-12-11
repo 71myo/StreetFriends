@@ -32,12 +32,16 @@ final class CatsBrowserViewModel {
     init(scope: CatsScope) { self.scope = scope }
     
     // 검색 파생값
-    var trimmedQuery: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
-    var hasQuery: Bool { !trimmedQuery.isEmpty }
-    
-    private func normalized(_ s: String) -> String {
-        s.replacingOccurrences(of: " ", with: "")
-            .folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+    var searchResults: [Cat] {
+        let trimmedQuery = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuery.isEmpty else { return [] }
+        let q = trimmedQuery.searchFolded
+        switch scope {
+        case .all, .both:
+            return allCats.filter { $0.name.searchFolded.contains(q) }
+        case .favorites:
+            return favorites.filter { $0.name.searchFolded.contains(q) }
+        }
     }
     
     // 뷰에서 보여줄 리스트
@@ -49,18 +53,6 @@ final class CatsBrowserViewModel {
             return favorites
         case .both:
             return allCats
-        }
-    }
-    
-    // 검색 오버레이에 보여줄 결과 리스트
-    var searchResults: [Cat] {
-        guard hasQuery else { return [] }
-        let q = normalized(trimmedQuery)
-        switch scope {
-        case .all, .both:
-            return allCats.filter { normalized($0.name).contains(q) }
-        case .favorites:
-            return favorites.filter { normalized($0.name).contains(q) }
         }
     }
     
