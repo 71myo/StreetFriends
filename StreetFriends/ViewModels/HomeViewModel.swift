@@ -25,9 +25,10 @@ final class HomeViewModel {
     
     // 검색 관련
     var filteredCats: [Cat] {
-        let q = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let q = trimmedText.searchFolded
         guard !q.isEmpty else { return [] }
-        return allCats.filter { matchesKoreanNameAnywhere($0.name, query: q) }
+        return allCats.filter { $0.name.searchFolded.contains(q) }
     }
     
     // 한달 동안 가장 많이 만난 고양이
