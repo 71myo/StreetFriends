@@ -27,8 +27,9 @@ final class HomeViewModel {
     var trimmedText: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
 
     var filteredCats: [Cat] {
-        guard !trimmedText.isEmpty else { return [] }
-        return allCats.filter { $0.name.localizedStandardContains(trimmedText) }
+        let q = trimmedText.searchFolded
+        guard !q.isEmpty else { return [] }
+        return allCats.filter { $0.name.searchFolded.contains(q) }
     }
     
     // 한달 동안 가장 많이 만난 고양이

@@ -65,14 +65,6 @@ struct HomeView: View {
                 } //: SCROLL
             }
         } //: ZSTACK
-        .overlay(alignment: .top) {
-            CatSearchOverlay(isPresented: $viewModel.isSearching,
-                             searchText: $viewModel.searchText,
-                             results: viewModel.filteredCats) { cat in
-                
-            }
-                             .animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
-        }
         .task {
             await MainActor.run { viewModel.load(repo: catRepository) }
         }
@@ -86,6 +78,12 @@ struct HomeView: View {
                     Button { router.push(.addCatChoice) } label: { Image(.addCatData) }
                 }
             })
+        }
+        .overlay(alignment: .top) {
+            CatSearchOverlay(isPresented: $viewModel.isSearching,
+                             searchText: $viewModel.searchText,
+                             results: viewModel.filteredCats) { cat in
+            }.animation(.easeInOut(duration: 0.3), value: viewModel.isSearching)
         }
     }
 }

@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+extension String {
+    var searchFolded: String {
+        self.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+            .replacingOccurrences(of: " ", with: "")
+    }
+}

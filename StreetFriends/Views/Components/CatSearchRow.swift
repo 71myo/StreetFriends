@@ -12,30 +12,57 @@ struct CatSearchRow: View {
     let query: String // highlightText
     
     private var highlightedName: AttributedString {
-        var attributedName = AttributedString(cat.name)
-        // 기본 스타일
-        attributedName.foregroundColor = .netural60
-        attributedName.font = .pretendard(.regular, size: 14)
-        
-        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedQuery.isEmpty else { return attributedName }
-        
-        // 1. String에서 범위를 찾기
-        let stringName: String = cat.name
-        if let stringRange = stringName.range(of: trimmedQuery,
-                                              options: [.caseInsensitive, .diacriticInsensitive], // 대소문자 무시, 악센트 및 받침 차이 무시(라틴 문자)
-                           range: stringName.startIndex..<stringName.endIndex,
-                           locale: .current) {
-            // 2. String.Index → AttributedString.Index 변환
-            if let lower = AttributedString.Index(stringRange.lowerBound, within: attributedName),
-               let upper = AttributedString.Index(stringRange.upperBound, within: attributedName) {
-                let range = lower..<upper
-                // 3. 하이라이트 스타일 적용
-                attributedName[range].foregroundColor = .blue60
-                attributedName[range].font = .pretendard(.medium, size: 14)
-            }
+        var a = AttributedString(cat.name)
+        a.foregroundColor = .netural60
+        a.font = .pretendard(.regular, size: 14)
+
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !q.isEmpty else { return a }
+
+        // 1) 일반 직매칭
+        if let r = cat.name.range(of: q, options: [.caseInsensitive, .diacriticInsensitive]),
+           let lo = AttributedString.Index(r.lowerBound, within: a),
+           let up = AttributedString.Index(r.upperBound, within: a) {
+            a[lo..<up].foregroundColor = .blue60
+            a[lo..<up].font = .pretendard(.medium, size: 14)
+            return a
         }
-        return attributedName
+
+        // 2) 공백 무시 매칭
+        if let r2 = highlightRangeIgnoringSpaces(in: cat.name, query: q),
+           let lo = AttributedString.Index(r2.lowerBound, within: a),
+           let up = AttributedString.Index(r2.upperBound, within: a) {
+            a[lo..<up].foregroundColor = .blue60
+            a[lo..<up].font = .pretendard(.medium, size: 14)
+        }
+        return a
+    }
+    
+    // 공백을 무시하고(대소문/악센트도 무시) 매칭된 원문 범위를 돌려줌
+    private func highlightRangeIgnoringSpaces(in source: String, query: String) -> Range<String.Index>? {
+        let foldedSource = source.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+        let foldedQuery  = query.folding(options: [.caseInsensitive, .diacriticInsensitive], locale: .current)
+
+        let compactSource = foldedSource.replacingOccurrences(of: " ", with: "")
+        let compactQuery  = foldedQuery.replacingOccurrences(of: " ", with: "")
+        guard !compactQuery.isEmpty, let r = compactSource.range(of: compactQuery) else { return nil }
+
+        // 원문에서 '공백 아닌 문자'들의 인덱스 배열을 만들어 위치 매핑
+        var nonSpaceOriginal: [String.Index] = []
+        nonSpaceOriginal.reserveCapacity(source.count)
+        for i in source.indices where source[i] != " " {
+            nonSpaceOriginal.append(i)
+        }
+
+        let lower = compactSource.distance(from: compactSource.startIndex, to: r.lowerBound)
+        let upper = compactSource.distance(from: compactSource.startIndex, to: r.upperBound) // exclusive
+
+        guard lower < nonSpaceOriginal.count else { return nil }
+        let start = nonSpaceOriginal[lower]
+        let end   = (upper - 1 < nonSpaceOriginal.count)
+                  ? source.index(after: nonSpaceOriginal[upper - 1])
+                  : source.endIndex
+        return start..<end
     }
     
     var body: some View {
