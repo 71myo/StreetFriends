@@ -19,7 +19,10 @@ final class HomeViewModel {
     var allCats: [Cat] = []
     var isLoading: Bool = false
     var error: String?
-
+    var isEmptyState: Bool {
+        allCats.isEmpty
+    }
+    
     // 검색 관련
     var trimmedText: String { searchText.trimmingCharacters(in: .whitespacesAndNewlines) }
 

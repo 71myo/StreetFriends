@@ -18,49 +18,52 @@ struct HomeView: View {
         ZStack {
             Background()
             
-            ScrollView {
-                VStack(spacing: 0) {
-                    // MARK: - 가장 자주 만난 친구 섹션
-                    VStack(spacing: 16) {
-                        SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
-                        
-                        if let cat = viewModel.mostMetCat {
-                            PolaroidCardView(info: .home(cat: cat, catImageData: cat.profilePhoto,
-                                                         catName: cat.name,
-                                                         recentEncountersCount: viewModel.mostMetCount),
-                                             destination: { CatDetailView(cat: cat) })
+            if viewModel.isEmptyState {
+                EmptyCatView()
+            } else {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        // MARK: - 가장 자주 만난 친구 섹션
+                        VStack(spacing: 16) {
+                            SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
+                            
+                            if let cat = viewModel.mostMetCat {
+                                PolaroidCardView(info: .home(cat: cat, catImageData: cat.profilePhoto,
+                                                             catName: cat.name,
+                                                             recentEncountersCount: viewModel.mostMetCount),
+                                                 destination: { CatDetailView(cat: cat) })
+                            }
                         }
-                    }
-                    
-                    // MARK: - 즐겨찾는 친구 섹션
-                    VStack(spacing: 12) {
-                        SectionHeaderView(type: .navigation,
-                                          title: "즐겨찾는 친구",
-                                          destination: { FavoriteCatsGridView() })
                         
-                        FavoriteCatsHScroll(cats: viewModel.favorites,
-                                            destination: { cat in CatDetailView(cat: cat) },
-                                            onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
-                    }
-                    .padding(.top, 40)
-                    
-                    // MARK: - 모든 친구 섹션
-                    VStack(spacing: 12) {
-                        SectionHeaderView(type: .navigation,
-                                          title: "모든 친구",
-                                          destination: { AllCatsGridView() })
+                        // MARK: - 즐겨찾는 친구 섹션
+                        VStack(spacing: 12) {
+                            SectionHeaderView(type: .navigation,
+                                              title: "즐겨찾는 친구",
+                                              destination: { FavoriteCatsGridView() })
+                            
+                            FavoriteCatsHScroll(cats: viewModel.favorites,
+                                                destination: { cat in CatDetailView(cat: cat) },
+                                                onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
+                        }
+                        .padding(.top, 40)
                         
-                        CatsGridView(cats: viewModel.allCats,
-                                     destination: { cat in CatDetailView(cat: cat) },
-                                     onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
-                    }
-                    .padding(.top, 40)
-                } //: 전체 VSTACK
-                .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 12)
-            } //: SCROLL
-            
+                        // MARK: - 모든 친구 섹션
+                        VStack(spacing: 12) {
+                            SectionHeaderView(type: .navigation,
+                                              title: "모든 친구",
+                                              destination: { AllCatsGridView() })
+                            
+                            CatsGridView(cats: viewModel.allCats,
+                                         destination: { cat in CatDetailView(cat: cat) },
+                                         onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
+                        }
+                        .padding(.top, 40)
+                    } //: 전체 VSTACK
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+                    .padding(.bottom, 12)
+                } //: SCROLL
+            }
         } //: ZSTACK
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
