@@ -55,44 +55,44 @@ struct CatDetailView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
             } //: RESIZABLE HEADER SCROLLVIEW
-            .safeAreaInset(edge: .top) {
-                NavigationBar(
-                    title: isCollapsed ? viewModel.cat.name : "",
-                    style: isCollapsed ? .solid : .clear,
-                    leading: { Button { dismiss() } label: { Image(.chevronLeftPaper) } },
-                    trailing: {
-                        HStack(spacing: 12) {
-                            Button {
-                                viewModel.togggleFavorite(using: catRepository)
+        } //: ZSTACK
+        .safeAreaInset(edge: .top) {
+            NavigationBar(
+                title: isCollapsed ? viewModel.cat.name : "",
+                style: isCollapsed ? .solid : .clear,
+                leading: { Button { dismiss() } label: { Image(.chevronLeftPaper) } },
+                trailing: {
+                    HStack(spacing: 12) {
+                        Button {
+                            viewModel.togggleFavorite(using: catRepository)
+                        } label: {
+                            Image(viewModel.cat.isFavorite ? .selectTrue : .selectFalse)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                        }
+                        
+                        Menu {
+                            NavigationLink {
+                                CatDetailEditView(cat: viewModel.cat)
                             } label: {
-                                Image(viewModel.cat.isFavorite ? .selectTrue : .selectFalse)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 24, height: 24)
+                                Text("프로필 수정")
                             }
                             
-                            Menu {
-                                NavigationLink {
-                                    CatDetailEditView(cat: viewModel.cat)
-                                } label: {
-                                    Text("프로필 수정")
-                                }
+                            Button("프로필 공유") {
                                 
-                                Button("프로필 공유") {
-                                    
-                                }
-                                Button("친구 삭제") {
-                                    showDeleteAlert = true
-                                }
-                            } label: {
-                                Image(.morePaper)
                             }
+                            Button("친구 삭제") {
+                                showDeleteAlert = true
+                            }
+                        } label: {
+                            Image(.morePaper)
                         }
                     }
-                )
-                .animation(.easeInOut(duration: 0.4), value: isCollapsed)
-            }
-        } //: ZSTACK
+                }
+            )
+            .animation(.easeInOut(duration: 0.4), value: isCollapsed)
+        }
         .overlay {
             if showDeleteAlert {
                 CustomAlert(role: .delete(name: viewModel.cat.name),
@@ -110,4 +110,3 @@ struct CatDetailView: View {
         CatDetailView(cat: .previewOne)
     }
 }
-

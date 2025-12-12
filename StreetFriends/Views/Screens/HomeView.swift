@@ -65,6 +65,7 @@ struct HomeView: View {
                 } //: SCROLL
             }
         } //: ZSTACK
+        .background(EdgeSwipePopEnabler())
         .task {
             await MainActor.run { viewModel.load(repo: catRepository) }
         }
