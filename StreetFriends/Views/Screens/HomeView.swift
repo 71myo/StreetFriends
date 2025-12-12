@@ -66,6 +66,17 @@ struct HomeView: View {
             }
         } //: ZSTACK
         .background(EdgeSwipePopEnabler())
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    let horizontalAmount = value.translation.width
+                    let verticalAmount = value.translation.height
+                    
+                    if horizontalAmount < -20 && abs(horizontalAmount) > abs(verticalAmount) {
+                        router.push(.addCatChoice)
+                    }
+                }
+        )
         .task {
             await MainActor.run { viewModel.load(repo: catRepository) }
         }
