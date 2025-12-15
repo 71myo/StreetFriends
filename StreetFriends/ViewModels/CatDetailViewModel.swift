@@ -5,7 +5,7 @@
 //  Created by Hyojeong on 9/6/25.
 //
 
-import Foundation
+import SwiftUI
 import Observation
 
 @Observable
@@ -13,6 +13,9 @@ final class CatDetailViewModel {
     var cat: Cat
     var isWorking: Bool = false
     var error: String?
+    
+    var shareItem: SharePNG?
+    var sharePreviewImage: UIImage?
     
     init(cat: Cat) {
         self.cat = cat
@@ -42,5 +45,30 @@ final class CatDetailViewModel {
     
     func makeEditorViewModel() -> CatDetailEditViewModel {
         .init(cat: cat)
+    }
+    
+    @MainActor
+    func prepareShareCard(scale: CGFloat) {
+        guard #available(iOS 16.0, *) else { return }
+
+        let count = cat.encounters.count
+        let photo = cat.profilePhoto.flatMap(UIImage.init)
+        
+        let card = PolaroidShareCardView(
+            photo: photo,
+            catName: cat.name,
+            recentEncountersCount: count
+        )
+        
+        let renderer = ImageRenderer(content: card)
+        renderer.proposedSize = .init(width: 335, height: 340)
+        renderer.scale = scale
+
+        guard let uiImage = renderer.uiImage,
+              let png = uiImage.pngData()
+        else { return }
+
+        self.shareItem = SharePNG(data: png)
+        self.sharePreviewImage = uiImage
     }
 }

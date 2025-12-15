@@ -11,7 +11,8 @@ struct CatDetailView: View {
     // MARK: - PROPERTIES
     @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.displayScale) private var displayScale
+
     @State private var viewModel: CatDetailViewModel
     @State private var showDeleteAlert = false
     @State private var headerProgress: CGFloat = 0
@@ -79,8 +80,17 @@ struct CatDetailView: View {
                                 Text("프로필 수정")
                             }
                             
-                            Button("프로필 공유") {
-                                
+                            if let item = viewModel.shareItem,
+                               let preview = viewModel.sharePreviewImage {
+                                ShareLink(item: item,
+                                          preview: SharePreview("\(viewModel.cat.name) 프로필",
+                                                                image: Image(uiImage: preview))
+                                ) { Text("프로필 공유") }
+                            } else {
+                                // 렌더 아직 안 됐을 때를 대비
+                                Button("프로필 공유") {
+                                    viewModel.prepareShareCard(scale: displayScale)
+                                }
                             }
                             Button("친구 삭제") {
                                 showDeleteAlert = true
@@ -101,6 +111,9 @@ struct CatDetailView: View {
                     dismiss()
                 } rightAction: { }
             }
+        }
+        .task(id: viewModel.cat.id) {
+            viewModel.prepareShareCard(scale: displayScale)
         }
     }
 }
