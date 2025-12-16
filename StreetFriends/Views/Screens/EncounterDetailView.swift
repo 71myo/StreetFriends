@@ -11,6 +11,8 @@ struct EncounterDetailView: View {
     // MARK: - PROPERTIES
     @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.displayScale) private var displayScale
+    
     @State private var viewModel: EncounterDetailViewModel
     @State private var showDeleteAlert: Bool = false
     
@@ -54,8 +56,9 @@ struct EncounterDetailView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 12)
         } //: ZSTACK
-        .task {
+        .task() {
             viewModel.load(using: catRepository)
+            viewModel.prepareShareCard(scale: displayScale)
         }
         .safeAreaInset(edge: .top) {
             NavigationBar(title: viewModel.catName,
@@ -81,19 +84,23 @@ struct EncounterDetailView: View {
                     }
                     
                     Menu {
-                            NavigationLink {
-                                EncounterDetailEditView(encounterID: viewModel.id)
-                            } label: {
-                                Text("추억 수정")
-                            }
-                            
-                            Button("추억 공유") {
-                                
-                            }
-                            
-                            Button("삭제하기") {
-                                showDeleteAlert = true
-                            }
+                        NavigationLink {
+                            EncounterDetailEditView(encounterID: viewModel.id)
+                        } label: {
+                            Text("추억 수정")
+                        }
+                        
+                        if let item = viewModel.shareItem,
+                           let preview = viewModel.sharePreviewImage {
+                            ShareLink(item: item,
+                                      preview: SharePreview("\(viewModel.catName) 추억",
+                                                            image: Image(uiImage: preview))
+                            ) { Text("추억 공유") }
+                        }
+                        
+                        Button("삭제하기") {
+                            showDeleteAlert = true
+                        }
                     } label: {
                         Image(.more)
                             .resizable()

@@ -55,13 +55,11 @@ final class CatDetailViewModel {
         let photo = cat.profilePhoto.flatMap(UIImage.init)
         
         let card = PolaroidShareCardView(
-            photo: photo,
-            catName: cat.name,
-            recentEncountersCount: count
+            mode: .cat(photo: photo, name: cat.name, totalEncountersCount: count)
         )
         
         let renderer = ImageRenderer(content: card)
-        renderer.proposedSize = .init(width: 335, height: 340)
+        renderer.proposedSize = .init(width: card.cardWidth, height: card.cardHeight)
         renderer.scale = scale
 
         guard let uiImage = renderer.uiImage,

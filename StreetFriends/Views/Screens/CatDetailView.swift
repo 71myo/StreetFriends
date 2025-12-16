@@ -86,12 +86,8 @@ struct CatDetailView: View {
                                           preview: SharePreview("\(viewModel.cat.name) 프로필",
                                                                 image: Image(uiImage: preview))
                                 ) { Text("프로필 공유") }
-                            } else {
-                                // 렌더 아직 안 됐을 때를 대비
-                                Button("프로필 공유") {
-                                    viewModel.prepareShareCard(scale: displayScale)
-                                }
                             }
+                            
                             Button("친구 삭제") {
                                 showDeleteAlert = true
                             }
