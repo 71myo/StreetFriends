@@ -80,15 +80,16 @@ final class EncounterDetailViewModel {
     }
     
     @MainActor
-    func prepareShareCard(scale: CGFloat) {
+    func prepareShareCard(scale: CGFloat, width: CGFloat) {
         guard #available(iOS 16.0, *) else { return }
 
         let card = PolaroidShareCardView(
-            mode: .encounter(photo: UIImage(data: photoData), note: note, date: date)
+            mode: .encounter(photo: UIImage(data: photoData), note: note, date: date),
+            cardWidth: width
         )
         
         let renderer = ImageRenderer(content: card)
-        renderer.proposedSize = .init(width: card.cardWidth, height: card.cardHeight)
+        renderer.proposedSize = .init(width: width, height: card.cardHeight)
         renderer.scale = scale
 
         guard let uiImage = renderer.uiImage,

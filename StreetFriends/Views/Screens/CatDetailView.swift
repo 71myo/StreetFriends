@@ -16,6 +16,7 @@ struct CatDetailView: View {
     @State private var viewModel: CatDetailViewModel
     @State private var showDeleteAlert = false
     @State private var headerProgress: CGFloat = 0
+    @State private var shareCardWidth: CGFloat = 0
     private var isCollapsed: Bool { headerProgress >= 0.85 }
     
     init(cat: Cat) {
@@ -57,6 +58,30 @@ struct CatDetailView: View {
                 .padding(.vertical, 40)
             } //: RESIZABLE HEADER SCROLLVIEW
         } //: ZSTACK
+        .background {
+            GeometryReader { proxy in
+                Color.clear
+                    .onAppear {
+                        shareCardWidth = max(0, proxy.size.width - 40)
+                    }
+                    .onChange(of: proxy.size.width) { _, newWidth in
+                        shareCardWidth = max(0, newWidth - 40)
+                    }
+            }
+        }
+        .task(id: shareCardWidth) {
+            guard shareCardWidth > 0 else { return }
+            viewModel.prepareShareCard(scale: displayScale, width: shareCardWidth)
+        }
+        .overlay {
+            if showDeleteAlert {
+                CustomAlert(role: .delete(name: viewModel.cat.name),
+                            isPresented: $showDeleteAlert) {
+                    viewModel.delete(repo: catRepository)
+                    dismiss()
+                } rightAction: { }
+            }
+        }
         .safeAreaInset(edge: .top) {
             NavigationBar(
                 title: isCollapsed ? viewModel.cat.name : "",
@@ -98,18 +123,6 @@ struct CatDetailView: View {
                 }
             )
             .animation(.easeInOut(duration: 0.4), value: isCollapsed)
-        }
-        .overlay {
-            if showDeleteAlert {
-                CustomAlert(role: .delete(name: viewModel.cat.name),
-                            isPresented: $showDeleteAlert) {
-                    viewModel.delete(repo: catRepository)
-                    dismiss()
-                } rightAction: { }
-            }
-        }
-        .task(id: viewModel.cat.id) {
-            viewModel.prepareShareCard(scale: displayScale)
         }
     }
 }

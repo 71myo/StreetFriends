@@ -14,7 +14,7 @@ struct PolaroidShareCardView: View {
     }
     
     let mode: Mode
-    let cardWidth: CGFloat = 335
+    let cardWidth: CGFloat
     
     var cardHeight: CGFloat {
         switch mode {
@@ -107,5 +107,5 @@ struct PolaroidShareCardView: View {
 
                        처음 만났는데 멋있는 자세로 그루밍을 하는 모습ㅋㅋ
                        사람을 경계하진 않는데 그렇다고 만지면 또 자리를 피한다
-                       """, date: .now))
+                       """, date: .now), cardWidth: 335)
 }

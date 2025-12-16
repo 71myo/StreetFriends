@@ -15,7 +15,8 @@ struct EncounterDetailView: View {
     
     @State private var viewModel: EncounterDetailViewModel
     @State private var showDeleteAlert: Bool = false
-    
+    @State private var shareCardWidth: CGFloat = 0
+
     init(encounterID: UUID) {
         _viewModel = .init(initialValue: EncounterDetailViewModel(encounterID: encounterID))
     }
@@ -56,9 +57,21 @@ struct EncounterDetailView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 12)
         } //: ZSTACK
-        .task() {
+        .background {
+            GeometryReader { proxy in
+                Color.clear
+                    .onAppear {
+                        shareCardWidth = max(0, proxy.size.width - 40)
+                    }
+                    .onChange(of: proxy.size.width) { _, newWidth in
+                        shareCardWidth = max(0, newWidth - 40)
+                    }
+            }
+        }
+        .task(id: shareCardWidth) {
+            guard shareCardWidth > 0 else { return }
             viewModel.load(using: catRepository)
-            viewModel.prepareShareCard(scale: displayScale)
+            viewModel.prepareShareCard(scale: displayScale, width: shareCardWidth)
         }
         .safeAreaInset(edge: .top) {
             NavigationBar(title: viewModel.catName,

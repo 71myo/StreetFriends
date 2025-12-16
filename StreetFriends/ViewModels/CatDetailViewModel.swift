@@ -48,18 +48,19 @@ final class CatDetailViewModel {
     }
     
     @MainActor
-    func prepareShareCard(scale: CGFloat) {
+    func prepareShareCard(scale: CGFloat, width: CGFloat) {
         guard #available(iOS 16.0, *) else { return }
 
         let count = cat.encounters.count
         let photo = cat.profilePhoto.flatMap(UIImage.init)
         
         let card = PolaroidShareCardView(
-            mode: .cat(photo: photo, name: cat.name, totalEncountersCount: count)
+            mode: .cat(photo: photo, name: cat.name, totalEncountersCount: count),
+            cardWidth: width
         )
         
         let renderer = ImageRenderer(content: card)
-        renderer.proposedSize = .init(width: card.cardWidth, height: card.cardHeight)
+        renderer.proposedSize = .init(width: width, height: card.cardHeight)
         renderer.scale = scale
 
         guard let uiImage = renderer.uiImage,
