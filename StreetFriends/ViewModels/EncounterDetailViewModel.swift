@@ -23,7 +23,6 @@ final class EncounterDetailViewModel {
     
     // SHARE
     var shareItem: SharePNG?
-    var sharePreviewImage: UIImage?
     
     // STATE
     var isLoading: Bool = false
@@ -97,6 +96,5 @@ final class EncounterDetailViewModel {
         else { return }
 
         self.shareItem = SharePNG(data: png)
-        self.sharePreviewImage = uiImage
     }
 }

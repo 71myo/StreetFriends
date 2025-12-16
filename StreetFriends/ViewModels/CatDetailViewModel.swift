@@ -15,7 +15,6 @@ final class CatDetailViewModel {
     var error: String?
     
     var shareItem: SharePNG?
-    var sharePreviewImage: UIImage?
     
     init(cat: Cat) {
         self.cat = cat
@@ -68,6 +67,5 @@ final class CatDetailViewModel {
         else { return }
 
         self.shareItem = SharePNG(data: png)
-        self.sharePreviewImage = uiImage
     }
 }
