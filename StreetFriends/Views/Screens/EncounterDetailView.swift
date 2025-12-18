@@ -38,8 +38,9 @@ struct EncounterDetailView: View {
                             img
                                 .resizable()
                                 .scaledToFill()
+                                .frame(width: geo.size.width, height: 335)
+                                .clipped()
                         }
-                        .frame(width: geo.size.width, height: 335)
                     }
                     .frame(height: 335)
                     .padding(.top, 4)
