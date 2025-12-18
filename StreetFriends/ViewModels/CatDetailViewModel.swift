@@ -52,9 +52,10 @@ final class CatDetailViewModel {
 
         let count = cat.encounters.count
         let photo = cat.profilePhoto.flatMap(UIImage.init)
+        let firstMetDate = cat.firstMetDate
         
         let card = PolaroidShareCardView(
-            mode: .cat(photo: photo, name: cat.name, totalEncountersCount: count),
+            mode: .cat(photo: photo, name: cat.name, totalEncountersCount: count, date: firstMetDate!),
             cardWidth: width
         )
         

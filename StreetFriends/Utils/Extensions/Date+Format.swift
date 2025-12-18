@@ -10,7 +10,15 @@ import Foundation
 extension Date {
     var formattedDot: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy . MM . dd"
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter.string(from: self)
+    }
+}
+
+extension Date {
+    var formattedDotYM: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM"
         return formatter.string(from: self)
     }
 }

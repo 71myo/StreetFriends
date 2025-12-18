@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PolaroidShareCardView: View {
     enum Mode {
-        case cat(photo: UIImage?, name: String, totalEncountersCount: Int)
+        case cat(photo: UIImage?, name: String, totalEncountersCount: Int, date: Date)
         case encounter(photo: UIImage?, note: String, date: Date)
     }
     
@@ -18,7 +18,7 @@ struct PolaroidShareCardView: View {
     
     var cardHeight: CGFloat {
         switch mode {
-        case .cat: return 325
+        case .cat: return 335
         case .encounter: return 373
         }
     }
@@ -28,13 +28,15 @@ struct PolaroidShareCardView: View {
                 .foregroundStyle(.white)
                 .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
             
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 12) {
                 photoSection
                 textSection
             }
             .padding(16)
         } //: 전체 ZSTACK
         .frame(width: cardWidth, height: cardHeight)
+        .padding(24)
+        .background(Color.clear)
     }
     
     // MARK: - PHOTO
@@ -42,7 +44,7 @@ struct PolaroidShareCardView: View {
     private var photoSection: some View {
         var photo: UIImage? {
             switch mode {
-            case let .cat(photo: photo, _, _): return photo
+            case let .cat(photo: photo, _, _, _): return photo
             case let .encounter(photo: photo, _, _): return photo
             }
         }
@@ -68,18 +70,25 @@ struct PolaroidShareCardView: View {
     @ViewBuilder
     private var textSection: some View {
         switch mode {
-        case let .cat(_, name: name, totalEncountersCount: total):
-            VStack(alignment: .leading, spacing: 5) {
+        case let .cat(_, name: name, totalEncountersCount: total, date: date):
+            VStack(alignment: .leading, spacing: 8) {
                 Text(name)
-                    .font(.pretendard(.medium, size: 16))
-                    .foregroundStyle(.netural80)
+                    .font(.pretendard(.semiBold, size: 20))
+                    .foregroundStyle(.netural70)
                     .lineLimit(1)
                 
-                Text("총 \(total)번 마주쳤어요")
-                    .font(.pretendard(.medium, size: 14))
-                    .foregroundStyle(.netural40)
+                HStack(alignment: .bottom) {
+                    Text("총 \(total)번 마주쳤어요")
+                        .font(.pretendard(.medium, size: 16))
+                        .foregroundStyle(.netural40)
+                    
+                    Spacer()
+                    
+                    Text("\(date.formattedDotYM) 첫 만남")
+                        .font(.pretendard(.medium, size: 14))
+                        .foregroundStyle(.netural30)
+                }
             }
-            .padding(.top, 12)
             
         case let .encounter(_, note: note, date: date):
             VStack(alignment: .leading, spacing: 4) {
@@ -94,12 +103,14 @@ struct PolaroidShareCardView: View {
                     .foregroundStyle(.netural30)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            .padding(.top, 16)
         }
     }
 }
 
-#Preview {
+#Preview("고양이 공유") {
+    PolaroidShareCardView(mode: .cat(photo: nil, name: "찐빵이", totalEncountersCount: 3, date: .now), cardWidth: 320)
+}
+#Preview("추억 공유") {
     PolaroidShareCardView(mode: .encounter(photo: nil, note: """
                        철길 지나가다가 만난 치즈고양이
                        원래 있던 친구가 입양가고 새로운 친구가 왔다!
