@@ -27,7 +27,6 @@ struct EncounterDetailView: View {
             Background()
             
             ScrollView {
-                // 콘텐츠 VSTACK
                 VStack(spacing: 0) {
                     Text(viewModel.dateText)
                         .font(.pretendard(.medium, size: 16))
@@ -41,21 +40,20 @@ struct EncounterDetailView: View {
                                 .scaledToFill()
                         }
                         .frame(width: geo.size.width, height: 335)
-                        .padding(.top, 4)
                     }
                     .frame(height: 335)
+                    .padding(.top, 4)
                     
                     Text(viewModel.note)
                         .font(.pretendard(.medium, size: 16))
                         .lineSpacing(4)
                         .foregroundStyle(.netural80)
-                        .padding(.top, 16)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 16)
                 } //: VSTACK
+                .padding(.vertical, 24)
+                .padding(.horizontal, 20)
             } //: SCROLL
-            .padding(.top, 20)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 12)
         } //: ZSTACK
         .background {
             GeometryReader { proxy in
