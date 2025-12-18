@@ -18,8 +18,8 @@ struct CatSelectView: View {
         ZStack {
             Background()
             
-            VStack(spacing: 0) {
-                ScrollView {
+            ScrollView {
+                VStack(spacing: 40) {
                     // MARK: - 즐겨찾는 친구 섹션
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .navigation,
@@ -28,8 +28,8 @@ struct CatSelectView: View {
                         
                         FavoriteCatsHScroll(cats: viewModel.favorites,
                                             destination: { cat in
-                                            EncounterInputView(existingCat: cat)
-                                            },
+                            EncounterInputView(existingCat: cat)
+                        },
                                             onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
                     
@@ -41,16 +41,14 @@ struct CatSelectView: View {
                         
                         CatsGridView(cats: viewModel.displayedCats,
                                      destination: { cat in
-                                        EncounterInputView(existingCat: cat)
-                                     },
+                            EncounterInputView(existingCat: cat)
+                        },
                                      onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                     }
-                    .padding(.top, 40)
-                } //: SCROLL
+                } //: VSTACK
                 .padding(.horizontal, 20)
-                .padding(.top, 20)
-                .padding(.bottom, 12)
-            } //: VSTACK
+                .padding(.vertical, 40)
+            } //: SCROLL
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "추억쌓기",

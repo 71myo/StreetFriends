@@ -26,7 +26,6 @@ struct EncounterDetailEditView: View {
                 VStack(spacing: 40) {
                     // MARK: - 사진 섹션
                     PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData, style: .detail)
-                        .padding(.top, 24)
                         .frame(height: 335)
                     
                     // MARK: - 기록 섹션
@@ -44,7 +43,7 @@ struct EncounterDetailEditView: View {
                     }
                 } //: CONTENTS VSTACK
                 .padding(.horizontal, 20)
-                .padding(.bottom, 120)
+                .padding(.vertical, 24)
             } //: SCROLL
             .scrollDismissesKeyboard(.immediately)
         } //: ZSTACK
