@@ -22,10 +22,11 @@ struct HomeView: View {
                 EmptyCatView()
             } else {
                 ScrollView {
-                    VStack(spacing: 0) {
+                    VStack(spacing: 40) {
                         // MARK: - 가장 자주 만난 친구 섹션
-                        VStack(spacing: 16) {
-                            SectionHeaderView(type: .plain, title: "가장 자주 만난 친구", destination: {})
+                        VStack(spacing: 12) {
+                            SectionHeaderView(type: .plain,
+                                              title: "가장 자주 만난 친구", destination: {})
                             
                             if let cat = viewModel.mostMetCat {
                                 PolaroidCardView(info: .home(cat: cat, catImageData: cat.profilePhoto,
@@ -45,7 +46,6 @@ struct HomeView: View {
                                                 destination: { cat in CatDetailView(cat: cat) },
                                                 onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                         }
-                        .padding(.top, 40)
                         
                         // MARK: - 모든 친구 섹션
                         VStack(spacing: 12) {
@@ -57,11 +57,9 @@ struct HomeView: View {
                                          destination: { cat in CatDetailView(cat: cat) },
                                          onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
                         }
-                        .padding(.top, 40)
                     } //: 전체 VSTACK
                     .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, 12)
+                    .padding(.vertical, 40)
                 } //: SCROLL
             }
         } //: ZSTACK

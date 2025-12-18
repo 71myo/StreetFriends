@@ -26,7 +26,7 @@ struct CatDetailEditView: View {
             Background()
 
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(spacing: 40) {
                     // MARK: - CAT HEADER IMAGE
                     CatDetailHeader(imageData: viewModel.currentPhotoData,
                                     mode: .fixed(maxHeight: 284))
@@ -45,14 +45,12 @@ struct CatDetailEditView: View {
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
-                    .padding(.top, 40)
                     
                     // MARK: - FIRST DATE SECTION
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(type: .plain, title: "첫만남", destination: {})
                         DatePickerRow(date: $viewModel.firstMetDate)
                     }
-                    .padding(.top, 40)
                 } //: 전체 VSTACK
                 .padding(.horizontal, 20)
                 .contentShape(Rectangle())

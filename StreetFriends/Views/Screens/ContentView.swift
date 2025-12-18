@@ -20,7 +20,7 @@ struct ContentView: View {
             LaunchView()
                 .transition(.opacity)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                         withAnimation(.easeInOut(duration: 0.3)) {
                             self.isLaunch = false
                         }

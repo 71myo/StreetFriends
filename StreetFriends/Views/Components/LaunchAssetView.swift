@@ -26,7 +26,7 @@ struct LaunchAssetView: View {
             .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 2)
             .rotationEffect(.degrees(isAnimating ? rotationDegrees : -rotationDegrees))
             .animation(
-                .snappy(duration: 0.3).repeatCount(4),
+                .easeInOut(duration: 0.3).repeatCount(5),
                 value: isAnimating
             )
             .offset(
