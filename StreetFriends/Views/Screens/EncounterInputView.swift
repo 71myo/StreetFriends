@@ -33,7 +33,6 @@ struct EncounterInputView: View {
                     // MARK: - 사진 선택
                     PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData)
                         .frame(height: 210)
-                        .padding(.top, 24)
                     
                     // MARK: - 친구 일지 섹션
                     VStack(spacing: 12) {
@@ -49,7 +48,7 @@ struct EncounterInputView: View {
                     }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
-                .padding(.bottom, 120)
+                .padding(.vertical, 24)
             } //: SCROLL
             .scrollDismissesKeyboard(.immediately)
         } //: ZSTACK

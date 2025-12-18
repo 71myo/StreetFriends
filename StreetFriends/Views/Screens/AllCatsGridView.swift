@@ -19,15 +19,15 @@ struct AllCatsGridView: View {
         ZStack {
             Background()
             
-            VStack(spacing: 0) {
-                ScrollView {
+            ScrollView {
+                VStack(spacing: 0) {
                     CatsGridView(cats: viewModel.displayedCats,
                                  destination: { cat in CatDetailView(cat: cat) },
                                  onToggleFavorite: { cat in viewModel.toggleFavorite(cat: cat, repo: catRepository) })
-                } //: SCROLL
+                } //: VSTACK
                 .padding(.horizontal, 20)
-                .padding(.top, 40)
-            } //: VSTACK
+                .padding(.vertical, 40)
+            } //: SCROLL
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "모든 친구",

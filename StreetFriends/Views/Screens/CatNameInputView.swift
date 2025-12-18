@@ -20,12 +20,11 @@ struct CatNameInputView: View {
         ZStack(alignment: .top) {
             Background(.imgBackground)
             
-            VStack(spacing: 0)  {
+            VStack(spacing: 20)  {
                 Text("새로운 친구의 이름은?")
                     .foregroundStyle(.white)
                     .font(.pretendard(.semiBold, size: 24))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 40)
                 
                 AppInputField(
                     text: $name,
@@ -36,9 +35,9 @@ struct CatNameInputView: View {
                     .frame(height: 44)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .padding(.top, 20)
             } //: 콘텐츠 VSTACK
-            .padding(.bottom, 12)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 40)
             .contentShape(Rectangle())
             .onTapGesture { nameFocused = false }
         } //: ZSTACK
@@ -53,7 +52,6 @@ struct CatNameInputView: View {
                 router.push(.encounterInput(catName: trimmedName))
             }
         }
-        .padding(.horizontal, 20)
         .onAppear {
             name = trimmedName
         }
