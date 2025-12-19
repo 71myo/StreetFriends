@@ -11,9 +11,12 @@ struct EncounterDetailView: View {
     // MARK: - PROPERTIES
     @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.displayScale) private var displayScale
+    
     @State private var viewModel: EncounterDetailViewModel
     @State private var showDeleteAlert: Bool = false
-    
+    @State private var shareCardWidth: CGFloat = 0
+
     init(encounterID: UUID) {
         _viewModel = .init(initialValue: EncounterDetailViewModel(encounterID: encounterID))
     }
@@ -24,7 +27,6 @@ struct EncounterDetailView: View {
             Background()
             
             ScrollView {
-                // 콘텐츠 VSTACK
                 VStack(spacing: 0) {
                     Text(viewModel.dateText)
                         .font(.pretendard(.medium, size: 16))
@@ -36,26 +38,39 @@ struct EncounterDetailView: View {
                             img
                                 .resizable()
                                 .scaledToFill()
+                                .frame(width: geo.size.width, height: 335)
+                                .clipped()
                         }
-                        .frame(width: geo.size.width, height: 335)
-                        .padding(.top, 4)
                     }
                     .frame(height: 335)
+                    .padding(.top, 4)
                     
                     Text(viewModel.note)
                         .font(.pretendard(.medium, size: 16))
                         .lineSpacing(4)
                         .foregroundStyle(.netural80)
-                        .padding(.top, 16)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 16)
                 } //: VSTACK
+                .padding(.vertical, 24)
+                .padding(.horizontal, 20)
             } //: SCROLL
-            .padding(.top, 20)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 12)
         } //: ZSTACK
-        .task {
+        .background {
+            GeometryReader { proxy in
+                Color.clear
+                    .onAppear {
+                        shareCardWidth = max(0, proxy.size.width - 40)
+                    }
+                    .onChange(of: proxy.size.width) { _, newWidth in
+                        shareCardWidth = max(0, newWidth - 40)
+                    }
+            }
+        }
+        .task(id: shareCardWidth) {
+            guard shareCardWidth > 0 else { return }
             viewModel.load(using: catRepository)
+            viewModel.prepareShareCard(scale: displayScale, width: shareCardWidth)
         }
         .safeAreaInset(edge: .top) {
             NavigationBar(title: viewModel.catName,
@@ -81,19 +96,23 @@ struct EncounterDetailView: View {
                     }
                     
                     Menu {
-                            NavigationLink {
-                                EncounterDetailEditView(encounterID: viewModel.id)
-                            } label: {
-                                Text("추억 수정")
-                            }
-                            
-                            Button("추억 공유") {
-                                
-                            }
-                            
-                            Button("삭제하기") {
-                                showDeleteAlert = true
-                            }
+                        NavigationLink {
+                            EncounterDetailEditView(encounterID: viewModel.id)
+                        } label: {
+                            Text("추억 수정")
+                        }
+                        
+                        if let item = viewModel.shareItem,
+                           let preview = UIImage(data: viewModel.photoData) {
+                            ShareLink(item: item,
+                                      preview: SharePreview("길에서 만난 소중한 친구 \(viewModel.catName)\(viewModel.catName.eulReul) 기록했어요 🐾",
+                                      image: Image(uiImage: preview))
+                            ) { Text("추억 공유") }
+                        }
+                        
+                        Button("삭제하기") {
+                            showDeleteAlert = true
+                        }
                     } label: {
                         Image(.more)
                             .resizable()

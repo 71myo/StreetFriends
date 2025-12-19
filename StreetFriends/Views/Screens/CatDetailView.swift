@@ -11,10 +11,12 @@ struct CatDetailView: View {
     // MARK: - PROPERTIES
     @Environment(\.catRepository) private var catRepository
     @Environment(\.dismiss) private var dismiss
-    
+    @Environment(\.displayScale) private var displayScale
+
     @State private var viewModel: CatDetailViewModel
     @State private var showDeleteAlert = false
     @State private var headerProgress: CGFloat = 0
+    @State private var shareCardWidth: CGFloat = 0
     private var isCollapsed: Bool { headerProgress >= 0.85 }
     
     init(cat: Cat) {
@@ -56,6 +58,30 @@ struct CatDetailView: View {
                 .padding(.vertical, 40)
             } //: RESIZABLE HEADER SCROLLVIEW
         } //: ZSTACK
+        .background {
+            GeometryReader { proxy in
+                Color.clear
+                    .onAppear {
+                        shareCardWidth = max(0, proxy.size.width - 40)
+                    }
+                    .onChange(of: proxy.size.width) { _, newWidth in
+                        shareCardWidth = max(0, newWidth - 40)
+                    }
+            }
+        }
+        .task(id: shareCardWidth) {
+            guard shareCardWidth > 0 else { return }
+            viewModel.prepareShareCard(scale: displayScale, width: shareCardWidth)
+        }
+        .overlay {
+            if showDeleteAlert {
+                CustomAlert(role: .delete(name: viewModel.cat.name),
+                            isPresented: $showDeleteAlert) {
+                    viewModel.delete(repo: catRepository)
+                    dismiss()
+                } rightAction: { }
+            }
+        }
         .safeAreaInset(edge: .top) {
             NavigationBar(
                 title: isCollapsed ? viewModel.cat.name : "",
@@ -79,9 +105,15 @@ struct CatDetailView: View {
                                 Text("프로필 수정")
                             }
                             
-                            Button("프로필 공유") {
-                                
+                            if let item = viewModel.shareItem,
+                               let data = viewModel.cat.profilePhoto,
+                               let preview = UIImage(data: data) {
+                                ShareLink(item: item,
+                                          message: Text("귀여운 친구 \(viewModel.cat.name)의 프로필을 확인해 보세요!"),
+                                          preview: SharePreview("🐾 \(viewModel.cat.name) 🐾", image: Image(uiImage: preview))
+                                ) { Text("프로필 공유") }
                             }
+                            
                             Button("친구 삭제") {
                                 showDeleteAlert = true
                             }
@@ -93,15 +125,6 @@ struct CatDetailView: View {
             )
             .animation(.easeInOut(duration: 0.4), value: isCollapsed)
         }
-        .overlay {
-            if showDeleteAlert {
-                CustomAlert(role: .delete(name: viewModel.cat.name),
-                            isPresented: $showDeleteAlert) {
-                    viewModel.delete(repo: catRepository)
-                    dismiss()
-                } rightAction: { }
-            }
-        }
     }
 }
 
@@ -110,3 +133,4 @@ struct CatDetailView: View {
         CatDetailView(cat: .previewOne)
     }
 }
+

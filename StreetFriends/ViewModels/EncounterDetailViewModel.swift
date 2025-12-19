@@ -5,7 +5,7 @@
 //  Created by Hyojeong on 9/19/25.
 //
 
-import Foundation
+import SwiftUI
 import Observation
 
 @Observable
@@ -20,6 +20,9 @@ final class EncounterDetailViewModel {
     var photoData: Data = Data()
     var catName: String = ""
     var isFavorite: Bool = false
+    
+    // SHARE
+    var shareItem: SharePNG?
     
     // STATE
     var isLoading: Bool = false
@@ -73,5 +76,25 @@ final class EncounterDetailViewModel {
         } catch {
             self.error = error.localizedDescription
         }
+    }
+    
+    @MainActor
+    func prepareShareCard(scale: CGFloat, width: CGFloat) {
+        guard #available(iOS 16.0, *) else { return }
+
+        let card = PolaroidShareCardView(
+            mode: .encounter(photo: UIImage(data: photoData), note: note, date: date),
+            cardWidth: width
+        )
+        
+        let renderer = ImageRenderer(content: card)
+        renderer.proposedSize = .init(width: width, height: card.cardHeight)
+        renderer.scale = scale
+
+        guard let uiImage = renderer.uiImage,
+              let png = uiImage.pngData()
+        else { return }
+
+        self.shareItem = SharePNG(data: png)
     }
 }
