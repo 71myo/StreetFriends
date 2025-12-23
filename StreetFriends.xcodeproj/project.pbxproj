@@ -6,8 +6,41 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		97F34C2E2EFA5DCF00D7A71C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97F34C2D2EFA5DCF00D7A71C /* WidgetKit.framework */; };
+		97F34C302EFA5DCF00D7A71C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97F34C2F2EFA5DCF00D7A71C /* SwiftUI.framework */; };
+		97F34C3B2EFA5DD100D7A71C /* StreetFriendsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 97F34C2B2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		97F34C392EFA5DD100D7A71C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97A20FCE2E4B91D200F4F112 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 97F34C2A2EFA5DCF00D7A71C;
+			remoteInfo = StreetFriendsWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		97F34C402EFA5DD100D7A71C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				97F34C3B2EFA5DD100D7A71C /* StreetFriendsWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		97A20FD62E4B91D200F4F112 /* StreetFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97F34C2B2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StreetFriendsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		97F34C2D2EFA5DCF00D7A71C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		97F34C2F2EFA5DCF00D7A71C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -17,6 +50,13 @@
 				Info.plist,
 			);
 			target = 97A20FD52E4B91D200F4F112 /* StreetFriends */;
+		};
+		97F34C3F2EFA5DD100D7A71C /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -29,6 +69,14 @@
 			path = StreetFriends;
 			sourceTree = "<group>";
 		};
+		97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				97F34C3F2EFA5DD100D7A71C /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */,
+			);
+			path = StreetFriendsWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +87,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97F34C282EFA5DCF00D7A71C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97F34C302EFA5DCF00D7A71C /* SwiftUI.framework in Frameworks */,
+				97F34C2E2EFA5DCF00D7A71C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -46,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				97A20FD82E4B91D200F4F112 /* StreetFriends */,
+				97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */,
+				97F34C2C2EFA5DCF00D7A71C /* Frameworks */,
 				97A20FD72E4B91D200F4F112 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,8 +113,18 @@
 			isa = PBXGroup;
 			children = (
 				97A20FD62E4B91D200F4F112 /* StreetFriends.app */,
+				97F34C2B2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		97F34C2C2EFA5DCF00D7A71C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97F34C2D2EFA5DCF00D7A71C /* WidgetKit.framework */,
+				97F34C2F2EFA5DCF00D7A71C /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -68,10 +137,12 @@
 				97A20FD22E4B91D200F4F112 /* Sources */,
 				97A20FD32E4B91D200F4F112 /* Frameworks */,
 				97A20FD42E4B91D200F4F112 /* Resources */,
+				97F34C402EFA5DD100D7A71C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				97F34C3A2EFA5DD100D7A71C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				97A20FD82E4B91D200F4F112 /* StreetFriends */,
@@ -83,6 +154,28 @@
 			productReference = 97A20FD62E4B91D200F4F112 /* StreetFriends.app */;
 			productType = "com.apple.product-type.application";
 		};
+		97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97F34C3C2EFA5DD100D7A71C /* Build configuration list for PBXNativeTarget "StreetFriendsWidgetExtension" */;
+			buildPhases = (
+				97F34C272EFA5DCF00D7A71C /* Sources */,
+				97F34C282EFA5DCF00D7A71C /* Frameworks */,
+				97F34C292EFA5DCF00D7A71C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */,
+			);
+			name = StreetFriendsWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = StreetFriendsWidgetExtension;
+			productReference = 97F34C2B2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -90,11 +183,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1640;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					97A20FD52E4B91D200F4F112 = {
 						CreatedOnToolsVersion = 16.4;
+					};
+					97F34C2A2EFA5DCF00D7A71C = {
+						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
 			};
@@ -113,12 +209,20 @@
 			projectRoot = "";
 			targets = (
 				97A20FD52E4B91D200F4F112 /* StreetFriends */,
+				97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		97A20FD42E4B91D200F4F112 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		97F34C292EFA5DCF00D7A71C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -135,7 +239,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		97F34C272EFA5DCF00D7A71C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		97F34C3A2EFA5DD100D7A71C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
+			targetProxy = 97F34C392EFA5DD100D7A71C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		97A20FDF2E4B91D400F4F112 /* Debug */ = {
@@ -327,6 +446,68 @@
 			};
 			name = Release;
 		};
+		97F34C3D2EFA5DD100D7A71C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92U58L5CU9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StreetFriendsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StreetFriendsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hyojeong.StreetFriends.StreetFriendsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		97F34C3E2EFA5DD100D7A71C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 92U58L5CU9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StreetFriendsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StreetFriendsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hyojeong.StreetFriends.StreetFriendsWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -344,6 +525,15 @@
 			buildConfigurations = (
 				97A20FE22E4B91D400F4F112 /* Debug */,
 				97A20FE32E4B91D400F4F112 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97F34C3C2EFA5DD100D7A71C /* Build configuration list for PBXNativeTarget "StreetFriendsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97F34C3D2EFA5DD100D7A71C /* Debug */,
+				97F34C3E2EFA5DD100D7A71C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
