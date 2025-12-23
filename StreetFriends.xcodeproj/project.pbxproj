@@ -41,6 +41,7 @@
 		97F34C2B2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StreetFriendsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F34C2D2EFA5DCF00D7A71C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		97F34C2F2EFA5DCF00D7A71C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		97F34C452EFA718800D7A71C /* StreetFriendsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StreetFriendsWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -58,6 +59,14 @@
 			);
 			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
 		};
+		97F34C422EFA707C00D7A71C /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/Models/Cat.swift,
+				Data/Models/Encounter.swift,
+			);
+			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -65,6 +74,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				97C1946D2E4E17F00086751E /* Exceptions for "StreetFriends" folder in "StreetFriends" target */,
+				97F34C422EFA707C00D7A71C /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */,
 			);
 			path = StreetFriends;
 			sourceTree = "<group>";
@@ -102,6 +112,7 @@
 		97A20FCD2E4B91D200F4F112 = {
 			isa = PBXGroup;
 			children = (
+				97F34C452EFA718800D7A71C /* StreetFriendsWidgetExtension.entitlements */,
 				97A20FD82E4B91D200F4F112 /* StreetFriends */,
 				97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */,
 				97F34C2C2EFA5DCF00D7A71C /* Frameworks */,
@@ -385,6 +396,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StreetFriends/StreetFriends.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -418,6 +430,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StreetFriends/StreetFriends.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -451,6 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StreetFriendsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -482,6 +496,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StreetFriendsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
