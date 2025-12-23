@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import WidgetKit
 
 final class SwiftDataCatRepository: CatRepository {
     private let context: ModelContext
@@ -24,6 +25,7 @@ final class SwiftDataCatRepository: CatRepository {
         cat.addEncounter(encounter)
         context.insert(cat)
         try context.save()
+        WidgetCenter.shared.reloadAllTimelines()
         return cat
     }
     
@@ -36,6 +38,7 @@ final class SwiftDataCatRepository: CatRepository {
         let encounter = Encounter(date: date, note: note, photo: photoData, cat: cat)
         cat.addEncounter(encounter)
         try context.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func fetchAllCats() throws -> [Cat] {
@@ -61,6 +64,7 @@ final class SwiftDataCatRepository: CatRepository {
     func deleteCat(_ cat: Cat) throws {
         context.delete(cat)
         try context.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
@@ -68,6 +72,7 @@ final class SwiftDataCatRepository: CatRepository {
         cat.firstMetDate = firstMetDate
         cat.profilePhoto = profilePhoto
         try context.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func fetchEncounter(id: UUID) throws -> Encounter? {
@@ -81,6 +86,7 @@ final class SwiftDataCatRepository: CatRepository {
             context.delete(encounter)
             try context.save()
         }
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws {
@@ -89,5 +95,8 @@ final class SwiftDataCatRepository: CatRepository {
         encounter.note = note
         encounter.photo = photo
         try context.save()
+        WidgetCenter.shared.reloadAllTimelines()
+        print("App storeURL:", SharedModelContainer.storeURL.path) // 지울거
+        print(SharedModelContainer.storeURLDebug()) // 지울거
     }
 }

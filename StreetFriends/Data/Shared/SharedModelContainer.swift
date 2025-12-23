@@ -25,4 +25,17 @@ enum SharedModelContainer {
             fatalError("ModelContainer 생성 실패: \(error)")
         }
     }()
+    
+    static var storeURL: URL {
+        guard let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID)
+        else { fatalError("App Group containerURL 생성 실패: \(appGroupID)") }
+        return groupURL.appendingPathComponent("StreetFriends.store")
+    }
+    
+    static func storeURLDebug() -> String {
+        guard let groupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupID) else {
+            return "NO GROUP URL"
+        }
+        return groupURL.appendingPathComponent("StreetFriends.store").path
+    }
 }

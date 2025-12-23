@@ -64,6 +64,7 @@
 			membershipExceptions = (
 				Data/Models/Cat.swift,
 				Data/Models/Encounter.swift,
+				Data/Shared/SharedModelContainer.swift,
 			);
 			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
 		};
