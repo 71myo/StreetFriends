@@ -65,6 +65,12 @@
 				Data/Models/Cat.swift,
 				Data/Models/Encounter.swift,
 				Data/Shared/SharedModelContainer.swift,
+				"Resources/Fonts/Pretendard-Black.otf",
+				"Resources/Fonts/Pretendard-Bold.otf",
+				"Resources/Fonts/Pretendard-Medium.otf",
+				"Resources/Fonts/Pretendard-Regular.otf",
+				"Resources/Fonts/Pretendard-SemiBold.otf",
+				"Utils/Extensions/Font+Custom.swift",
 			);
 			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
 		};
