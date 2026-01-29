@@ -14,6 +14,6 @@ struct StreetFriendsApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [Cat.self, Encounter.self])
+        .modelContainer(SharedModelContainer.container)
     }
 }

@@ -41,17 +41,33 @@
 		97F34C2B2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = StreetFriendsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F34C2D2EFA5DCF00D7A71C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		97F34C2F2EFA5DCF00D7A71C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		97F34C452EFA718800D7A71C /* StreetFriendsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = StreetFriendsWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		97C1946D2E4E17F00086751E /* Exceptions for "StreetFriends" folder in "StreetFriends" target */ = {
+		F0FB9B5C2F2B328A000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Data/Models/Cat.swift,
+				Data/Models/Encounter.swift,
+				Data/Shared/SharedModelContainer.swift,
+				"Resources/Fonts/Pretendard-Black.otf",
+				"Resources/Fonts/Pretendard-Bold.otf",
+				"Resources/Fonts/Pretendard-Medium.otf",
+				"Resources/Fonts/Pretendard-Regular.otf",
+				"Resources/Fonts/Pretendard-SemiBold.otf",
+				"Utils/Extensions/Font+Custom.swift",
+			);
+			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
+		};
+		F0FB9B5E2F2B329F000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriends" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 97A20FD52E4B91D200F4F112 /* StreetFriends */;
 		};
-		97F34C3F2EFA5DD100D7A71C /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */ = {
+		F0FB9B5F2F2B329F000DABEA /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -64,7 +80,8 @@
 		97A20FD82E4B91D200F4F112 /* StreetFriends */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				97C1946D2E4E17F00086751E /* Exceptions for "StreetFriends" folder in "StreetFriends" target */,
+				F0FB9B5E2F2B329F000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriends" target */,
+				F0FB9B5C2F2B328A000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */,
 			);
 			path = StreetFriends;
 			sourceTree = "<group>";
@@ -72,7 +89,7 @@
 		97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				97F34C3F2EFA5DD100D7A71C /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */,
+				F0FB9B5F2F2B329F000DABEA /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */,
 			);
 			path = StreetFriendsWidget;
 			sourceTree = "<group>";
@@ -102,6 +119,7 @@
 		97A20FCD2E4B91D200F4F112 = {
 			isa = PBXGroup;
 			children = (
+				97F34C452EFA718800D7A71C /* StreetFriendsWidgetExtension.entitlements */,
 				97A20FD82E4B91D200F4F112 /* StreetFriends */,
 				97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */,
 				97F34C2C2EFA5DCF00D7A71C /* Frameworks */,
@@ -184,7 +202,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					97A20FD52E4B91D200F4F112 = {
 						CreatedOnToolsVersion = 16.4;
@@ -385,6 +403,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StreetFriends/StreetFriends.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -418,6 +437,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = StreetFriends/StreetFriends.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -451,6 +471,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StreetFriendsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -469,11 +490,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -482,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = StreetFriendsWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 92U58L5CU9;
@@ -500,11 +526,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
