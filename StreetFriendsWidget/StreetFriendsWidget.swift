@@ -126,13 +126,7 @@ struct StreetFriendsWidgetEntryView : View {
     var entry: Provider.Entry
     @Environment(\.widgetFamily) private var family
     
-    private var maxPixel: CGFloat {
-        switch family {
-        case .systemSmall: 320
-        case .systemMedium: 520
-        default: 520
-        }
-    }
+    private let maxPixel: CGFloat = 320
 
     var body: some View {
         ZStack {
@@ -197,6 +191,7 @@ struct StreetFriendsWidget: Widget {
                 StreetFriendsWidgetEntryView(entry: entry)
             }
         }
+        .supportedFamilies([.systemSmall])
         .contentMarginsDisabled()
     }
 }

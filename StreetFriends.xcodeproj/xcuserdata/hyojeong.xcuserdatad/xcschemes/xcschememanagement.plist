@@ -7,12 +7,25 @@
 		<key>StreetFriends.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>StreetFriendsWidgetExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>97A20FD52E4B91D200F4F112</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>97F34C2A2EFA5DCF00D7A71C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

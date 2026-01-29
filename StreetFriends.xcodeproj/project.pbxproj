@@ -45,21 +45,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		97C1946D2E4E17F00086751E /* Exceptions for "StreetFriends" folder in "StreetFriends" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 97A20FD52E4B91D200F4F112 /* StreetFriends */;
-		};
-		97F34C3F2EFA5DD100D7A71C /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
-		};
-		97F34C422EFA707C00D7A71C /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */ = {
+		F0FB9B5C2F2B328A000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Data/Models/Cat.swift,
@@ -74,14 +60,28 @@
 			);
 			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
 		};
+		F0FB9B5E2F2B329F000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriends" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 97A20FD52E4B91D200F4F112 /* StreetFriends */;
+		};
+		F0FB9B5F2F2B329F000DABEA /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 97F34C2A2EFA5DCF00D7A71C /* StreetFriendsWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		97A20FD82E4B91D200F4F112 /* StreetFriends */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				97C1946D2E4E17F00086751E /* Exceptions for "StreetFriends" folder in "StreetFriends" target */,
-				97F34C422EFA707C00D7A71C /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */,
+				F0FB9B5E2F2B329F000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriends" target */,
+				F0FB9B5C2F2B328A000DABEA /* Exceptions for "StreetFriends" folder in "StreetFriendsWidgetExtension" target */,
 			);
 			path = StreetFriends;
 			sourceTree = "<group>";
@@ -89,7 +89,7 @@
 		97F34C312EFA5DCF00D7A71C /* StreetFriendsWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				97F34C3F2EFA5DD100D7A71C /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */,
+				F0FB9B5F2F2B329F000DABEA /* Exceptions for "StreetFriendsWidget" folder in "StreetFriendsWidgetExtension" target */,
 			);
 			path = StreetFriendsWidget;
 			sourceTree = "<group>";
@@ -202,7 +202,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					97A20FD52E4B91D200F4F112 = {
 						CreatedOnToolsVersion = 16.4;
@@ -490,11 +490,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -522,11 +526,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
