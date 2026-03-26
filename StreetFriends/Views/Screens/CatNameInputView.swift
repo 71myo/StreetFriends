@@ -51,6 +51,8 @@ struct CatNameInputView: View {
             PrimaryButton(kind: .next, isEnabled: canGoNext) {
                 router.push(.encounterInput(catName: trimmedName))
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 12)
         }
         .onAppear {
             name = trimmedName
