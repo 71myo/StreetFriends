@@ -73,15 +73,6 @@ struct CatDetailView: View {
             guard shareCardWidth > 0 else { return }
             viewModel.prepareShareCard(scale: displayScale, width: shareCardWidth)
         }
-        .overlay {
-            if showDeleteAlert {
-                CustomAlert(role: .delete(name: viewModel.cat.name),
-                            isPresented: $showDeleteAlert) {
-                    viewModel.delete(repo: catRepository)
-                    dismiss()
-                } rightAction: { }
-            }
-        }
         .safeAreaInset(edge: .top) {
             NavigationBar(
                 title: isCollapsed ? viewModel.cat.name : "",
@@ -124,6 +115,15 @@ struct CatDetailView: View {
                 }
             )
             .animation(.easeInOut(duration: 0.4), value: isCollapsed)
+        }
+        .overlay {
+            if showDeleteAlert {
+                CustomAlert(role: .delete(name: viewModel.cat.name),
+                            isPresented: $showDeleteAlert) {
+                    viewModel.delete(repo: catRepository)
+                    dismiss()
+                } rightAction: { }
+            }
         }
     }
 }
