@@ -117,7 +117,7 @@ struct CustomAlert: View {
                 } //: HSTACK
                 .frame(height: 44)
             } //: VSTACK
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+            .background(.white, in: RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 52)
         }
     }
