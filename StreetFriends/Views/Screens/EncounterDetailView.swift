@@ -87,6 +87,7 @@ struct EncounterDetailView: View {
                           trailing: {
                 HStack(spacing: 4) {
                     Button {
+                        Haptic.favoriteToggled()
                         viewModel.toggleFavorite(using: catRepository)
                     } label: {
                         Image(viewModel.isFavorite ? .selectTrue : .selectFalse)

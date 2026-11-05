@@ -41,6 +41,7 @@ struct CatSquareView: View {
             .overlay(alignment: .topTrailing) {
                 if case let .favorite(isOn, _, action) = type {
                     Button {
+                        Haptic.favoriteToggled()
                         withAnimation { action() }
                     } label: {
                         Image(isOn ? .selectTrue : .selectFalse)
