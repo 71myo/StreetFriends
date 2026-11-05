@@ -54,6 +54,7 @@ struct ContentView: View {
                         .padding(.top, 20)
                         .id(toast.id)
                         .transition(.move(edge: .top).combined(with: .opacity))
+                        .allowsHitTesting(false) // 토스트 중에도 버튼 눌리도록
                 }
             }
             .animation(.easeInOut(duration: 0.25), value: toastCenter.current)
