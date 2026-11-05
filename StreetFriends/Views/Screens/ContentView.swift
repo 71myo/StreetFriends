@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     // MARK: - PROPERTY
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @State private var router = Router()
     @State private var isLaunch: Bool = true
     
@@ -40,6 +41,11 @@ struct ContentView: View {
             }
             .environment(\.catRepository, SwiftDataCatRepository(context: modelContext))
             .environment(router)
+            .onChange(of: scenePhase, initial: true) { _, phase in
+                guard phase == .active else { return }
+                let repo = SwiftDataCatRepository(context: modelContext)
+                AnniversaryNotificationScheduler.reschedule(cats: (try? repo.fetchAllCats()) ?? [])
+            }
         }
     }
 }

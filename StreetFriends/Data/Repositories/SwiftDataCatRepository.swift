@@ -26,6 +26,7 @@ final class SwiftDataCatRepository: CatRepository {
         context.insert(cat)
         try context.save()
         WidgetCenter.shared.reloadAllTimelines()
+        rescheduleAnniversaries()
         return cat
     }
     
@@ -65,6 +66,7 @@ final class SwiftDataCatRepository: CatRepository {
         context.delete(cat)
         try context.save()
         WidgetCenter.shared.reloadAllTimelines()
+        rescheduleAnniversaries()
     }
     
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
@@ -73,6 +75,7 @@ final class SwiftDataCatRepository: CatRepository {
         cat.profilePhoto = profilePhoto
         try context.save()
         WidgetCenter.shared.reloadAllTimelines()
+        rescheduleAnniversaries()
     }
     
     func fetchEncounter(id: UUID) throws -> Encounter? {
@@ -98,5 +101,10 @@ final class SwiftDataCatRepository: CatRepository {
         WidgetCenter.shared.reloadAllTimelines()
         print("App storeURL:", SharedModelContainer.storeURL.path) // 지울거
         print(SharedModelContainer.storeURLDebug()) // 지울거
+    }
+    
+    // Notification
+    private func rescheduleAnniversaries() {
+        AnniversaryNotificationScheduler.reschedule(cats: (try? fetchAllCats()) ?? [])
     }
 }
