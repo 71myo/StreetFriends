@@ -171,6 +171,10 @@ final class PreviewCatRepository: CatRepository {
     func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws {
         
     }
+    
+    func fetchCat(id: UUID) throws -> Cat? {
+        cats.first { $0.id == id }
+    }
 }
 
 // MARK: - 편의 확장 (원클릭 접근)

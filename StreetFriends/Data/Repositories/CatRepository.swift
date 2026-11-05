@@ -48,4 +48,7 @@ protocol CatRepository {
     
     // Encounter 수정 저장
     func updateEncounter(id: UUID, date: Date, note: String, photo: Data) throws
+    
+    // ID로 고양이 불러오기
+    func fetchCat(id: UUID) throws -> Cat?
 }

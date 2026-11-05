@@ -27,4 +27,5 @@ enum Route: Hashable {
     case addCatChoice
     case catNameInput
     case encounterInput(catName: String)
+    case catDetail(catID: UUID)
 }
