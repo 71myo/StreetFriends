@@ -8,13 +8,24 @@
 import Foundation
 
 extension String {
-    // 한글이면 받침 비교해서 을, 를 return
-    var eulReul: String {
+    // 마지막 글자 받침 확인
+    private var hasJongseong: Bool? {
         let normalized = self.precomposedStringWithCanonicalMapping
-        guard let scalar = normalized.unicodeScalars.last else { return "을" } // 기본값
+        guard let scalar = normalized.unicodeScalars.last else { return nil }
         let v = scalar.value
-        guard (0xAC00...0xD7A3).contains(v) else { return "을" } // 외국어, 숫자, 이모지면 "을"
-        let jong = (v - 0xAC00) % 28 // 0이면 받침 없음
-        return jong == 0 ? "를" : "을"
+        guard (0xAC00...0xD7A3).contains(v) else { return nil }
+        return (v - 0xAC00) % 28 != 0 // 0이면 받침 없음
+    }
+    
+    // 을/를
+    var eulReul: String {
+        guard let has = hasJongseong else { return "을" } // 한글이 아니면 기본값
+        return has ? "을" : "를"
+    }
+
+    // 와/과
+    var waGwa: String {
+        guard let has = hasJongseong else { return "과" } // 한글이 아니면 기본값
+        return has ? "과" : "와"
     }
 }
