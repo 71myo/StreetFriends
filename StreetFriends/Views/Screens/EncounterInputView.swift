@@ -59,7 +59,14 @@ struct EncounterInputView: View {
         .safeAreaInset(edge: .bottom) {
             PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {
                 let ok = viewModel.saveNewCatEncounter(using: catRepository)
-                if ok { router.popToRoot() }
+                guard ok else { return }
+                
+                if case .newCat = viewModel.target {
+                    AnniversaryNotificationScheduler.requestAuthorizationAndReschedule(
+                        cats: (try? catRepository.fetchAllCats()) ?? []
+                    )
+                }
+                router.popToRoot()
             }
             .padding(.horizontal, 20).padding(.vertical, 12)
             .background(Color.white)
