@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var router = Router()
     @State private var isLaunch: Bool = true
     @State private var deepLink = DeepLinkStore.shared
+    @State private var toastCenter = ToastCenter()
     
     // MARK: - BODY
     var body: some View {
@@ -46,6 +47,16 @@ struct ContentView: View {
             }
             .environment(\.catRepository, SwiftDataCatRepository(context: modelContext))
             .environment(router)
+            .environment(toastCenter)
+            .overlay(alignment: .top) {
+                if let toast = toastCenter.current {
+                    ToastMessage(kind: toast.kind)
+                        .padding(.top, 20)
+                        .id(toast.id)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                }
+            }
+            .animation(.easeInOut(duration: 0.25), value: toastCenter.current)
             .onChange(of: scenePhase, initial: true) { _, phase in
                 guard phase == .active else { return }
                 let repo = SwiftDataCatRepository(context: modelContext)
