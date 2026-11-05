@@ -107,4 +107,9 @@ final class SwiftDataCatRepository: CatRepository {
     private func rescheduleAnniversaries() {
         AnniversaryNotificationScheduler.reschedule(cats: (try? fetchAllCats()) ?? [])
     }
+    
+    func fetchCat(id: UUID) throws -> Cat? {
+        let descriptor = FetchDescriptor<Cat>(predicate: #Predicate { $0.id == id })
+        return try context.fetch(descriptor).first
+    }
 }
