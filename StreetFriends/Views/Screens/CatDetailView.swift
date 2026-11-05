@@ -81,14 +81,14 @@ struct CatDetailView: View {
                 trailing: {
                     HStack(spacing: 12) {
                         Button {
+                            Haptic.favoriteToggled()
                             viewModel.togggleFavorite(using: catRepository)
                         } label: {
                             Image(viewModel.cat.isFavorite ? .selectTrue : .selectFalse)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                        }
-                        
+                        }                        
                         Menu {
                             NavigationLink {
                                 CatDetailEditView(cat: viewModel.cat)
