@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ToastMessage: View {
-    enum Kind {
+    enum Kind: Equatable {
         case registerCat(name: String)
         case addEncounter(name: String)
     }
