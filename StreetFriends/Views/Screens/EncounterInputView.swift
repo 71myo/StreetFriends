@@ -12,6 +12,7 @@ struct EncounterInputView: View {
     @Environment(\.catRepository) private var catRepository
     @Environment(Router.self) private var router
     @Environment(\.dismiss) private var dismiss
+    @Environment(ToastCenter.self) private var toastCenter
     @State private var viewModel: EncounterInputViewModel
     @State private var pickedImage: UIImage? // UI 표시용
     
@@ -61,10 +62,14 @@ struct EncounterInputView: View {
                 let ok = viewModel.saveNewCatEncounter(using: catRepository)
                 guard ok else { return }
                 
-                if case .newCat = viewModel.target {
+                switch viewModel.target {
+                case .newCat(let name):
+                    toastCenter.show(.registerCat(name: name))
                     AnniversaryNotificationScheduler.requestAuthorizationAndReschedule(
                         cats: (try? catRepository.fetchAllCats()) ?? []
                     )
+                case .existingCat(let cat):
+                    toastCenter.show(.addEncounter(name: cat.name))
                 }
                 router.popToRoot()
             }
@@ -77,6 +82,7 @@ struct EncounterInputView: View {
 #Preview("New Cat Flow") {
     EncounterInputView(newCatName: "찐빵이")
         .environment(Router())
+        .environment(ToastCenter())
         .environment(\.catRepository, PreviewCatRepository())
 }
 
