@@ -32,7 +32,7 @@ struct PhotoPickerCard: View {
             if style == .input {
                 PhotosPicker(selection: $photoItem, matching: .images) {
                     coreContent
-                }
+                }.accessibilityLabel(hasAnyImage ? "사진 변경" : "사진 추가")
             } else {
                 coreContent
                     .overlay(alignment: .bottomTrailing) {

@@ -94,7 +94,7 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                    }
+                    }.accessibilityLabel("즐겨찾기")
                     
                     Menu {
                         NavigationLink {
@@ -119,7 +119,7 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                    }
+                    }.accessibilityLabel("더보기")
                 }
             })
         }

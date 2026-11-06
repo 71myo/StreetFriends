@@ -91,7 +91,7 @@ struct CatDetailView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                        }                        
+                        }.accessibilityLabel("즐겨찾기")
                         Menu {
                             NavigationLink {
                                 CatDetailEditView(cat: viewModel.cat)
@@ -113,7 +113,7 @@ struct CatDetailView: View {
                             }
                         } label: {
                             Image(.morePaper)
-                        }
+                        }.accessibilityLabel("더보기")
                     }
                 }
             )

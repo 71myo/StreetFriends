@@ -74,7 +74,10 @@ struct CatDetailEditView: View {
                 Button { viewModel.onTapBack() }
                 label: { Image(.chevronLeftPaper) }.accessibilityLabel("뒤로 가기")
             },
-                          trailing: { Button { isPickingPhoto = true } label: { Image(.addCatPicturePaper) } })
+                          trailing: {
+                Button { isPickingPhoto = true }
+                label: { Image(.addCatPicturePaper) }.accessibilityLabel("사진 변경")
+            })
         }
         .overlay {
             if viewModel.showDiscardAlert {

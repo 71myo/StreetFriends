@@ -86,7 +86,8 @@ struct HomeView: View {
                     Button { viewModel.isSearching = true }
                     label: { Image(.search) }.accessibilityLabel("검색")
                     
-                    Button { router.push(.addCatChoice) } label: { Image(.addCatData) }
+                    Button { router.push(.addCatChoice) }
+                    label: { Image(.addCatData) }.accessibilityLabel("추억쌓기")
                 }
             })
         }
