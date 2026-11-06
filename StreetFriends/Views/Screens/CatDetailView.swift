@@ -93,7 +93,7 @@ struct CatDetailView: View {
                             NavigationLink {
                                 CatDetailEditView(cat: viewModel.cat)
                             } label: {
-                                Text("프로필 수정")
+                                Text("친구 수정")
                             }
                             
                             if let item = viewModel.shareItem,
@@ -102,7 +102,7 @@ struct CatDetailView: View {
                                 ShareLink(item: item,
                                           message: Text("귀여운 친구 \(viewModel.cat.name)의 프로필을 확인해 보세요!"),
                                           preview: SharePreview("🐾 \(viewModel.cat.name) 🐾", image: Image(uiImage: preview))
-                                ) { Text("프로필 공유") }
+                                ) { Text("친구 공유") }
                             }
                             
                             Button("친구 삭제") {
