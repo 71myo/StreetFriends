@@ -100,7 +100,7 @@ struct CatDetailView: View {
                                let data = viewModel.cat.profilePhoto,
                                let preview = UIImage(data: data) {
                                 ShareLink(item: item,
-                                          message: Text("귀여운 친구 \(viewModel.cat.name)의 프로필을 확인해 보세요!"),
+                                          message: Text("귀여운 친구 \(viewModel.cat.name)\(viewModel.cat.name.eulReul) 소개할게요!"),
                                           preview: SharePreview("🐾 \(viewModel.cat.name) 🐾", image: Image(uiImage: preview))
                                 ) { Text("친구 공유") }
                             }
