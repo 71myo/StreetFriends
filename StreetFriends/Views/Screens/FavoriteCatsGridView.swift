@@ -35,7 +35,10 @@ struct FavoriteCatsGridView: View {
                 Button { dismiss() }
                 label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
             },
-                          trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
+                          trailing: {
+                Button { viewModel.isSearching = true }
+                label: { Image(.search) }.accessibilityLabel("검색")
+            })
         }
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
