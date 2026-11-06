@@ -55,7 +55,11 @@ struct EncounterInputView: View {
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: viewModel.title,
-                          leading: { Button { dismiss() } label: { Image(.chevronLeft) } }, trailing: {})
+                          leading: {
+                Button { dismiss() }
+                label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
+            },
+                          trailing: {})
         }
         .safeAreaInset(edge: .bottom) {
             PrimaryButton(kind: .save, isEnabled: viewModel.canSave && !viewModel.isSaving) {

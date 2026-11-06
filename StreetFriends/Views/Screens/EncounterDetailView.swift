@@ -82,7 +82,7 @@ struct EncounterDetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
-                }
+                }.accessibilityLabel("뒤로 가기")
             },
                           trailing: {
                 HStack(spacing: 4) {
