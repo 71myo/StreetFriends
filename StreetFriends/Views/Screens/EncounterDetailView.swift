@@ -111,7 +111,7 @@ struct EncounterDetailView: View {
                             ) { Text("추억 공유") }
                         }
                         
-                        Button("삭제하기") {
+                        Button("추억 삭제") {
                             showDeleteAlert = true
                         }
                     } label: {
