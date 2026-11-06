@@ -106,12 +106,12 @@ struct EncounterDetailView: View {
                         if let item = viewModel.shareItem,
                            let preview = UIImage(data: viewModel.photoData) {
                             ShareLink(item: item,
-                                      preview: SharePreview("길에서 만난 소중한 친구 \(viewModel.catName)\(viewModel.catName.eulReul) 기록했어요 🐾",
+                                      preview: SharePreview("길에서 만난 소중한 친구 \(viewModel.catName)\(viewModel.catName.waGwa)의 추억이에요 🐾",
                                       image: Image(uiImage: preview))
                             ) { Text("추억 공유") }
                         }
                         
-                        Button("삭제하기") {
+                        Button("추억 삭제") {
                             showDeleteAlert = true
                         }
                     } label: {

@@ -30,14 +30,14 @@ struct EncounterDetailEditView: View {
                     
                     // MARK: - 기록 섹션
                     VStack(spacing: 4) {
-                        SectionHeaderView(type: .plain, title: "기록", destination: {})
+                        SectionHeaderView(type: .plain, title: "친구 일지", destination: {})
                         NoteEditorCard(text: $viewModel.note)
                             .frame(height: 183)
                     }
                     
                     // MARK: - 날짜 섹션
                     VStack(alignment: .leading, spacing: 4) {
-                        SectionHeaderView(type: .plain, title: "날짜", destination: {})
+                        SectionHeaderView(type: .plain, title: "마주친 날", destination: {})
                         
                         DatePickerRow(date: $viewModel.date)
                     }

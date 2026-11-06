@@ -22,7 +22,7 @@ struct CustomAlert: View {
             return "\(name)\(name.eulReul) 친구에서 삭제할까요?"
         
         case .deleteEncounter:
-            return "이 기록을 삭제할까요?"
+            return "이 추억을 삭제할까요?"
             
         case .save:
             return "저장하지 않고 뒤로 가시나요?"

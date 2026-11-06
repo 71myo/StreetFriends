@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NoteEditorCard: View {
     @Binding var text: String
-    var placeholder: String = "친구와의 만남을 기록해보세요."
+    var placeholder: String = "친구와의 추억을 남겨 보세요."
     var maxCount: Int = 150
     
     var body: some View {
