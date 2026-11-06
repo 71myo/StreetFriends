@@ -28,8 +28,8 @@ struct CatNameInputView: View {
                 
                 AppInputField(
                     text: $name,
-                    placeholder: "8글자 이하의 이름을 입력하세요.",
-                    maxLength: 8,
+                    placeholder: "\(Cat.nameMaxLength)글자 이하의 이름을 입력하세요.",
+                    maxLength: Cat.nameMaxLength,
                     externalFocus: $nameFocused) { _ in }
                     .padding(10)
                     .frame(height: 44)
