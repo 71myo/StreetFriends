@@ -42,3 +42,9 @@ final class Cat: Identifiable {
         if firstMetDate == nil { firstMetDate = encounter.date }
     }
 }
+
+// MARK: - RULES
+extension Cat {
+    /// 고양이 이름 최대 글자 수
+    static let nameMaxLength = 6
+}
