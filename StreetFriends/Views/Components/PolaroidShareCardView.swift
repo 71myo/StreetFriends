@@ -84,7 +84,7 @@ struct PolaroidShareCardView: View {
                     
                     Spacer()
                     
-                    Text("\(date.formattedDotYM) 첫 만남")
+                    Text("\(date.formattedDotYM) 첫만남")
                         .font(.pretendard(.medium, size: 14))
                         .foregroundStyle(.netural30)
                 }
