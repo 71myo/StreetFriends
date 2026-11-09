@@ -22,6 +22,7 @@ struct AppInputField: View {
     private var appliedFocus: FocusState<Bool>.Binding {
         externalFocus ?? $internalFocus
     }
+    @ScaledMetric(relativeTo: .body) private var clearIconSize: CGFloat = 20
     
     // MARK: - BODY
     var body: some View {
@@ -45,8 +46,12 @@ struct AppInputField: View {
                     text = ""
                 } label: {
                     Image(systemName: "xmark.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: clearIconSize, height: clearIconSize)
                         .foregroundStyle(.netural30)
-                        .frame(width: 28, height: 28)
+                        .frame(width: clearIconSize + 8, height: clearIconSize + 8) // 누르는 영역
+                        .contentShape(Rectangle())
                 }
             }
         } //: HSTACK
