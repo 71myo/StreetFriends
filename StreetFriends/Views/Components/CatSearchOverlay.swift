@@ -31,6 +31,7 @@ struct CatSearchOverlay: View {
                         isPresented = false
                         searchText = ""
                     }
+                    .accessibilityHidden(true)
                 
                 VStack(spacing: 0) {
                     // 상단 검색바
@@ -66,6 +67,11 @@ struct CatSearchOverlay: View {
                     }
                 }
                 .transition(.move(edge: .top))
+            }
+            .accessibilityAddTraits(.isModal)
+            .accessibilityAction(.escape) {
+                isPresented = false
+                searchText = ""
             }
         }
     }

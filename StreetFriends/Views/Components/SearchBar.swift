@@ -19,6 +19,7 @@ struct SearchBar: View {
                 HStack(spacing: 8) {
                     Image(.search)
                         .foregroundStyle(.netural40)
+                        .accessibilityHidden(true)
                     
                     AppInputField(text: $searchText,
                                   placeholder: "친구 검색",
