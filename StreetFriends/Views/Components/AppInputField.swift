@@ -53,6 +53,7 @@ struct AppInputField: View {
                         .frame(width: clearIconSize + 8, height: clearIconSize + 8) // 누르는 영역
                         .contentShape(Rectangle())
                 }
+                .accessibilityLabel("입력 내용 지우기")
             }
         } //: HSTACK
         .task { if autoFocus { appliedFocus.wrappedValue = true } }
