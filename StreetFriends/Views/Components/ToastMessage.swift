@@ -11,21 +11,21 @@ struct ToastMessage: View {
     enum Kind: Equatable {
         case registerCat(name: String)
         case addEncounter(name: String)
+        
+        var message: String {
+            switch self {
+            case .registerCat(let name):
+                return "\(name)\(name.eulReul) 친구로 등록했어요"
+            case .addEncounter(let name):
+                return "\(name)\(name.waGwa)의 추억을 쌓았어요"
+            }
+        }
     }
     
     let kind: Kind
     
-    private var message: String {
-        switch kind {
-        case .registerCat(let name):
-            return "\(name)\(name.eulReul) 친구로 등록했어요"
-        case .addEncounter(let name):
-            return "\(name)\(name.waGwa)의 추억을 쌓았어요"
-        }
-    }
-    
     var body: some View {
-        Text(message)
+        Text(kind.message)
             .font(.pretendard(.medium, size: 16))
             .foregroundStyle(.netural20)
             .frame(maxWidth: .infinity, minHeight: 48)
