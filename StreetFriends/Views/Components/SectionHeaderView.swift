@@ -27,6 +27,7 @@ struct SectionHeaderView<Destination: View>: View {
                 .font(.pretendard(.semiBold, size: 18))
                 .foregroundStyle(.netural80)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityAddTraits(.isHeader)
             
         case .navigation:
             NavigationLink {
@@ -43,6 +44,7 @@ struct SectionHeaderView<Destination: View>: View {
                         .frame(width: 24, height: 24)
                         .foregroundStyle(.netural40)
                 }
+                .accessibilityAddTraits(.isHeader)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
