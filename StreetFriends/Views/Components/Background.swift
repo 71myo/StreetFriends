@@ -23,6 +23,7 @@ struct Background: View {
                 .ignoresSafeArea(.all)
                 .ignoresSafeArea(.keyboard)
         } //: GEOMETRY
+        .accessibilityHidden(true)
     }
 }
 

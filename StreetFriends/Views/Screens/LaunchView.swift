@@ -18,6 +18,7 @@ struct LaunchView: View {
                     .scaledToFill()
                     .frame(height: proxy.size.height + proxy.safeAreaInsets.top + proxy.safeAreaInsets.bottom)
                     .ignoresSafeArea()
+                    .accessibilityHidden(true)
                 
                 LaunchAssetView(geometry: proxy, imageName: "effectExclamation",
                                 widthMultiplier: 0.045, xOffsetMultiplier: -0.28, yOffsetMultiplier: -0.56,

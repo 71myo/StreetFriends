@@ -43,6 +43,7 @@ struct CatSearchOverlay: View {
                                 .resizable()
                                 .scaledToFill()
                                 .ignoresSafeArea(.keyboard)
+                                .accessibilityHidden(true)
                             
                             if results.isEmpty {
                                 SearchEmptyView()

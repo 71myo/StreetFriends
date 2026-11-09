@@ -15,8 +15,10 @@ struct EmptyCatView: View {
                     .font(.pretendard(.medium, size: 18))
                     .foregroundStyle(.netural40)
                     .offset(y: 8)
+                    .accessibilityHidden(true)
                 
                 Image(.arrowToPlus)
+                    .accessibilityHidden(true)
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
             .padding(.top, 11)
@@ -27,6 +29,7 @@ struct EmptyCatView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 142, height: 142)
+                .accessibilityHidden(true)
             
             Text("화면을 왼쪽으로 당겨\n친구를 추가해 보세요.")
                 .font(.pretendard(.medium, size: 18))
