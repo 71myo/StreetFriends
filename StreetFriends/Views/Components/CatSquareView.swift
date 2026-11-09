@@ -23,6 +23,11 @@ struct CatSquareView: View {
         return false
     }
     
+    private var favoriteValue: String {
+        if case let .favorite(isOn, _, _) = type, isOn { return "즐겨찾는 친구" }
+        return ""
+    }
+    
     // MARK: - BODY
     var body: some View {
         Color.clear
@@ -46,6 +51,7 @@ struct CatSquareView: View {
                     } label: {
                         Image(isOn ? .selectTrue : .selectFalse)
                     }
+                    .accessibilityHidden(true)
                     .offset(x: -5, y: 5)
                 }
             }
@@ -58,6 +64,8 @@ struct CatSquareView: View {
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            .accessibilityElement(children: .combine)
+            .accessibilityValue(favoriteValue)
     }
 }
 
