@@ -57,7 +57,8 @@ struct EncounterInputView: View {
             NavigationBar(title: viewModel.title,
                           leading: {
                 Button { dismiss() }
-                label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
+                label: { Image(.chevronLeft) }
+                    .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {})
         }

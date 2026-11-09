@@ -72,11 +72,13 @@ struct CatDetailEditView: View {
                           style: .clear,
                           leading: {
                 Button { viewModel.onTapBack() }
-                label: { Image(.chevronLeftPaper) }.accessibilityLabel("뒤로 가기")
+                label: { Image(.chevronLeftPaper) }
+                    .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {
                 Button { isPickingPhoto = true }
-                label: { Image(.addCatPicturePaper) }.accessibilityLabel("사진 변경")
+                label: { Image(.addCatPicturePaper) }
+                    .barIconAccessibility("사진 변경", image: .addCatPicture)
             })
         }
         .overlay {

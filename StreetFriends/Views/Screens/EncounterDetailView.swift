@@ -83,7 +83,8 @@ struct EncounterDetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
-                }.accessibilityLabel("뒤로 가기")
+                }
+                .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {
                 HStack(spacing: 4) {
@@ -96,7 +97,7 @@ struct EncounterDetailView: View {
                             .scaledToFit()
                             .frame(width: 24, height: 24)
                     }
-                    .accessibilityLabel("즐겨찾기")
+                    .barIconAccessibility("즐겨찾기", systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
                     .accessibilityAddTraits(viewModel.isFavorite ? .isSelected : [])
                     
                     Menu {
@@ -122,7 +123,8 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                    }.accessibilityLabel("더보기")
+                    }
+                    .barIconAccessibility("더보기", image: .more)
                 }
             })
         }

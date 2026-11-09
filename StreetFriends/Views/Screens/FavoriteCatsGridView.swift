@@ -33,11 +33,13 @@ struct FavoriteCatsGridView: View {
             NavigationBar(title: "즐겨찾는 친구",
                           leading: {
                 Button { dismiss() }
-                label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
+                label: { Image(.chevronLeft) }
+                    .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {
                 Button { viewModel.isSearching = true }
-                label: { Image(.search) }.accessibilityLabel("검색")
+                label: { Image(.search) }
+                    .barIconAccessibility("검색", image: .search)
             })
         }
         .overlay(alignment: .top) {

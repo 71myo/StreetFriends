@@ -66,7 +66,8 @@ struct AddCatChoiceView: View {
                           style: .clear,
                           leading: {
                 Button { router.pop() }
-                label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
+                label: { Image(.chevronLeft) }
+                    .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {})
         }

@@ -79,7 +79,8 @@ struct CatDetailView: View {
                 style: isCollapsed ? .solid : .clear,
                 leading: {
                     Button { dismiss() }
-                    label: { Image(.chevronLeftPaper) }.accessibilityLabel("뒤로 가기")
+                    label: { Image(.chevronLeftPaper) }
+                        .barIconAccessibility("뒤로 가기", image: .chevronLeft)
                 },
                 trailing: {
                     HStack(spacing: 12) {
@@ -92,7 +93,7 @@ struct CatDetailView: View {
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
                         }
-                        .accessibilityLabel("즐겨찾기")
+                        .barIconAccessibility("즐겨찾기", systemImage: viewModel.cat.isFavorite ? "heart.fill" : "heart")
                         .accessibilityAddTraits(viewModel.cat.isFavorite ? .isSelected : [])
                         Menu {
                             NavigationLink {
@@ -115,7 +116,8 @@ struct CatDetailView: View {
                             }
                         } label: {
                             Image(.morePaper)
-                        }.accessibilityLabel("더보기")
+                        }
+                        .barIconAccessibility("더보기", image: .more)
                     }
                 }
             )
