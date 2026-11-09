@@ -66,6 +66,8 @@ struct CatDetailHeader: View {
                     }
                 }
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(info.map { "\($0.name) 사진, \($0.firstMetDateText)" } ?? "친구 사진")
     }
 }
 

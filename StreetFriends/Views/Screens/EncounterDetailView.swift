@@ -41,6 +41,7 @@ struct EncounterDetailView: View {
                                 .frame(width: geo.size.width, height: 335)
                                 .clipped()
                         }
+                        .accessibilityLabel("\(viewModel.catName)\(viewModel.catName.waGwa)의 추억 사진")
                     }
                     .frame(height: 335)
                     .padding(.top, 4)
