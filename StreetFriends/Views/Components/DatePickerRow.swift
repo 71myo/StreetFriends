@@ -17,7 +17,7 @@ struct DatePickerRow: View {
             .padding(12)
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 6))
-            .frame(height: 40)
+            .frame(minHeight: 40)
             .overlay(alignment: .trailing) {
                 DatePicker("", selection: $date,
                            in: ...Date(), // 미래 날짜 선택 방지

@@ -28,7 +28,7 @@ struct SearchBar: View {
                     }
                 } //: HSTACK(서치 부분)
                 .padding(10)
-                .frame(height: 44)
+                .frame(minHeight: 44)
                 .background(Color.netural10)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 

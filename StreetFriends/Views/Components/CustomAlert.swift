@@ -120,7 +120,7 @@ struct CustomAlert: View {
                     
                     Spacer()
                 } //: HSTACK
-                .frame(height: 44)
+                .frame(minHeight: 44)
             } //: VSTACK
             .background(.white, in: RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 52)

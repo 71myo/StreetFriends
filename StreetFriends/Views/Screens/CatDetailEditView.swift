@@ -41,7 +41,7 @@ struct CatDetailEditView: View {
                                       autoFocus: false,
                                       externalFocus: $nameFocused) { _ in }
                             .padding(10)
-                            .frame(height: 44)
+                            .frame(minHeight: 44)
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                     }
