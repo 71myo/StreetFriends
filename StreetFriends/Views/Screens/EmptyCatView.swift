@@ -35,6 +35,7 @@ struct EmptyCatView: View {
                 .font(.pretendard(.medium, size: 18))
                 .foregroundStyle(.netural40)
                 .padding(.top, 26)
+                .accessibilityHidden(true)
             
             Spacer()
             Spacer()
