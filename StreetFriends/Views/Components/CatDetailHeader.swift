@@ -10,7 +10,7 @@ import SwiftUI
 struct CatDetailHeader: View {
     struct Info {
         let name: String
-        let firstMetDateText: String
+        let firstMetDate: String
     }
     
     enum Mode {
@@ -57,9 +57,16 @@ struct CatDetailHeader: View {
                             
                             Spacer()
                             
-                            Text(info.firstMetDateText)
+                            ViewThatFits(in: .horizontal) {
+                                Text("첫만남: \(info.firstMetDate)")
+                                    .lineLimit(1)
+                                
+                                Text("첫만남:\n\(info.firstMetDate)")
+                                    .multilineTextAlignment(.trailing)
+                            }
                                 .font(.pretendard(.medium, size: 16))
                         }
+                        .dynamicTypeSize(...DynamicTypeSize.accessibility3)
                         .padding(.horizontal, 20)
                         .foregroundStyle(.netural10)
                         .padding(.bottom, 13)
@@ -67,11 +74,11 @@ struct CatDetailHeader: View {
                 }
         }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(info.map { "\($0.name) 사진, \($0.firstMetDateText)" } ?? "친구 사진")
+        .accessibilityLabel(info.map { "\($0.name) 사진, 첫만남 \($0.firstMetDate)" } ?? "친구 사진")
     }
 }
 
 #Preview {
     let cat: Cat = .previewOne
-    CatDetailHeader(imageData: cat.profilePhoto, mode: .fixed(maxHeight: 284), info: .init(name: cat.name, firstMetDateText: "첫만남 : \(cat.firstMetDate?.yearMonthKR ?? "미정")"))
+    CatDetailHeader(imageData: cat.profilePhoto, mode: .fixed(maxHeight: 284), info: .init(name: cat.name, firstMetDate: "첫만남: \(cat.firstMetDate?.yearMonthKR ?? "미정")"))
 }

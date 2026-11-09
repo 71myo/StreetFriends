@@ -61,6 +61,7 @@ struct CatSquareView: View {
                         .font(.pretendard(.medium, size: 16))
                         .foregroundStyle(.white)
                         .offset(x: 5, y: -5)
+                        .dynamicTypeSize(...DynamicTypeSize.xxLarge)
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))

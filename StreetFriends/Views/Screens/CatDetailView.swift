@@ -36,7 +36,7 @@ struct CatDetailView: View {
                 CatDetailHeader(imageData: viewModel.cat.profilePhoto,
                                 mode: .dynamic(maxHeight: 284, fadeProgress: progress),
                                 info: .init(name: viewModel.cat.name,
-                                            firstMetDateText: "첫만남 : \(viewModel.cat.firstMetDate?.yearMonthKR ?? "미정")"))
+                                            firstMetDate: viewModel.cat.firstMetDate?.yearMonthKR ?? "미정"))
             } content: {
                 // MARK: - CONTENT
                 VStack(spacing: 40) {
