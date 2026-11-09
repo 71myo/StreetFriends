@@ -91,7 +91,9 @@ struct CatDetailView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                        }.accessibilityLabel("즐겨찾기")
+                        }
+                        .accessibilityLabel("즐겨찾기")
+                        .accessibilityAddTraits(viewModel.cat.isFavorite ? .isSelected : [])
                         Menu {
                             NavigationLink {
                                 CatDetailEditView(cat: viewModel.cat)

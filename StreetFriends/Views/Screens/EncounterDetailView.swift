@@ -95,7 +95,9 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                    }.accessibilityLabel("즐겨찾기")
+                    }
+                    .accessibilityLabel("즐겨찾기")
+                    .accessibilityAddTraits(viewModel.isFavorite ? .isSelected : [])
                     
                     Menu {
                         NavigationLink {
