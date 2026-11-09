@@ -79,13 +79,15 @@ struct CustomAlert: View {
                 VStack(spacing: 5) {
                     Text(title)
                         .font(.pretendard(.semiBold, size: 17))
+                        .fixedSize(horizontal: false, vertical: true)
                         .accessibilityAddTraits(.isHeader)
                         .accessibilityFocused($isTitleFocused)
                     
                     Text(message)
                         .font(.pretendard(.regular, size: 13))
-                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+                .multilineTextAlignment(.center)
                 .padding(.vertical, 20)
                 
                 Divider()
@@ -120,7 +122,8 @@ struct CustomAlert: View {
                     
                     Spacer()
                 } //: HSTACK
-                .frame(height: 44)
+                .frame(minHeight: 44)
+                .fixedSize(horizontal: false, vertical: true)
             } //: VSTACK
             .background(.white, in: RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 52)

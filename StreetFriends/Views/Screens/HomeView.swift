@@ -84,10 +84,12 @@ struct HomeView: View {
                           trailing: {
                 HStack(spacing: 12) {
                     Button { viewModel.isSearching = true }
-                    label: { Image(.search) }.accessibilityLabel("검색")
+                    label: { Image(.search) }
+                        .barIconAccessibility("검색", image: .search)
                     
                     Button { router.push(.addCatChoice) }
-                    label: { Image(.addCatData) }.accessibilityLabel("추억쌓기")
+                    label: { Image(.addCatData) }
+                        .barIconAccessibility("추억쌓기", image: .addCatData)
                 }
             })
         }

@@ -26,6 +26,7 @@ struct PhotoPickerCard: View {
     }
     
     @State private var photoItem: PhotosPickerItem?
+    @ScaledMetric(relativeTo: .body) private var changeIconSize: CGFloat = 24
     
     var body: some View {
         Group {
@@ -41,11 +42,11 @@ struct PhotoPickerCard: View {
                                 Image(.addCatPicturePaper)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 24, height: 24)
+                                    .frame(width: changeIconSize, height: changeIconSize)
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 10)
                                     .contentShape(Rectangle()) // 탭 범위 보장
-                            }
+                            }.accessibilityLabel("사진 변경")
                         }
                     }
             }

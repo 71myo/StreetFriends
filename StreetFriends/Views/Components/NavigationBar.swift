@@ -47,6 +47,7 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
                     .foregroundStyle(style == .solid ? .netural80 : .white)
             }
         }
+        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
         .padding(.horizontal, 18)
         .padding(.vertical, 10)
         .frame(maxWidth: .infinity, minHeight: 44)
