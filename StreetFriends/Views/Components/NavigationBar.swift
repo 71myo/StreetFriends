@@ -36,6 +36,8 @@ struct NavigationBar<LeadingContent: View, TrailingContent: View>: View {
             Text(title)
                 .font(.pretendard(.semiBold, size: 18))
                 .foregroundStyle(style == .solid ? .netural80 : .white)
+                .accessibilityAddTraits(.isHeader)
+                .accessibilityHidden(title.isEmpty)
             
             HStack {
                 leadingContent

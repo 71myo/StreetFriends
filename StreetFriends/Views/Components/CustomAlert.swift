@@ -65,10 +65,13 @@ struct CustomAlert: View {
     let leftAction: () -> Void
     let rightAction: () -> Void
     
+    @AccessibilityFocusState private var isTitleFocused: Bool
+    
     var body: some View {
         ZStack {
             Color.black.opacity(0.3)
                 .ignoresSafeArea()
+                .accessibilityHidden(true)
             
             // ALERT
             VStack(spacing: 0) {
@@ -76,6 +79,8 @@ struct CustomAlert: View {
                 VStack(spacing: 5) {
                     Text(title)
                         .font(.pretendard(.semiBold, size: 17))
+                        .accessibilityAddTraits(.isHeader)
+                        .accessibilityFocused($isTitleFocused)
                     
                     Text(message)
                         .font(.pretendard(.regular, size: 13))
@@ -119,6 +124,14 @@ struct CustomAlert: View {
             } //: VSTACK
             .background(.white, in: RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 52)
+            .accessibilityAddTraits(.isModal)
+        }
+        .onAppear {
+            isTitleFocused = true
+        }
+        .accessibilityAction(.escape) {
+            isPresented = false
+            rightAction()
         }
     }
 }

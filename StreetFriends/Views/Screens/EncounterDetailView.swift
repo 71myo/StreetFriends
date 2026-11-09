@@ -41,6 +41,7 @@ struct EncounterDetailView: View {
                                 .frame(width: geo.size.width, height: 335)
                                 .clipped()
                         }
+                        .accessibilityLabel("\(viewModel.catName)\(viewModel.catName.waGwa)의 추억 사진")
                     }
                     .frame(height: 335)
                     .padding(.top, 4)
@@ -82,7 +83,7 @@ struct EncounterDetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
-                }
+                }.accessibilityLabel("뒤로 가기")
             },
                           trailing: {
                 HStack(spacing: 4) {
@@ -95,6 +96,8 @@ struct EncounterDetailView: View {
                             .scaledToFit()
                             .frame(width: 24, height: 24)
                     }
+                    .accessibilityLabel("즐겨찾기")
+                    .accessibilityAddTraits(viewModel.isFavorite ? .isSelected : [])
                     
                     Menu {
                         NavigationLink {
@@ -119,7 +122,7 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
-                    }
+                    }.accessibilityLabel("더보기")
                 }
             })
         }

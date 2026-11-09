@@ -52,8 +52,14 @@ struct CatSelectView: View {
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "추억쌓기",
-                          leading: { Button { dismiss() } label: {Image(.chevronLeft)} },
-                          trailing: { Button { viewModel.isSearching = true } label: { Image(.search) } })
+                          leading: {
+                Button { dismiss() }
+                label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
+            },
+                          trailing: {
+                Button { viewModel.isSearching = true }
+                label: { Image(.search) }.accessibilityLabel("검색")
+            })
         }
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,

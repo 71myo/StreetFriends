@@ -37,6 +37,8 @@ struct EmptyCatView: View {
             Spacer()
         }
         .padding(.horizontal, 20)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("아직 등록한 친구가 없어요. 추억쌓기 버튼을 눌러 친구를 추가해 보세요.")
     }
 }
 

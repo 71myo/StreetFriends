@@ -70,8 +70,14 @@ struct CatDetailEditView: View {
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "",
                           style: .clear,
-                          leading: { Button { viewModel.onTapBack() } label: { Image(.chevronLeftPaper) } },
-                          trailing: { Button { isPickingPhoto = true } label: { Image(.addCatPicturePaper) } })
+                          leading: {
+                Button { viewModel.onTapBack() }
+                label: { Image(.chevronLeftPaper) }.accessibilityLabel("뒤로 가기")
+            },
+                          trailing: {
+                Button { isPickingPhoto = true }
+                label: { Image(.addCatPicturePaper) }.accessibilityLabel("사진 변경")
+            })
         }
         .overlay {
             if viewModel.showDiscardAlert {

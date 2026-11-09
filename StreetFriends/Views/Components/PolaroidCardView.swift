@@ -18,6 +18,24 @@ struct PolaroidCardView<Destination: View>: View {
     let info: PolaroidInfo
     @ViewBuilder var destination: () -> Destination
     
+    private var accessibilityText: String {
+        switch info {
+        case .home(_, _, let catName, let count):
+            return "\(catName)\(catName.waGwa) 30일간 \(count)번 마주쳤어요"
+        case .detail(_, _, let note, let date):
+            return "\(date.formatted(date: .long, time: .omitted)), \(note)"
+        }
+    }
+    
+    private var inputLabels: [String] { // 음성 제어용 짧은 이름
+        switch info {
+        case .home(_, _, let catName, _):
+            return [catName]
+        case .detail(_, _, _, let date):
+            return [date.formatted(date: .long, time: .omitted)]
+        }
+    }
+    
     // MARK: - BODY
     var body: some View {
         NavigationLink {
@@ -37,6 +55,9 @@ struct PolaroidCardView<Destination: View>: View {
                 .padding(16)
             } //: ZSTACK
             .frame(maxWidth: .infinity)
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel(accessibilityText)
+            .accessibilityInputLabels(inputLabels)
         }
     }
     

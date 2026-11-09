@@ -44,7 +44,10 @@ struct CatNameInputView: View {
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "추억쌓기",
                           style: .clear,
-                          leading: { Button { router.pop() } label: { Image(.chevronLeft) } },
+                          leading: {
+                Button { router.pop() }
+                label: { Image(.chevronLeft) }.accessibilityLabel("뒤로 가기")
+            },
                           trailing: {})
         }
         .safeAreaInset(edge: .bottom) {

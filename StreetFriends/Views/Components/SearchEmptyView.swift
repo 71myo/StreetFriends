@@ -11,6 +11,7 @@ struct SearchEmptyView: View {
     var body: some View {
         VStack(spacing: 26) {
             Image(.mysteryCat)
+                .accessibilityHidden(true)
             
             Text("앗, 찾으시는 친구가 없어요.\n맞춤법을 확인하거나 다시 검색해보세요.")
                 .multilineTextAlignment(.center)
