@@ -106,6 +106,7 @@ struct PolaroidCardView<Destination: View>: View {
                 Text("30일간 \(count)번 마주쳤어요")
                     .font(.pretendard(.medium, size: 14))
                     .foregroundStyle(.netural40)
+                    .multilineTextAlignment(.leading)
             }
             .padding(.top, 12)
             

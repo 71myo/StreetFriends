@@ -54,6 +54,7 @@ struct CatDetailHeader: View {
                         HStack(alignment: .bottom) {
                             Text(info.name)
                                 .font(.pretendard(.bold, size: 20))
+                                .multilineTextAlignment(.leading)
                             
                             Spacer()
                             
