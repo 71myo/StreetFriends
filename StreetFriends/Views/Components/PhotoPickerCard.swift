@@ -45,7 +45,7 @@ struct PhotoPickerCard: View {
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 10)
                                     .contentShape(Rectangle()) // 탭 범위 보장
-                            }
+                            }.accessibilityLabel("사진 변경")
                         }
                     }
             }
