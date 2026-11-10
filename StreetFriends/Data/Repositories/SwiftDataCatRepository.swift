@@ -108,8 +108,6 @@ final class SwiftDataCatRepository: CatRepository {
         encounter.photo = photo
         try context.save()
         WidgetCenter.shared.reloadAllTimelines()
-        print("App storeURL:", SharedModelContainer.storeURL.path) // 지울거
-        print(SharedModelContainer.storeURLDebug()) // 지울거
     }
     
     // Notification
