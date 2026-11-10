@@ -136,7 +136,6 @@ struct CustomAlert: View {
         }
         .accessibilityAction(.escape) {
             isPresented = false
-            rightAction()
         }
     }
 }
