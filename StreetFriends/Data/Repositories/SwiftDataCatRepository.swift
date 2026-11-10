@@ -20,7 +20,12 @@ final class SwiftDataCatRepository: CatRepository {
         note: String,
         photoData: Data
     ) throws -> Cat {
-        let cat = Cat(name: name)
+        let normalized = Cat.normalizedName(name)
+        guard try !catNames(excluding: nil).contains(normalized) else {
+            throw CatRepositoryError.duplicateName
+        }
+        
+        let cat = Cat(name: normalized)
         let encounter = Encounter(date: date, note: note, photo: photoData)
         cat.addEncounter(encounter)
         context.insert(cat)
@@ -70,7 +75,11 @@ final class SwiftDataCatRepository: CatRepository {
     }
     
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
-        cat.name = name
+        let normalized = Cat.normalizedName(name)
+        guard try !catNames(excluding: cat.id).contains(normalized) else {
+            throw CatRepositoryError.duplicateName
+        }
+        cat.name = normalized
         cat.firstMetDate = firstMetDate
         cat.profilePhoto = profilePhoto
         try context.save()
