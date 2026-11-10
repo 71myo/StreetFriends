@@ -92,7 +92,8 @@ struct CatDetailEditView: View {
         .overlay {
             if viewModel.showDiscardAlert {
                 CustomAlert(role: .save,
-                            isPresented: $viewModel.showDiscardAlert) {
+                            isPresented: $viewModel.showDiscardAlert,
+                            isRightEnabled: viewModel.canSave) {
                     viewModel.cancelDiscard()
                     dismiss()
                 } rightAction: {

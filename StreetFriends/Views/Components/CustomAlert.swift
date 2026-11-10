@@ -61,6 +61,7 @@ struct CustomAlert: View {
     }
     
     @Binding var isPresented: Bool
+    var isRightEnabled: Bool = true
     
     let leftAction: () -> Void
     let rightAction: () -> Void
@@ -119,6 +120,7 @@ struct CustomAlert: View {
                         Text(rightTitle)
                             .font(.pretendard(.regular, size: 17))
                     }
+                    .disabled(!isRightEnabled)
                     
                     Spacer()
                 } //: HSTACK
