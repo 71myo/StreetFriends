@@ -42,6 +42,7 @@ struct AllCatsGridView: View {
                     .barIconAccessibility("검색", image: .search)
             })
         }
+        .accessibilityHidden(viewModel.isSearching)
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
