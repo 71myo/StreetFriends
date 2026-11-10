@@ -83,11 +83,12 @@ struct EncounterDetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
+                        .barIconTapArea()
                 }
                 .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {
-                HStack(spacing: 4) {
+                HStack(spacing: 0) {
                     Button {
                         Haptic.favoriteToggled()
                         viewModel.toggleFavorite(using: catRepository)
@@ -96,6 +97,7 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
+                            .barIconTapArea()
                     }
                     .barIconAccessibility("즐겨찾기", systemImage: viewModel.isFavorite ? "heart.fill" : "heart")
                     .accessibilityAddTraits(viewModel.isFavorite ? .isSelected : [])
@@ -123,6 +125,7 @@ struct EncounterDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
+                            .barIconTapArea() 
                     }
                     .barIconAccessibility("더보기", image: .more)
                 }

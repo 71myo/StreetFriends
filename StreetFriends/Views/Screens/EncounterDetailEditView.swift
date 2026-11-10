@@ -60,6 +60,7 @@ struct EncounterDetailEditView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
+                        .barIconTapArea()
                 }
                 .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
