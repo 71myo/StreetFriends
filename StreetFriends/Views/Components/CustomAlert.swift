@@ -72,6 +72,9 @@ struct CustomAlert: View {
         ZStack {
             Color.black.opacity(0.3)
                 .ignoresSafeArea()
+                .onTapGesture {
+                    isPresented = false
+                }
                 .accessibilityHidden(true)
             
             // ALERT
