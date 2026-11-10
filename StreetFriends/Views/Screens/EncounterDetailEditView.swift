@@ -39,7 +39,7 @@ struct EncounterDetailEditView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         SectionHeaderView(type: .plain, title: "마주친 날", destination: {})
                         
-                        DatePickerRow(date: $viewModel.date)
+                        DatePickerRow(title: "마주친 날", date: $viewModel.date)
                     }
                 } //: CONTENTS VSTACK
                 .padding(.horizontal, 20)

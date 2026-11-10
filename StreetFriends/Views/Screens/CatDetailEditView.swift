@@ -49,7 +49,7 @@ struct CatDetailEditView: View {
                     // MARK: - FIRST DATE SECTION
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(type: .plain, title: "첫만남", destination: {})
-                        DatePickerRow(date: $viewModel.firstMetDate)
+                        DatePickerRow(title: "첫만남", date: $viewModel.firstMetDate)
                     }
                 } //: 전체 VSTACK
                 .padding(.horizontal, 20)

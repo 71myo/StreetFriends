@@ -45,7 +45,7 @@ struct EncounterInputView: View {
                     // MARK: - 마주친 날 섹션
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(type: .plain, title: "마주친 날") { }
-                        DatePickerRow(date: $viewModel.date)
+                        DatePickerRow(title: "마주친 날", date: $viewModel.date)
                     }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)

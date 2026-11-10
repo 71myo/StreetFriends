@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DatePickerRow: View {
+    let title: String
     @Binding var date: Date
     
     var body: some View {
@@ -18,8 +19,9 @@ struct DatePickerRow: View {
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: 6))
             .frame(minHeight: 40)
+            .accessibilityHidden(true)
             .overlay(alignment: .trailing) {
-                DatePicker("", selection: $date,
+                DatePicker(title, selection: $date,
                            in: ...Date(), // 미래 날짜 선택 방지
                            displayedComponents: .date)
                 .labelsHidden()
@@ -30,5 +32,5 @@ struct DatePickerRow: View {
 }
 
 #Preview {
-    DatePickerRow(date: .constant(.now))
+    DatePickerRow(title: "마주친 날", date: .constant(.now))
 }
