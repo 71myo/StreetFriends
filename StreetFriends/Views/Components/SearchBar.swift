@@ -37,7 +37,7 @@ struct SearchBar: View {
                     dismissAction()
                 } label: {
                     Text("취소")
-                        .foregroundStyle(.green60)
+                        .foregroundStyle(.green70)
                         .font(.pretendard(.regular, size: 18))
                         .frame(minHeight: 44)
                         .contentShape(Rectangle())
