@@ -40,7 +40,7 @@ struct NoteEditorCard: View {
                 // TEXTEDITOR 우측 하단 글자 수 표기
                 Text("\(text.count)/\(maxCount)")
                     .font(.pretendard(.medium, size: 12))
-                    .foregroundStyle(.netural40)
+                    .foregroundStyle(.netural50)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.trailing, 11)
                     .padding(.bottom, 8)
