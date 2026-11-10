@@ -31,7 +31,7 @@ struct CatDetailEditView: View {
                 VStack(spacing: 40) {
                     // MARK: - CAT HEADER IMAGE
                     CatDetailHeader(imageData: viewModel.currentPhotoData,
-                                    mode: .fixed(maxHeight: 284))
+                                    mode: .dynamic(maxHeight: 284, fadeProgress: 0))
                     .padding(.horizontal, -20)
                     
                     // MARK: - NAME SECTION
@@ -90,7 +90,6 @@ struct CatDetailEditView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 12)
             }
-            .scrollBounceBehavior(.basedOnSize)
             .ignoresSafeArea(edges: .top)
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
