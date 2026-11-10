@@ -23,11 +23,14 @@ struct NoteEditorCard: View {
                     .foregroundStyle(.netural80)
                     .autocorrectionDisabled()
                     .tint(.blue50)
+                    .accessibilityLabel("친구 일지")
+                    .accessibilityHint(text.isEmpty ? placeholder : "")
                     .overlay(alignment: .topLeading) {
                         Text(placeholder)
                             .foregroundStyle(text.isEmpty ? .netural50 : .clear)
                             .font(.pretendard(.regular, size: 16))
                             .offset(x: 5, y: 8)
+                            .accessibilityHidden(true)
                     }
                     .padding(.top, 12)
                     .padding(.horizontal, 12)
@@ -44,6 +47,7 @@ struct NoteEditorCard: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.trailing, 11)
                     .padding(.bottom, 8)
+                    .accessibilityLabel("\(maxCount)자 중 \(text.count)자")
             }
         }
     }
