@@ -18,6 +18,7 @@ struct PhotoPickerCard: View {
     @Binding var imageData: Data?
     
     var style: Style = .input
+    var photoDescription: String = "추억 사진" // 사진에 대한 VoiceOver 설명
     
     private var cornerRadius: CGFloat { style == .input ? 8 : 0 }
     private var hasShadow: Bool { style == .input }
@@ -36,6 +37,8 @@ struct PhotoPickerCard: View {
                 }.accessibilityLabel(hasAnyImage ? "사진 변경" : "사진 추가")
             } else {
                 coreContent
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(photoDescription)
                     .overlay(alignment: .bottomTrailing) {
                         if hasAnyImage {
                             PhotosPicker(selection: $photoItem, matching: .images) {

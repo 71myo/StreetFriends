@@ -13,6 +13,7 @@ struct AddCatChoiceView: View {
     var body: some View {
         ZStack {
             Background(.imgBackground)
+                .dimmedForIncreasedContrast()
             
             VStack(spacing: 0) {
                 Text("어떤 친구를 만났나요?")

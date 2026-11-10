@@ -25,7 +25,8 @@ struct EncounterDetailEditView: View {
             ScrollView {
                 VStack(spacing: 40) {
                     // MARK: - 사진 섹션
-                    PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData, style: .detail)
+                    PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData, style: .detail,
+                                    photoDescription: "\(viewModel.catName)\(viewModel.catName.waGwa)의 추억 사진")
                         .frame(height: 335)
                     
                     // MARK: - 기록 섹션
@@ -39,7 +40,7 @@ struct EncounterDetailEditView: View {
                     VStack(alignment: .leading, spacing: 4) {
                         SectionHeaderView(type: .plain, title: "마주친 날", destination: {})
                         
-                        DatePickerRow(date: $viewModel.date)
+                        DatePickerRow(title: "마주친 날", date: $viewModel.date)
                     }
                 } //: CONTENTS VSTACK
                 .padding(.horizontal, 20)

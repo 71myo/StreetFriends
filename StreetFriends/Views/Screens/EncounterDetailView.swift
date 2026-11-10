@@ -32,6 +32,7 @@ struct EncounterDetailView: View {
                         .font(.pretendard(.medium, size: 16))
                         .foregroundStyle(.netural60)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .accessibilityLabel("마주친 날, \(viewModel.date.formatted(date: .long, time: .omitted))")
                     
                     GeometryReader { geo in
                         DataImage(data: viewModel.photoData, fixedHeight: 335) { img in

@@ -79,14 +79,14 @@ struct PolaroidShareCardView: View {
                 
                 HStack(alignment: .bottom) {
                     Text("총 \(total)번 마주쳤어요")
-                        .font(.pretendard(.medium, size: 16))
-                        .foregroundStyle(.netural40)
+                        .font(.pretendard(.regular, size: 16))
+                        .foregroundStyle(.netural50)
                     
                     Spacer()
                     
                     Text("\(date.formattedDotYM) 첫만남")
-                        .font(.pretendard(.medium, size: 14))
-                        .foregroundStyle(.netural30)
+                        .font(.pretendard(.regular, size: 14))
+                        .foregroundStyle(.netural40)
                 }
             }
             
@@ -99,8 +99,8 @@ struct PolaroidShareCardView: View {
                     .multilineTextAlignment(.leading)
                 
                 Text(date.formattedDot)
-                    .font(.pretendard(.medium, size: 14))
-                    .foregroundStyle(.netural30)
+                    .font(.pretendard(.regular, size: 14))
+                    .foregroundStyle(.netural40)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }

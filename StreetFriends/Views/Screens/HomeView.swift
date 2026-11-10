@@ -93,6 +93,7 @@ struct HomeView: View {
                 }
             })
         }
+        .accessibilityHidden(viewModel.isSearching)
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,

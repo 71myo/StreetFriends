@@ -15,7 +15,7 @@ struct SearchEmptyView: View {
             
             Text("앗, 찾으시는 친구가 없어요.\n맞춤법을 확인하거나 다시 검색해보세요.")
                 .multilineTextAlignment(.center)
-                .foregroundStyle(.netural40)
+                .foregroundStyle(.netural50)
                 .font(.pretendard(.medium, size: 18))
         }
         .padding(.top, 120)

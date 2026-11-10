@@ -36,7 +36,7 @@ struct AppInputField: View {
                 }
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
-                .tint(.green60)
+                .tint(.green70)
                 .font(.pretendard(.regular, size: fontSize))
             
             Spacer()

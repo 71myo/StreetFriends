@@ -14,7 +14,7 @@ struct CatSearchRow: View {
     private var highlightedName: AttributedString {
         var a = AttributedString(cat.name)
         a.foregroundColor = .netural60
-        a.font = .pretendard(.regular, size: 14)
+        a.font = .pretendard(.regular, size: 16)
 
         let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !q.isEmpty else { return a }
@@ -24,7 +24,7 @@ struct CatSearchRow: View {
            let lo = AttributedString.Index(r.lowerBound, within: a),
            let up = AttributedString.Index(r.upperBound, within: a) {
             a[lo..<up].foregroundColor = .blue60
-            a[lo..<up].font = .pretendard(.medium, size: 14)
+            a[lo..<up].font = .pretendard(.semiBold, size: 16)
             return a
         }
 
@@ -33,7 +33,7 @@ struct CatSearchRow: View {
            let lo = AttributedString.Index(r2.lowerBound, within: a),
            let up = AttributedString.Index(r2.upperBound, within: a) {
             a[lo..<up].foregroundColor = .blue60
-            a[lo..<up].font = .pretendard(.medium, size: 14)
+            a[lo..<up].font = .pretendard(.semiBold, size: 16)
         }
         return a
     }
