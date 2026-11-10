@@ -9,10 +9,13 @@ import SwiftUI
 
 struct CatNameInputView: View {
     // MARK: - PROPERTIES
+    @Environment(\.catRepository) private var catRepository
     @Environment(Router.self) private var router
     @State private var name: String = ""
-    private var trimmedName: String { name.trimmingCharacters(in: .whitespacesAndNewlines) }
-    private var canGoNext: Bool { !trimmedName.isEmpty }
+    @State private var existingNames: Set<String> = []
+    private var trimmedName: String { Cat.normalizedName(name) }
+    private var isDuplicate: Bool { existingNames.contains(trimmedName) }
+    private var canGoNext: Bool { !trimmedName.isEmpty && !isDuplicate }
     @FocusState private var nameFocused: Bool
     
     // MARK: - BODY
@@ -28,16 +31,21 @@ struct CatNameInputView: View {
                         .font(.pretendard(.semiBold, size: 24))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true) // 세로로 줄이지 않기
-                    
-                    AppInputField(
-                        text: $name,
-                        placeholder: "\(Cat.nameMaxLength)글자 이하의 이름을 입력하세요.",
-                        maxLength: Cat.nameMaxLength,
-                        externalFocus: $nameFocused) { _ in }
-                        .padding(10)
-                        .frame(minHeight: 44)
-                        .background(Color.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    VStack(spacing: 8) {
+                        AppInputField(
+                            text: $name,
+                            placeholder: "\(Cat.nameMaxLength)글자 이하의 이름을 입력하세요.",
+                            maxLength: Cat.nameMaxLength,
+                            externalFocus: $nameFocused) { _ in }
+                            .padding(10)
+                            .frame(minHeight: 44)
+                            .background(Color.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        
+                        if isDuplicate {
+                            DuplicateNameNotice()
+                        }
+                    }
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
@@ -66,10 +74,14 @@ struct CatNameInputView: View {
         .onAppear {
             name = trimmedName
         }
+        .task {
+            existingNames = (try? catRepository.catNames(excluding: nil)) ?? []
+        }
     }
 }
 
 #Preview {
     CatNameInputView()
         .environment(Router())
+        .environment(\.catRepository, PreviewCatRepository())
 }
