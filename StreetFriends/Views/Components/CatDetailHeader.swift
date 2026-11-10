@@ -13,30 +13,22 @@ struct CatDetailHeader: View {
         let firstMetDate: String
     }
     
-    enum Mode {
-        case fixed(maxHeight: CGFloat) // Edit
-        case dynamic(maxHeight: CGFloat, fadeProgress: CGFloat) // Detail
-    }
-    
     let imageData: Data?
-    let mode: Mode
+    let maxHeight: CGFloat
+    var fadeProgress: CGFloat = 0
     var info: Info? = nil // 기본값 nil로 두고 정보 필요한 뷰에서 init
 
     var body: some View {
-        switch mode {
-        case .fixed(let maxHeight):
-            headerImage(width: nil, height: maxHeight)
-        case .dynamic(let maxHeight, let fadeProgress):
             GeometryReader { proxy in
                 let globalY = proxy.frame(in: .global).minY
-                let currentHeight = maxHeight + max(0, globalY) // 풀다운 시 늘어나는 효과
-                headerImage(width: proxy.size.width, height: currentHeight)
+                let pullDistance = max(0, globalY)
+
+                headerImage(width: proxy.size.width, height: maxHeight + pullDistance)
                     .opacity(1 - fadeProgress)
-                    .offset(y: globalY > 0 ? -globalY : 0) // 이미지 y축 고정(스크롤 다운해도 이동 안 되도록)
+                    .offset(y: -pullDistance) // 늘어난 만큼 위로 올려 화면 맨 위에 고정
             }
             .frame(height: maxHeight)
         }
-    }
     
     // MARK: - Subview
     @ViewBuilder
@@ -81,5 +73,5 @@ struct CatDetailHeader: View {
 
 #Preview {
     let cat: Cat = .previewOne
-    CatDetailHeader(imageData: cat.profilePhoto, mode: .fixed(maxHeight: 284), info: .init(name: cat.name, firstMetDate: "첫만남: \(cat.firstMetDate?.yearMonthKR ?? "미정")"))
+    CatDetailHeader(imageData: cat.profilePhoto, maxHeight: 284)
 }

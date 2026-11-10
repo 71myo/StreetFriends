@@ -30,8 +30,7 @@ struct CatDetailEditView: View {
             ScrollView {
                 VStack(spacing: 40) {
                     // MARK: - CAT HEADER IMAGE
-                    CatDetailHeader(imageData: viewModel.currentPhotoData,
-                                    mode: .dynamic(maxHeight: 284, fadeProgress: 0))
+                    CatDetailHeader(imageData: viewModel.currentPhotoData, maxHeight: 284)
                     .padding(.horizontal, -20)
                     
                     // MARK: - NAME SECTION
