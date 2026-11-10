@@ -17,6 +17,8 @@ struct DuplicateNameNotice: View {
     
     var style: Style = .input
     
+    @ScaledMetric(relativeTo: .subheadline) private var iconSize: CGFloat = 16
+    
     var body: some View {
         switch style {
         case .input:
@@ -31,10 +33,16 @@ struct DuplicateNameNotice: View {
     
     // MARK: - 공통 내용
     private var content: some View {
-        HStack(spacing: 2) {
+        HStack(alignment: .top, spacing: 2) {
             Image(.error)
+                .resizable()
+                .scaledToFit()
+                .frame(width: iconSize, height: iconSize)
+                .accessibilityHidden(true)
+            
             Text(Self.message)
                 .font(.pretendard(.regular, size: 14))
+                .fixedSize(horizontal: false, vertical: true)
         }
         .foregroundStyle(.redError)
         .frame(maxWidth: .infinity, alignment: .leading)

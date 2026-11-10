@@ -60,3 +60,14 @@ struct AppInputField: View {
         .task { if autoFocus { appliedFocus.wrappedValue = true } }
     }
 }
+
+// MARK: - 입력칸 테두리
+extension View {
+    /// 입력칸 테두리. isError가 true면 에러 색상으로 표시
+    func inputFieldBorder(isError: Bool, cornerRadius: CGFloat = 8) -> some View {
+        self.overlay {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .strokeBorder(isError ? Color.redError : Color.clear, lineWidth: 1)
+        }
+    }
+}

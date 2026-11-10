@@ -36,7 +36,7 @@ struct CatDetailEditView: View {
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "이름", destination: {})
                         AppInputField(text: $viewModel.name,
-                                      placeholder: "\(Cat.nameMaxLength)글자 이하의 이름을 입력하세요.",
+                                      placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
                                       maxLength: Cat.nameMaxLength,
                                       autoFocus: false,
                                       externalFocus: $nameFocused) { _ in }

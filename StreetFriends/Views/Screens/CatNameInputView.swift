@@ -31,21 +31,23 @@ struct CatNameInputView: View {
                         .font(.pretendard(.semiBold, size: 24))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .fixedSize(horizontal: false, vertical: true) // 세로로 줄이지 않기
-                    VStack(spacing: 8) {
+                    VStack(alignment: .leading, spacing: 8) {
                         AppInputField(
                             text: $name,
-                            placeholder: "\(Cat.nameMaxLength)글자 이하의 이름을 입력하세요.",
+                            placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
                             maxLength: Cat.nameMaxLength,
                             externalFocus: $nameFocused) { _ in }
                             .padding(10)
                             .frame(minHeight: 44)
                             .background(Color.white)
                             .clipShape(RoundedRectangle(cornerRadius: 8))
+                            .inputFieldBorder(isError: isDuplicate)
                         
                         if isDuplicate {
                             DuplicateNameNotice()
                         }
                     }
+                    .animation(.easeInOut(duration: 0.1), value: isDuplicate)
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
