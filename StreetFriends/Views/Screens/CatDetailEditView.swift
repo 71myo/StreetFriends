@@ -10,21 +10,23 @@ import PhotosUI
 
 struct CatDetailEditView: View {
     @Environment(\.catRepository) private var catRepository
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CatDetailEditViewModel
     
     @State private var isPickingPhoto = false
     @State private var pickerItem: PhotosPickerItem?
     @FocusState private var nameFocused: Bool
+    private var showNoticeInline: Bool { dynamicTypeSize.isAccessibilitySize }
     
     init(cat: Cat) {
         _viewModel = .init(initialValue: CatDetailEditViewModel(cat: cat))
     }
-
+    
     var body: some View {
         ZStack {
             Background()
-
+            
             ScrollView {
                 VStack(spacing: 40) {
                     // MARK: - CAT HEADER IMAGE
@@ -36,7 +38,7 @@ struct CatDetailEditView: View {
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "이름", destination: {})
                         
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading, spacing: 0) {
                             AppInputField(text: $viewModel.name,
                                           placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
                                           maxLength: Cat.nameMaxLength,
@@ -47,11 +49,27 @@ struct CatDetailEditView: View {
                                 .frame(minHeight: 44)
                                 .background(Color.white)
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .inputFieldBorder(isError: viewModel.isDuplicate)
                             
-                            if viewModel.isDuplicate {
-                                DuplicateNameNotice(style: .edit)
+                            if showNoticeInline {
+                                // 큰 글자
+                                if viewModel.isDuplicate {
+                                    DuplicateNameNotice(style: .edit)
+                                        .padding(.top, 4)
+                                }
+                            } else {
+                                // 보통 크기
+                                Color.clear
+                                    .frame(height: 0)
+                                    .overlay(alignment: .topLeading) {
+                                        if viewModel.isDuplicate {
+                                            DuplicateNameNotice(style: .edit)
+                                                .padding(.top, 4)
+                                        }
+                                    }
                             }
                         }
+                        .animation(.easeInOut(duration: 0.1), value: viewModel.isDuplicate)
                     }
                     
                     // MARK: - FIRST DATE SECTION
