@@ -19,6 +19,7 @@ struct CatNameInputView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Background(.imgBackground)
+                .dimmedForIncreasedContrast()
             
             ScrollView {
                 VStack(spacing: 20)  {
