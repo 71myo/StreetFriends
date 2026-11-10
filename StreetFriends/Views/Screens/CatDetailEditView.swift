@@ -41,7 +41,8 @@ struct CatDetailEditView: View {
                                           placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
                                           maxLength: Cat.nameMaxLength,
                                           autoFocus: false,
-                                          externalFocus: $nameFocused) { _ in }
+                                          externalFocus: $nameFocused,
+                                          accessibilityHintText: viewModel.isDuplicate ? DuplicateNameNotice.message : "") { _ in }
                                 .padding(10)
                                 .frame(minHeight: 44)
                                 .background(Color.white)

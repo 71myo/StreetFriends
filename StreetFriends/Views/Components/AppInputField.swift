@@ -16,6 +16,7 @@ struct AppInputField: View {
     var fontSize: CGFloat = 18
     var autoFocus: Bool = true
     var externalFocus: FocusState<Bool>.Binding? // 넘기는 거 없으면 내부 포커스 사용
+    var accessibilityHintText: String = ""
     var onSubmit: (String) -> Void
     
     @FocusState private var internalFocus: Bool
@@ -38,6 +39,7 @@ struct AppInputField: View {
                 .autocorrectionDisabled()
                 .tint(.green70)
                 .font(.pretendard(.regular, size: fontSize))
+                .accessibilityHint(accessibilityHintText)
             
             Spacer()
             

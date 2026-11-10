@@ -36,7 +36,8 @@ struct CatNameInputView: View {
                             text: $name,
                             placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
                             maxLength: Cat.nameMaxLength,
-                            externalFocus: $nameFocused) { _ in }
+                            externalFocus: $nameFocused,
+                            accessibilityHintText: isDuplicate ? DuplicateNameNotice.message : "") { _ in }
                             .padding(10)
                             .frame(minHeight: 44)
                             .background(Color.white)
