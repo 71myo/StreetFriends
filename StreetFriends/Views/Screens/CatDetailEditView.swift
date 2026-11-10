@@ -72,7 +72,7 @@ struct CatDetailEditView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 12)
             }
-            .scrollDisabled(true)
+            .scrollBounceBehavior(.basedOnSize)
             .ignoresSafeArea(edges: .top)
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
