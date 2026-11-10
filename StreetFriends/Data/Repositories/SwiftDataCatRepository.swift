@@ -112,4 +112,11 @@ final class SwiftDataCatRepository: CatRepository {
         let descriptor = FetchDescriptor<Cat>(predicate: #Predicate { $0.id == id })
         return try context.fetch(descriptor).first
     }
+    
+    func catNames(excluding catID: UUID?) throws -> Set<String> {
+        var descriptor = FetchDescriptor<Cat>()
+        descriptor.propertiesToFetch = [\.id, \.name]
+        let cats = try context.fetch(descriptor)
+        return Set(cats.filter { $0.id != catID }.map(\.name))
+    }
 }

@@ -51,4 +51,7 @@ protocol CatRepository {
     
     // ID로 고양이 불러오기
     func fetchCat(id: UUID) throws -> Cat?
+    
+    // 등록된 친구 이름 목록
+    func catNames(excluding catID: UUID?) throws -> Set<String>
 }
