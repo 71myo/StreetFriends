@@ -47,4 +47,9 @@ final class Cat: Identifiable {
 extension Cat {
     /// 고양이 이름 최대 글자 수
     static let nameMaxLength = 6
+    
+    /// 저장, 중복 비교에 쓰는 이름 형태(앞뒤 공백 제거)
+    static func normalizedName(_ raw: String) -> String {
+        raw.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
