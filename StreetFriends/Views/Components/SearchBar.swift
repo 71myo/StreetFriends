@@ -39,6 +39,8 @@ struct SearchBar: View {
                     Text("취소")
                         .foregroundStyle(.green)
                         .font(.pretendard(.regular, size: 18))
+                        .frame(minHeight: 44)
+                        .contentShape(Rectangle())
                 }
             } //: HSTACK
             .padding(.horizontal, 20)

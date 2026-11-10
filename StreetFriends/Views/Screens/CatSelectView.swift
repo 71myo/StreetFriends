@@ -54,12 +54,12 @@ struct CatSelectView: View {
             NavigationBar(title: "추억쌓기",
                           leading: {
                 Button { dismiss() }
-                label: { Image(.chevronLeft) }
+                label: { Image(.chevronLeft).barIconTapArea() }
                     .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {
                 Button { viewModel.isSearching = true }
-                label: { Image(.search) }
+                label: { Image(.search).barIconTapArea() }
                     .barIconAccessibility("검색", image: .search)
             })
         }

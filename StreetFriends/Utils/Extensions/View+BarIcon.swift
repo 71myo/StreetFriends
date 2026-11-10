@@ -29,4 +29,11 @@ extension View {
                 Label(label, systemImage: systemImage)
             }
     }
+    
+    /// 내비게이션 바 아이콘 버튼의 터치 영역을 최소 44x44pt로 넓힘
+    func barIconTapArea() -> some View {
+        self
+            .frame(minWidth: 44, minHeight: 44)
+            .contentShape(Rectangle())
+    }
 }

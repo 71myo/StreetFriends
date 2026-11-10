@@ -41,20 +41,21 @@ struct AppInputField: View {
             
             Spacer()
             
-            if !text.isEmpty {
-                Button {
-                    text = ""
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: clearIconSize, height: clearIconSize)
-                        .foregroundStyle(.netural30)
-                        .frame(width: clearIconSize + 8, height: clearIconSize + 8) // 누르는 영역
-                        .contentShape(Rectangle())
-                }
-                .accessibilityLabel("입력 내용 지우기")
+            Button {
+                text = ""
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: clearIconSize, height: clearIconSize)
+                    .foregroundStyle(.netural30)
+                    .frame(width: clearIconSize + 8, height: clearIconSize + 8) // 누르는 영역
+                    .contentShape(Rectangle())
             }
+            .accessibilityLabel("입력 내용 지우기")
+            .opacity(text.isEmpty ? 0 : 1)
+            .disabled(text.isEmpty)
+            .accessibilityHidden(text.isEmpty)
         } //: HSTACK
         .task { if autoFocus { appliedFocus.wrappedValue = true } }
     }

@@ -43,9 +43,8 @@ struct PhotoPickerCard: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: changeIconSize, height: changeIconSize)
-                                    .padding(.trailing, 10)
-                                    .padding(.bottom, 10)
-                                    .contentShape(Rectangle()) // 탭 범위 보장
+                                    .frame(width: max(changeIconSize + 20, 44), height: max(changeIconSize + 20, 44))
+                                    .contentShape(Rectangle())
                             }.accessibilityLabel("사진 변경")
                         }
                     }

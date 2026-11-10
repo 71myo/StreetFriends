@@ -82,13 +82,13 @@ struct HomeView: View {
             NavigationBar(title: "친구들",
                           leading: {},
                           trailing: {
-                HStack(spacing: 12) {
+                HStack(spacing: 0) {
                     Button { viewModel.isSearching = true }
-                    label: { Image(.search) }
+                    label: { Image(.search).barIconTapArea() }
                         .barIconAccessibility("검색", image: .search)
                     
                     Button { router.push(.addCatChoice) }
-                    label: { Image(.addCatData) }
+                    label: { Image(.addCatData).barIconTapArea() }
                         .barIconAccessibility("추억쌓기", image: .addCatData)
                 }
             })

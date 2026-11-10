@@ -79,11 +79,11 @@ struct CatDetailView: View {
                 style: isCollapsed ? .solid : .clear,
                 leading: {
                     Button { dismiss() }
-                    label: { Image(.chevronLeftPaper) }
+                    label: { Image(.chevronLeftPaper).barIconTapArea()  }
                         .barIconAccessibility("뒤로 가기", image: .chevronLeft)
                 },
                 trailing: {
-                    HStack(spacing: 12) {
+                    HStack(spacing: 0) {
                         Button {
                             Haptic.favoriteToggled()
                             viewModel.togggleFavorite(using: catRepository)
@@ -92,6 +92,7 @@ struct CatDetailView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
+                                .barIconTapArea()
                         }
                         .barIconAccessibility("즐겨찾기", systemImage: viewModel.cat.isFavorite ? "heart.fill" : "heart")
                         .accessibilityAddTraits(viewModel.cat.isFavorite ? .isSelected : [])
@@ -116,6 +117,7 @@ struct CatDetailView: View {
                             }
                         } label: {
                             Image(.morePaper)
+                                .barIconTapArea() 
                         }
                         .barIconAccessibility("더보기", image: .more)
                     }

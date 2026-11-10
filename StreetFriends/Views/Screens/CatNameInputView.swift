@@ -50,7 +50,7 @@ struct CatNameInputView: View {
                           style: .clear,
                           leading: {
                 Button { router.pop() }
-                label: { Image(.chevronLeft) }
+                label: { Image(.chevronLeft).barIconTapArea() }
                     .barIconAccessibility("뒤로 가기", image: .chevronLeft)
             },
                           trailing: {})
