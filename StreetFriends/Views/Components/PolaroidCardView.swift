@@ -36,6 +36,8 @@ struct PolaroidCardView<Destination: View>: View {
         }
     }
     
+    @Environment(\.colorSchemeContrast) private var contrast
+    
     // MARK: - BODY
     var body: some View {
         NavigationLink {
@@ -104,8 +106,8 @@ struct PolaroidCardView<Destination: View>: View {
                     .lineLimit(1)
                 
                 Text("30일간 \(count)번 마주쳤어요")
-                    .font(.pretendard(.medium, size: 14))
-                    .foregroundStyle(.netural40)
+                    .font(.pretendard(.regular, size: 14))
+                    .foregroundStyle(.netural50)
                     .multilineTextAlignment(.leading)
             }
             .padding(.top, 12)
@@ -119,8 +121,8 @@ struct PolaroidCardView<Destination: View>: View {
                     .multilineTextAlignment(.leading)
                 
                 Text(date.formattedDot)
-                    .font(.pretendard(.medium, size: 14))
-                    .foregroundStyle(.netural30)
+                    .font(.pretendard(.regular, size: 14))
+                    .foregroundStyle(contrast == .increased ? .netural50 : .netural40)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding(.top, 16)
