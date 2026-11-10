@@ -97,6 +97,10 @@ enum PreviewFixtures {
 
 // MARK: - 미니 목업 저장소 (CatRepository 구현, 메모리 기반)
 final class PreviewCatRepository: CatRepository {
+    func catNames(excluding catID: UUID?) throws -> Set<String> {
+        Set(cats.filter {$0.id != catID}.map(\.name))
+    }
+    
     private var cats: [Cat]
     
     init(cats: [Cat]) {

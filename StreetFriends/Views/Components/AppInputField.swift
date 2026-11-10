@@ -16,6 +16,7 @@ struct AppInputField: View {
     var fontSize: CGFloat = 18
     var autoFocus: Bool = true
     var externalFocus: FocusState<Bool>.Binding? // 넘기는 거 없으면 내부 포커스 사용
+    var accessibilityHintText: String = ""
     var onSubmit: (String) -> Void
     
     @FocusState private var internalFocus: Bool
@@ -38,6 +39,7 @@ struct AppInputField: View {
                 .autocorrectionDisabled()
                 .tint(.green70)
                 .font(.pretendard(.regular, size: fontSize))
+                .accessibilityHint(accessibilityHintText)
             
             Spacer()
             
@@ -58,5 +60,16 @@ struct AppInputField: View {
             .accessibilityHidden(text.isEmpty)
         } //: HSTACK
         .task { if autoFocus { appliedFocus.wrappedValue = true } }
+    }
+}
+
+// MARK: - 입력칸 테두리
+extension View {
+    /// 입력칸 테두리. isError가 true면 에러 색상으로 표시
+    func inputFieldBorder(isError: Bool, cornerRadius: CGFloat = 8) -> some View {
+        self.overlay {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .strokeBorder(isError ? Color.redError : Color.clear, lineWidth: 1)
+        }
     }
 }

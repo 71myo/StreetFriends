@@ -51,4 +51,18 @@ protocol CatRepository {
     
     // ID로 고양이 불러오기
     func fetchCat(id: UUID) throws -> Cat?
+    
+    // 등록된 친구 이름 목록
+    func catNames(excluding catID: UUID?) throws -> Set<String>
+}
+
+// MARK: - ERROR
+enum CatRepositoryError: LocalizedError {
+    case duplicateName
+
+    var errorDescription: String? {
+        switch self {
+        case .duplicateName: return "이미 사용 중인 이름이에요."
+        }
+    }
 }

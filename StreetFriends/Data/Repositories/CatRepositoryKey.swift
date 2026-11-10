@@ -12,6 +12,10 @@ private struct CatRepositoryKey: EnvironmentKey {
 }
 
 private struct DevNullCatRepository: CatRepository {
+    func catNames(excluding catID: UUID?) throws -> Set<String> {
+        fatalError("CatRepository not injected")
+    }
+    
     func fetchCat(id: UUID) throws -> Cat? {
         fatalError("CatRepository not injected")
     }

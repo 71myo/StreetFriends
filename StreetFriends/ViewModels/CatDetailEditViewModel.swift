@@ -22,6 +22,7 @@ final class CatDetailEditViewModel {
     // UI 상태
     var isSaving: Bool = false
     var error: String?
+    var existingNames: Set<String> = []
     
     // NAVIGATION, ALERT
     var showDiscardAlert: Bool = false
@@ -51,9 +52,15 @@ final class CatDetailEditViewModel {
     
     // 현재 사진(선택한 게 있으면 그거, 아니면 기존)
     var currentPhotoData: Data { pickedPhotoData ?? profilePhotoData }
-        
+    
+    // 이름 중복 여부(빈 이름은 중복 X)
+    var isDuplicate: Bool {
+        let normalized = Cat.normalizedName(name)
+        return !normalized.isEmpty && existingNames.contains(normalized)
+    }
+    
     var canSave: Bool {
-        !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && hasUnsavedChanges
+        !Cat.normalizedName(name).isEmpty && hasUnsavedChanges && !isDuplicate
     }
     
     // 변경 여부
@@ -66,6 +73,12 @@ final class CatDetailEditViewModel {
     }
     
     // MARK: - Actions
+    // 화면이 나타날 때 등록된 이름 목록 불러오기(자기 자신 제외)
+    @MainActor
+    func loadExistingNames(using repo: CatRepository) {
+        existingNames = (try? repo.catNames(excluding: cat.id)) ?? []
+    }
+    
     // 변경하고 뒤로가기 누르면 Alert, 변경 저장 후 뒤로가기 누르면 Dismiss
     @MainActor
     func onTapBack() {

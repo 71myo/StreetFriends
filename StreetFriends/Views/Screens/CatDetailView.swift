@@ -34,7 +34,8 @@ struct CatDetailView: View {
             ) { progress, safeArea in
                 // MARK: - HEADER
                 CatDetailHeader(imageData: viewModel.cat.profilePhoto,
-                                mode: .dynamic(maxHeight: 284, fadeProgress: progress),
+                                maxHeight: 284,
+                                fadeProgress: progress,
                                 info: .init(name: viewModel.cat.name,
                                             firstMetDate: viewModel.cat.firstMetDate?.yearMonthKR ?? "미정"))
             } content: {

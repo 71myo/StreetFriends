@@ -10,40 +10,65 @@ import PhotosUI
 
 struct CatDetailEditView: View {
     @Environment(\.catRepository) private var catRepository
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.dismiss) private var dismiss
     @State private var viewModel: CatDetailEditViewModel
     
     @State private var isPickingPhoto = false
     @State private var pickerItem: PhotosPickerItem?
     @FocusState private var nameFocused: Bool
+    private var showNoticeInline: Bool { dynamicTypeSize.isAccessibilitySize }
     
     init(cat: Cat) {
         _viewModel = .init(initialValue: CatDetailEditViewModel(cat: cat))
     }
-
+    
     var body: some View {
         ZStack {
             Background()
-
+            
             ScrollView {
                 VStack(spacing: 40) {
                     // MARK: - CAT HEADER IMAGE
-                    CatDetailHeader(imageData: viewModel.currentPhotoData,
-                                    mode: .fixed(maxHeight: 284))
+                    CatDetailHeader(imageData: viewModel.currentPhotoData, maxHeight: 284)
                     .padding(.horizontal, -20)
                     
                     // MARK: - NAME SECTION
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "이름", destination: {})
-                        AppInputField(text: $viewModel.name,
-                                      placeholder: "\(Cat.nameMaxLength)글자 이하의 이름을 입력하세요.",
-                                      maxLength: Cat.nameMaxLength,
-                                      autoFocus: false,
-                                      externalFocus: $nameFocused) { _ in }
-                            .padding(10)
-                            .frame(minHeight: 44)
-                            .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        
+                        VStack(alignment: .leading, spacing: 0) {
+                            AppInputField(text: $viewModel.name,
+                                          placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
+                                          maxLength: Cat.nameMaxLength,
+                                          autoFocus: false,
+                                          externalFocus: $nameFocused,
+                                          accessibilityHintText: viewModel.isDuplicate ? DuplicateNameNotice.message : "") { _ in }
+                                .padding(10)
+                                .frame(minHeight: 44)
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                .inputFieldBorder(isError: viewModel.isDuplicate)
+                            
+                            if showNoticeInline {
+                                // 큰 글자
+                                if viewModel.isDuplicate {
+                                    DuplicateNameNotice(style: .edit)
+                                        .padding(.top, 4)
+                                }
+                            } else {
+                                // 보통 크기
+                                Color.clear
+                                    .frame(height: 0)
+                                    .overlay(alignment: .topLeading) {
+                                        if viewModel.isDuplicate {
+                                            DuplicateNameNotice(style: .edit)
+                                                .padding(.top, 4)
+                                        }
+                                    }
+                            }
+                        }
+                        .animation(DuplicateNameNotice.animation, value: viewModel.isDuplicate)
                     }
                     
                     // MARK: - FIRST DATE SECTION
@@ -64,7 +89,6 @@ struct CatDetailEditView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 12)
             }
-            .scrollDisabled(true)
             .ignoresSafeArea(edges: .top)
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
@@ -84,7 +108,8 @@ struct CatDetailEditView: View {
         .overlay {
             if viewModel.showDiscardAlert {
                 CustomAlert(role: .save,
-                            isPresented: $viewModel.showDiscardAlert) {
+                            isPresented: $viewModel.showDiscardAlert,
+                            isRightEnabled: viewModel.canSave) {
                     viewModel.cancelDiscard()
                     dismiss()
                 } rightAction: {
@@ -108,6 +133,9 @@ struct CatDetailEditView: View {
                     }
                 }
             }
+        }
+        .task {
+            viewModel.loadExistingNames(using: catRepository)
         }
     }
 }
