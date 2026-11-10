@@ -35,15 +35,22 @@ struct CatDetailEditView: View {
                     // MARK: - NAME SECTION
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "이름", destination: {})
-                        AppInputField(text: $viewModel.name,
-                                      placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
-                                      maxLength: Cat.nameMaxLength,
-                                      autoFocus: false,
-                                      externalFocus: $nameFocused) { _ in }
-                            .padding(10)
-                            .frame(minHeight: 44)
-                            .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            AppInputField(text: $viewModel.name,
+                                          placeholder: "\(Cat.nameMaxLength)글자 이하로 입력해 주세요.",
+                                          maxLength: Cat.nameMaxLength,
+                                          autoFocus: false,
+                                          externalFocus: $nameFocused) { _ in }
+                                .padding(10)
+                                .frame(minHeight: 44)
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            
+                            if viewModel.isDuplicate {
+                                DuplicateNameNotice(style: .edit)
+                            }
+                        }
                     }
                     
                     // MARK: - FIRST DATE SECTION
@@ -108,6 +115,9 @@ struct CatDetailEditView: View {
                     }
                 }
             }
+        }
+        .task {
+            viewModel.loadExistingNames(using: catRepository)
         }
     }
 }
