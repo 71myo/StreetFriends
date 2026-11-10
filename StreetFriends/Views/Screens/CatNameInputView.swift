@@ -48,7 +48,7 @@ struct CatNameInputView: View {
                             DuplicateNameNotice()
                         }
                     }
-                    .animation(.easeInOut(duration: 0.1), value: isDuplicate)
+                    .animation(DuplicateNameNotice.animation, value: isDuplicate)
                 } //: 콘텐츠 VSTACK
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)

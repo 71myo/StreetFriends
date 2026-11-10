@@ -14,6 +14,7 @@ struct DuplicateNameNotice: View {
     }
     
     static let message: String = "이미 사용 중인 이름이에요."
+    static let animation: Animation = .easeInOut(duration: 0.1)
     
     var style: Style = .input
     

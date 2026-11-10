@@ -69,7 +69,7 @@ struct CatDetailEditView: View {
                                     }
                             }
                         }
-                        .animation(.easeInOut(duration: 0.1), value: viewModel.isDuplicate)
+                        .animation(DuplicateNameNotice.animation, value: viewModel.isDuplicate)
                     }
                     
                     // MARK: - FIRST DATE SECTION
