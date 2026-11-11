@@ -27,6 +27,9 @@ struct NoteEditorCard: View {
                     .tint(.blue50)
                     .accessibilityLabel("친구 일지")
                     .accessibilityHint(text.isEmpty ? placeholder : "")
+                    .accessibilityAction(named: "키보드 내리기") {
+                        isFocused.wrappedValue = false
+                    }
                     .overlay(alignment: .topLeading) {
                         Text(placeholder)
                             .foregroundStyle(text.isEmpty ? .netural50 : .clear)
