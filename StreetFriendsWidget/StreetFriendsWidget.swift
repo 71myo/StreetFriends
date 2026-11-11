@@ -134,6 +134,10 @@ struct StreetFriendsWidgetEntryView : View {
                     if entry.isLastWeek {
                         let month = Calendar.current.component(.month, from: entry.date)
                         
+                        LinearGradient(colors: [.clear, .black.opacity(0.4)],
+                                       startPoint: .center, endPoint: .bottom)
+                            .accessibilityHidden(true)
+                        
                         Image(.crown)
                             .resizable()
                             .scaledToFit()
