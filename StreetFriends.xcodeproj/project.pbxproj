@@ -50,6 +50,7 @@
 			membershipExceptions = (
 				Data/Models/Cat.swift,
 				Data/Models/Encounter.swift,
+				Data/Shared/MonthlyTopCat.swift,
 				Data/Shared/SharedModelContainer.swift,
 				"Resources/Fonts/Pretendard-Black.otf",
 				"Resources/Fonts/Pretendard-Bold.otf",

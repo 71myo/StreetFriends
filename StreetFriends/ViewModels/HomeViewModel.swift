@@ -32,12 +32,10 @@ final class HomeViewModel {
     }
     
     // 한달 동안 가장 많이 만난 고양이
-    var mostMetCat: Cat? {
-        allCats.max { $0.encounters.count < $1.encounters.count }
-    }
-    
-    var mostMetCount: Int {
-        mostMetCat?.encounters.count ?? 0
+    var monthlyTopCat: MonthlyTopCat.Result? {
+        guard let month = MonthlyTopCat.monthInterval() else { return nil }
+        let encounters = allCats.flatMap(\.encounters)
+        return MonthlyTopCat.top(from: encounters, in: month)
     }
     
     @MainActor

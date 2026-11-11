@@ -34,7 +34,7 @@ private extension Provider {
         let context = ModelContext(SharedModelContainer.container)
         let calendar = Calendar.current
         
-        guard let month = calendar.dateInterval(of: .month, for: date) else {
+        guard let month = MonthlyTopCat.monthInterval(for: date, calendar: calendar) else {
             return .init(date: date, catName: "불러오기 실패", photoData: nil, isEmpty: true, isLastWeek: false)
         }
         
@@ -76,20 +76,7 @@ private extension Provider {
         let descriptor = FetchDescriptor<Encounter>(predicate: predicate)
         let encounters = try context.fetch(descriptor)
         
-        var counts: [UUID: Int] = [:]
-        var catsById: [UUID: Cat] = [:]
-        
-        for e in encounters {
-            guard let cat = e.cat else { continue }
-            counts[cat.id, default: 0] += 1
-            catsById[cat.id] = cat
-        }
-        
-        guard let topId = counts.max(by: { $0.value < $1.value })?.key else {
-            return nil
-        }
-        
-        return catsById[topId]
+        return MonthlyTopCat.top(from: encounters, in: month)?.cat
     }
     
     /// 다음 갱신 시각 계산 함수
