@@ -47,7 +47,7 @@ private extension Provider {
                 return .init(date: date, catName: top.name, photoData: top.profilePhoto, isEmpty: false, isLastWeek: true)
             } else {
                 // 가장 최근 Cat
-                if let last = try mostRecentCat(context: context) {
+                if let last = try mostRecentlyMetCat(context: context) {
                     return .init(date: date, catName: last.name, photoData: last.profilePhoto, isEmpty: false, isLastWeek: false)
                 } else {
                     return .init(date: date, catName: "미등록", photoData: nil, isEmpty: true, isLastWeek: false)
@@ -58,13 +58,14 @@ private extension Provider {
         }
     }
     
-    /// 최근 고양이 fetch 함수
-    func mostRecentCat(context: ModelContext) throws -> Cat? {
-        var descriptor = FetchDescriptor<Cat>(
-            sortBy: [SortDescriptor(\Cat.creationDate, order: .reverse)]
+    /// 가장 최근에 만난 고양이 fetch 함수
+    func mostRecentlyMetCat(context: ModelContext) throws -> Cat? {
+        var descriptor = FetchDescriptor<Encounter>(
+            predicate: #Predicate { $0.cat != nil },
+            sortBy: [SortDescriptor(\Encounter.date, order: .reverse)]
         )
         descriptor.fetchLimit = 1
-        return try context.fetch(descriptor).first
+        return try context.fetch(descriptor).first?.cat
     }
     
     /// Top 1 집계 함수
