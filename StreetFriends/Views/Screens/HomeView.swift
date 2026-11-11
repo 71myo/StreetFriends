@@ -28,11 +28,11 @@ struct HomeView: View {
                             SectionHeaderView(type: .plain,
                                               title: "가장 자주 만난 친구", destination: {})
                             
-                            if let cat = viewModel.mostMetCat {
-                                PolaroidCardView(info: .home(cat: cat, catImageData: cat.profilePhoto,
-                                                             catName: cat.name,
-                                                             recentEncountersCount: viewModel.mostMetCount),
-                                                 destination: { CatDetailView(cat: cat) })
+                            if let top = viewModel.monthlyTopCat {
+                                PolaroidCardView(info: .home(cat: top.cat, catImageData: top.cat.profilePhoto,
+                                                             catName: top.cat.name,
+                                                             monthlyEncountersCount: top.count),
+                                                 destination: { CatDetailView(cat: top.cat) })
                             }
                         }
                         

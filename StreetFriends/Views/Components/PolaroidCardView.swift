@@ -10,7 +10,7 @@ import SwiftUI
 struct PolaroidCardView<Destination: View>: View {
     // MARK: - ENUM
     enum PolaroidInfo {
-        case home(cat: Cat, catImageData: Data?, catName: String, recentEncountersCount: Int)
+        case home(cat: Cat, catImageData: Data?, catName: String, monthlyEncountersCount: Int)
         case detail(encounter: Encounter, catImageData: Data?, encounterNote: String, encounterDate: Date)
     }
     
@@ -21,7 +21,7 @@ struct PolaroidCardView<Destination: View>: View {
     private var accessibilityText: String {
         switch info {
         case .home(_, _, let catName, let count):
-            return "\(catName)\(catName.waGwa) 30일간 \(count)번 마주쳤어요"
+            return "\(catName)\(catName.waGwa) 이번 달에 \(count)번 마주쳤어요"
         case .detail(_, _, let note, let date):
             return "\(date.formatted(date: .long, time: .omitted)), \(note)"
         }
@@ -105,7 +105,7 @@ struct PolaroidCardView<Destination: View>: View {
                     .foregroundStyle(.netural80)
                     .lineLimit(1)
                 
-                Text("30일간 \(count)번 마주쳤어요")
+                Text("이번 달에 \(count)번 마주쳤어요")
                     .font(.pretendard(.regular, size: 14))
                     .foregroundStyle(.netural50)
                     .multilineTextAlignment(.leading)
@@ -137,7 +137,7 @@ struct PolaroidCardView<Destination: View>: View {
         info: .home(
             cat: cat, catImageData: cat.profilePhoto,
             catName: cat.name,
-            recentEncountersCount: 12), destination: {}
+            monthlyEncountersCount: 12), destination: {}
     )
     .padding()
 }
