@@ -14,6 +14,8 @@ struct EncounterDetailEditView: View {
     @State private var viewModel: EncounterDetailEditViewModel
     @State private var pickedImage: UIImage? // UI 표시용
     
+    @FocusState private var isNoteFocused: Bool
+    
     init(encounterID: UUID) {
         _viewModel = .init(initialValue: EncounterDetailEditViewModel(encounterID: encounterID))
     }
@@ -32,7 +34,7 @@ struct EncounterDetailEditView: View {
                     // MARK: - 기록 섹션
                     VStack(spacing: 4) {
                         SectionHeaderView(type: .plain, title: "친구 일지", destination: {})
-                        NoteEditorCard(text: $viewModel.note)
+                        NoteEditorCard(text: $viewModel.note, isFocused: $isNoteFocused)
                             .frame(height: 183)
                     }
                     

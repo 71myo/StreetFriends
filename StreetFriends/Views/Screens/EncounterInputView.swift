@@ -16,6 +16,8 @@ struct EncounterInputView: View {
     @State private var viewModel: EncounterInputViewModel
     @State private var pickedImage: UIImage? // UI 표시용
     
+    @FocusState private var isNotedFocused: Bool
+    
     init(newCatName: String) {
         _viewModel = State(initialValue: EncounterInputViewModel(target: .newCat(name: newCatName)))
     }
@@ -38,7 +40,7 @@ struct EncounterInputView: View {
                     // MARK: - 친구 일지 섹션
                     VStack(spacing: 12) {
                         SectionHeaderView(type: .plain, title: "친구 일지") { }
-                        NoteEditorCard(text: $viewModel.note)
+                        NoteEditorCard(text: $viewModel.note, isFocused: $isNotedFocused)
                             .frame(height: 183)
                     }
                     

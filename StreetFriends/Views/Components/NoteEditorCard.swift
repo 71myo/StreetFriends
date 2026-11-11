@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NoteEditorCard: View {
     @Binding var text: String
+    var isFocused: FocusState<Bool>.Binding
     var placeholder: String = "친구와의 추억을 남겨 보세요."
     var maxCount: Int = 150
     
@@ -19,6 +20,7 @@ struct NoteEditorCard: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 TextEditor(text: $text)
+                    .focused(isFocused)
                     .font(.pretendard(.regular, size: 16))
                     .foregroundStyle(.netural80)
                     .autocorrectionDisabled()
@@ -54,5 +56,7 @@ struct NoteEditorCard: View {
 }
 
 #Preview {
-    NoteEditorCard(text: .constant("프리뷰 노트"))
+    @Previewable @State var text = "프리뷰 노트"
+    @Previewable @FocusState var isFocused: Bool
+    NoteEditorCard(text: $text, isFocused: $isFocused)
 }
