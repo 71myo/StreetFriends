@@ -55,6 +55,8 @@ struct EncounterInputView: View {
                     } //: 콘텐츠 VSTACK
                     .padding(.horizontal, 20)
                     .padding(.vertical, 24)
+                    .contentShape(Rectangle())
+                    .onTapGesture { isNoteFocused = false }
                 } //: SCROLL
                 .scrollDismissesKeyboard(.immediately)
                 .contentMargins(.bottom, isNoteFocused ? 300 : 0, for: .scrollContent)
