@@ -31,12 +31,8 @@ final class HomeViewModel {
         return allCats.filter { $0.name.searchFolded.contains(q) }
     }
     
-    // 한달 동안 가장 많이 만난 고양이
-    var monthlyTopCat: MonthlyTopCat.Result? {
-        guard let month = MonthlyTopCat.monthInterval() else { return nil }
-        let encounters = allCats.flatMap(\.encounters)
-        return MonthlyTopCat.top(from: encounters, in: month)
-    }
+    // 한 달 동안 가장 많이 만난 고양이 (load할 때 계산)
+    private(set) var monthlyTopCat: MonthlyTopCat.Result?
     
     @MainActor
     func load(repo: CatRepository) {
@@ -48,6 +44,7 @@ final class HomeViewModel {
         do {
             favorites = try repo.fetchFavoriteCats()
             allCats = try repo.fetchAllCats()
+            monthlyTopCat = Self.topCatInThisMonth(from: allCats)
         } catch {
             self.error = error.localizedDescription
         }
@@ -61,5 +58,10 @@ final class HomeViewModel {
         } catch {
             self.error = error.localizedDescription
         }
+    }
+    
+    private static func topCatInThisMonth(from cats: [Cat]) -> MonthlyTopCat.Result? {
+        guard let month = MonthlyTopCat.monthInterval() else { return nil }
+        return MonthlyTopCat.top(from: cats.flatMap(\.encounters), in: month)
     }
 }
