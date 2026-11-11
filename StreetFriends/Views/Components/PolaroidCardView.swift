@@ -106,7 +106,7 @@ struct PolaroidCardView<Destination: View>: View {
             }
             
         case .homeEmpty:
-            DataImage(data: nil, fixedHeight: 240) { $0 }
+            DataImage(data: nil, fixedHeight: 240, placeholderSize: 150) { $0 }
                 .frame(maxWidth: .infinity)
                 .overlay(alignment: .top) {
                     Image(.crown)

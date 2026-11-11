@@ -10,6 +10,7 @@ import SwiftUI
 struct DataImage<Content: View>: View {
     let data: Data?
     var fixedHeight: CGFloat?
+    var placeholderSize: CGFloat? = nil
     @ViewBuilder var content: (Image) -> Content
     
     @State private var uiImage: UIImage?
@@ -26,7 +27,8 @@ struct DataImage<Content: View>: View {
                     Image(.mysteryCat)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 150, height: 150)
+                        .frame(width: placeholderSize, height: placeholderSize)
+                        .padding(placeholderSize == nil ? 10 : 0)
                 }
             }
         }
