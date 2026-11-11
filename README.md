@@ -63,7 +63,7 @@
 ### 홈 화면 위젯
 | 최근 친구 | 이달의 TOP 친구 |
 | :---: | :---: |
-| <img src="" width="200" /> | <img src="" width="200" /> |
+| <img src="https://github.com/user-attachments/assets/b2e2c0c6-d2fa-42e1-9a06-7bc40218978f" width="200" /> | <img src="https://github.com/user-attachments/assets/029df8f6-6735-4c09-aa26-19ba4a5d99b9" width="200" /> |
 
 ### 첫만남 기념일 알림
 <!-- 알림 배너 스크린샷 -->
@@ -96,10 +96,81 @@
 <br>
 
 ## 🏗 아키텍처
-- **MVVM**: View는 화면, ViewModel은 화면 상태와 동작을 담당
-- **Repository 패턴**: `CatRepository` 프로토콜로 데이터 접근을 추상화해, 실제 저장소(SwiftData)와 Preview용 저장소를 바꿔 끼울 수 있도록 구성
-- **Router**: `NavigationStack`의 경로를 관리해 화면 이동과 알림 딥링크를 처리
-- **App Group 공유 컨테이너**: 앱과 위젯이 같은 SwiftData 저장소를 사용
+### MVVM + Repository
+
+View는 화면만 그리고, ViewModel이 화면 상태와 로직을 담당해요.
+데이터 저장은 `CatRepository` 프로토콜 뒤에 숨겨서, ViewModel은 SwiftData를 직접 알지 않아요.
+
+```mermaid
+flowchart LR
+    subgraph App["📱 App"]
+        View["View<br/>(SwiftUI)"]
+        VM["ViewModel<br/>(@Observable)"]
+        Protocol["CatRepository<br/>(protocol)"]
+        Impl["SwiftDataCatRepository"]
+        Preview["PreviewCatRepository"]
+    end
+
+    subgraph Shared["🗂 App Group 공유 저장소"]
+        Store[("SwiftData<br/>Cat · Encounter")]
+    end
+
+    subgraph Widget["🧩 Widget"]
+        Provider["TimelineProvider"]
+    end
+
+    View -->|사용자 동작| VM
+    VM -->|상태| View
+    VM --> Protocol
+    Protocol -.구현.-> Impl
+    Protocol -.구현.-> Preview
+    Impl --> Store
+    Impl -->|저장 시 위젯 갱신 요청| Provider
+    Provider -->|읽기| Store
+```
+
+| 계층 | 역할 | 예시 |
+| --- | --- | --- |
+| **View** | 화면 그리기, 사용자 입력 전달 | `HomeView`, `EncounterInputView` |
+| **ViewModel** | 화면 상태 관리, 입력 검증, Repository 호출 | `HomeViewModel`, `CatDetailEditViewModel` |
+| **Repository** | 데이터 생성·조회·수정·삭제, 이름 중복 검사 | `CatRepository`, `SwiftDataCatRepository` |
+| **Model** | SwiftData 모델 | `Cat`, `Encounter` |
+
+### 주요 설계
+
+**1. Repository를 Environment로 주입**
+- `CatRepository`를 SwiftUI `Environment`로 주입해, 실제 앱에서는 `SwiftDataCatRepository`, Preview에서는 `PreviewCatRepository`를 사용해요
+- 주입을 빠뜨리면 기본값인 `DevNullCatRepository`가 바로 오류를 내서, 실수를 빨리 발견할 수 있어요
+
+**2. 앱과 위젯이 같은 데이터를 사용**
+- `SharedModelContainer`가 App Group 폴더에 SwiftData 저장소를 만들고, 앱과 위젯이 같은 저장소를 사용해요
+- 모델(`Cat`, `Encounter`)과 "이번 달 가장 자주 만난 친구" 계산(`MonthlyTopCat`)을 두 타깃이 함께 써서, 홈 화면과 위젯의 결과가 항상 같아요
+- 데이터가 바뀌면 Repository가 `WidgetCenter`로 위젯 갱신을 요청해요
+
+**3. Router로 화면 이동 관리**
+- `NavigationStack`의 경로를 `Router`가 관리해, 어느 화면에서든 `push` / `popToRoot`로 이동해요
+- 기념일 알림을 탭하면 `DeepLinkStore` → `Router`를 거쳐 해당 친구의 상세 화면으로 바로 이동해요
+
+**4. 공통 UI는 컴포넌트로 분리**
+- 내비게이션 바, 입력 필드, 알림창, 토스트 등을 컴포넌트로 만들어 화면 간 디자인과 접근성 처리를 통일했어요
+
+### 폴더 구조
+
+```
+StreetFriends
+├── App                  # 앱 진입점, AppDelegate (알림 처리)
+├── Data
+│   ├── Models           # SwiftData 모델 (Cat, Encounter)
+│   ├── Repositories     # CatRepository 프로토콜과 구현체
+│   └── Shared           # 앱·위젯 공용 (저장소 설정, 월간 TOP 계산)
+├── ViewModels           # 화면별 ViewModel
+├── Views
+│   ├── Screens          # 화면 단위 View
+│   └── Components       # 재사용 UI 컴포넌트
+└── Utils                # Router, 토스트, 알림 스케줄러, Extension
+
+StreetFriendsWidget      # 홈 화면 위젯
+```
 
 <br>
 
