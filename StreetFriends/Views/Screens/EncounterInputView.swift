@@ -59,7 +59,7 @@ struct EncounterInputView: View {
                     .onTapGesture { isNoteFocused = false }
                 } //: SCROLL
                 .scrollDismissesKeyboard(.immediately)
-                .contentMargins(.bottom, isNoteFocused ? 300 : 0, for: .scrollContent)
+                .contentMargins(.bottom, isNoteFocused ? 200 : 0, for: .scrollContent)
                 .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
                     guard isNoteFocused else { return }
                     withAnimation { proxy.scrollTo(noteSectionID, anchor: .top) }
