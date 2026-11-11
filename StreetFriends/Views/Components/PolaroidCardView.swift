@@ -11,6 +11,7 @@ struct PolaroidCardView<Destination: View>: View {
     // MARK: - ENUM
     enum PolaroidInfo {
         case home(cat: Cat, catImageData: Data?, catName: String, monthlyEncountersCount: Int)
+        case homeEmpty
         case detail(encounter: Encounter, catImageData: Data?, encounterNote: String, encounterDate: Date)
     }
     
@@ -24,6 +25,8 @@ struct PolaroidCardView<Destination: View>: View {
             return "\(catName)\(catName.waGwa) 이번 달에 \(count)번 마주쳤어요"
         case .detail(_, _, let note, let date):
             return "\(date.formatted(date: .long, time: .omitted)), \(note)"
+        case .homeEmpty:
+            return "이번 달에 마주친 친구가 없어요"
         }
     }
     
@@ -33,6 +36,8 @@ struct PolaroidCardView<Destination: View>: View {
             return [catName]
         case .detail(_, _, _, let date):
             return [date.formatted(date: .long, time: .omitted)]
+        case .homeEmpty:
+            return [] // 누를 수 없는 카드라 음성 제어 이름이 필요 없음
         }
     }
     
@@ -40,27 +45,35 @@ struct PolaroidCardView<Destination: View>: View {
     
     // MARK: - BODY
     var body: some View {
-        NavigationLink {
-            destination()
-        } label: {
-            ZStack {
-                // 폴라로이드 배경
-                Rectangle()
-                    .foregroundStyle(.white)
-                    .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
-                
-                // 내용물
-                VStack(alignment: .leading, spacing: 0) {
-                    photoSection
-                    textSection
-                }
-                .padding(16)
-            } //: ZSTACK
-            .frame(maxWidth: .infinity)
-            .accessibilityElement(children: .ignore)
-            .accessibilityLabel(accessibilityText)
-            .accessibilityInputLabels(inputLabels)
+        switch info {
+        case .homeEmpty:
+            card
+        case .home, .detail:
+            NavigationLink {
+                destination()
+            } label: {
+                card
+            }
         }
+    }
+    
+    // MARK: - CARD
+    private var card: some View {
+        ZStack {
+            Rectangle()
+                .foregroundStyle(.white)
+                .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 2)
+
+            VStack(alignment: .leading, spacing: 0) {
+                photoSection
+                textSection
+            }
+            .padding(16)
+        }
+        .frame(maxWidth: .infinity)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityText)
+        .accessibilityInputLabels(inputLabels)
     }
     
     // MARK: - SUBVIEWS
@@ -91,6 +104,19 @@ struct PolaroidCardView<Destination: View>: View {
                         .shadow(color: .black.opacity(0.25), radius: 1, x: 0, y: 1)
                 }
             }
+            
+        case .homeEmpty:
+            DataImage(data: nil, fixedHeight: 240) { $0 }
+                .frame(maxWidth: .infinity)
+                .overlay(alignment: .top) {
+                    Image(.crown)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 40, height: 40)
+                        .rotationEffect(Angle(degrees: 12))
+                        .offset(x: 3, y: 50)
+                        .shadow(color: .black.opacity(0.25), radius: 1, x: 0, y: 1)
+                }
         }
     }
     
@@ -126,6 +152,20 @@ struct PolaroidCardView<Destination: View>: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding(.top, 16)
+            
+        case .homeEmpty:
+            VStack(alignment: .leading, spacing: 5) {
+                Text("???")
+                    .font(.pretendard(.medium, size: 16))
+                    .foregroundStyle(.netural80)
+                    .lineLimit(1)
+                
+                Text("이번 달에 마주친 친구가 없어요")
+                    .font(.pretendard(.regular, size: 14))
+                    .foregroundStyle(.netural50)
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(.top, 12)
         }
     }
 }
@@ -160,4 +200,9 @@ struct PolaroidCardView<Destination: View>: View {
         ), destination: {}
     )
     .padding()
+}
+
+#Preview("home empty") {
+    PolaroidCardView(info: .homeEmpty, destination: { EmptyView() })
+        .padding()
 }

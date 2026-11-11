@@ -33,6 +33,8 @@ struct HomeView: View {
                                                              catName: top.cat.name,
                                                              monthlyEncountersCount: top.count),
                                                  destination: { CatDetailView(cat: top.cat) })
+                            } else {
+                                PolaroidCardView(info: .homeEmpty, destination: { EmptyView() })
                             }
                         }
                         

@@ -21,12 +21,12 @@ struct DataImage<Content: View>: View {
             } else {
                 ZStack {
                     Rectangle()
-                        .foregroundStyle(.netural30)
+                        .foregroundStyle(.netural20)
                     
                     Image(.mysteryCat)
                         .resizable()
                         .scaledToFit()
-                        .padding(10)
+                        .frame(width: 150, height: 150)
                 }
             }
         }
