@@ -16,6 +16,9 @@ struct EncounterInputView: View {
     @State private var viewModel: EncounterInputViewModel
     @State private var pickedImage: UIImage? // UI 표시용
     
+    @FocusState private var isNoteFocused: Bool
+    private let noteSectionID = "noteSection"
+    
     init(newCatName: String) {
         _viewModel = State(initialValue: EncounterInputViewModel(target: .newCat(name: newCatName)))
     }
@@ -29,29 +32,39 @@ struct EncounterInputView: View {
         ZStack(alignment: .top) {
             Background()
             
-            ScrollView {
-                VStack(spacing: 40) {
-                    // MARK: - 사진 선택
-                    PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData)
-                        .frame(height: 210)
-                    
-                    // MARK: - 친구 일지 섹션
-                    VStack(spacing: 12) {
-                        SectionHeaderView(type: .plain, title: "친구 일지") { }
-                        NoteEditorCard(text: $viewModel.note)
-                            .frame(height: 183)
-                    }
-                    
-                    // MARK: - 마주친 날 섹션
-                    VStack(alignment: .leading, spacing: 12) {
-                        SectionHeaderView(type: .plain, title: "마주친 날") { }
-                        DatePickerRow(title: "마주친 날", date: $viewModel.date)
-                    }
-                } //: 콘텐츠 VSTACK
-                .padding(.horizontal, 20)
-                .padding(.vertical, 24)
-            } //: SCROLL
-            .scrollDismissesKeyboard(.immediately)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 40) {
+                        // MARK: - 사진 선택
+                        PhotoPickerCard(image: $pickedImage, imageData: $viewModel.photoData)
+                            .frame(height: 210)
+                        
+                        // MARK: - 친구 일지 섹션
+                        VStack(spacing: 12) {
+                            SectionHeaderView(type: .plain, title: "친구 일지") { }
+                            NoteEditorCard(text: $viewModel.note, isFocused: $isNoteFocused)
+                                .frame(height: 183)
+                        }
+                        .id(noteSectionID)
+                        
+                        // MARK: - 마주친 날 섹션
+                        VStack(alignment: .leading, spacing: 12) {
+                            SectionHeaderView(type: .plain, title: "마주친 날") { }
+                            DatePickerRow(title: "마주친 날", date: $viewModel.date)
+                        }
+                    } //: 콘텐츠 VSTACK
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 24)
+                    .contentShape(Rectangle())
+                    .onTapGesture { isNoteFocused = false }
+                } //: SCROLL
+                .scrollDismissesKeyboard(.immediately)
+                .contentMargins(.bottom, isNoteFocused ? 200 : 0, for: .scrollContent)
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in
+                    guard isNoteFocused else { return }
+                    withAnimation { proxy.scrollTo(noteSectionID, anchor: .top) }
+                }
+            } //: SCROLLREADER
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: viewModel.title,
