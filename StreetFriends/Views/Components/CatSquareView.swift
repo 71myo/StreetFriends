@@ -40,7 +40,7 @@ struct CatSquareView: View {
             .overlay {
                 if isFavoriteType {
                     LinearGradient(colors: [.clear, .black.opacity(0.4)],
-                                   startPoint: .top, endPoint: .bottom)
+                                   startPoint: .center, endPoint: .bottom)
                 }
             }
             .overlay(alignment: .topTrailing) {
