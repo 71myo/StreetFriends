@@ -131,10 +131,13 @@ struct PolaroidCardView<Destination: View>: View {
                     .foregroundStyle(.netural80)
                     .lineLimit(1)
                 
-                Text("이번 달에 \(count)번 마주쳤어요")
-                    .font(.pretendard(.regular, size: 14))
-                    .foregroundStyle(.netural50)
-                    .multilineTextAlignment(.leading)
+                ViewThatFits(in: .horizontal) {
+                    Text("이번 달에 \(count)번 마주쳤어요")
+                    Text("이번 달에\n\(count)번 마주쳤어요")
+                }
+                .font(.pretendard(.regular, size: 14))
+                .foregroundStyle(.netural50)
+                .multilineTextAlignment(.leading)
             }
             .padding(.top, 12)
             
