@@ -28,6 +28,7 @@ struct AllCatsGridView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
             } //: SCROLL
+            .accessibilityHidden(viewModel.isSearching)
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "모든 친구",
@@ -41,8 +42,8 @@ struct AllCatsGridView: View {
                 label: { Image(.search).barIconTapArea() }
                     .barIconAccessibility("검색", image: .search)
             })
+            .accessibilityHidden(viewModel.isSearching)
         }
-        .accessibilityHidden(viewModel.isSearching)
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
