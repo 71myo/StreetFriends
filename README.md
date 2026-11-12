@@ -33,13 +33,13 @@
 
 ## 📱 주요 기능
 
-### 친구 등록 & 추억쌓기
-| 새로운 친구 등록 | 만났던 친구 추억쌓기 | 중복 이름 안내 |
+### 친구 등록 & 추억 쌓기
+| 새로운 친구 등록 | 만났던 친구 추억 쌓기 | 중복 이름 안내 |
 | :---: | :---: | :---: |
 | <img src="https://github.com/user-attachments/assets/30fc3428-54de-4619-9e43-c56b21742784" width="200" alt="새로운 친구를 등록하는 화면" /> | <img src="https://github.com/user-attachments/assets/032a8dba-07ac-44ce-a83f-0c4b17462710" width="200" alt="만났던 친구에게 추억을 쌓는 화면" /> | <img src="https://github.com/user-attachments/assets/8c2501a9-6206-46d7-b266-375185e62eb5" width="200" alt="이미 사용 중인 이름을 입력했을 때 안내 문구가 표시된 화면" /> |
 
 - 새로운 친구는 이름과 첫 추억을 함께 등록하고, 만났던 친구에게는 추억을 이어서 쌓을 수 있어요
-- 이미 사용 중인 이름은 등록할 수 없도록 안내해요
+- 이미 사용 중인 이름은 등록하거나 수정할 수 없도록 안내해요
 
 ### 친구 & 추억 보기
 | 홈 | 친구 상세 | 추억 상세 |
@@ -48,26 +48,37 @@
 
 - 가장 자주 만난 친구, 즐겨찾는 친구, 모든 친구를 한눈에 볼 수 있어요
 - 친구와의 추억을 폴라로이드 카드로 모아 볼 수 있어요
+- 친구와 추억은 언제든 수정하거나 삭제할 수 있고, 수정 중 저장하지 않고 나가려 하면 한 번 더 확인해요
 
 ### 검색 & 즐겨찾기
 | 검색 | 즐겨찾기 |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/0acdaca5-caaa-4153-b624-493d78b30b54" width="230"> | <img src="https://github.com/user-attachments/assets/3b983041-158c-4db2-9197-505f94ef1c6f" width="230"> |
-| 대소문자, 띄어쓰기와 상관없이 찾고,<br>일치하는 글자를 강조해요 | 하트를 누르면 홈의<br>즐겨찾는 친구에 바로 추가돼요 |
+| <img src="https://github.com/user-attachments/assets/0acdaca5-caaa-4153-b624-493d78b30b54" width="230" alt="친구 이름을 검색하면 일치하는 글자가 강조되는 화면" /> | <img src="https://github.com/user-attachments/assets/3b983041-158c-4db2-9197-505f94ef1c6f" width="230" alt="하트를 눌러 즐겨찾는 친구에 추가하는 화면" /> |
 
-### 친구 · 추억 공유
+- 대소문자, 띄어쓰기와 상관없이 찾고, 일치하는 글자를 강조해요
+- 하트를 누르면 홈의 즐겨찾는 친구에 바로 추가돼요
+
+### 친구 & 추억 공유
 | 친구 공유 카드 | 추억 공유 카드 |
 | :---: | :---: |
-| <img src="" width="200" /> | <img src="" width="200" /> |
+| <img src="https://github.com/user-attachments/assets/75dce4be-1958-4b3a-a447-9d829a8f5717" width="230" alt="친구 정보가 담긴 폴라로이드 공유 카드" /> | <img src="https://github.com/user-attachments/assets/8de49662-43ca-42c9-90e1-745e5bd847d9" width="230" alt="추억 사진과 일지가 담긴 폴라로이드 공유 카드" /> |
+
+- 친구와 추억을 폴라로이드 카드 이미지로 만들어, 공유 시트로 메시지나 SNS에 바로 보낼 수 있어요
 
 ### 홈 화면 위젯
-| 최근 친구 | 이달의 TOP 친구 |
+| 최근 만난 친구 | 이달의 TOP 친구 |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/b2e2c0c6-d2fa-42e1-9a06-7bc40218978f" width="200" /> | <img src="https://github.com/user-attachments/assets/029df8f6-6735-4c09-aa26-19ba4a5d99b9" width="200" /> |
+| <img src="https://github.com/user-attachments/assets/b2e2c0c6-d2fa-42e1-9a06-7bc40218978f" width="200" alt="가장 최근에 만난 친구 사진이 표시된 위젯" /> | <img src="https://github.com/user-attachments/assets/029df8f6-6735-4c09-aa26-19ba4a5d99b9" width="200" alt="왕관과 함께 이번 달 가장 자주 만난 친구가 표시된 위젯" /> |
 
-### 첫만남 기념일 알림
-<!-- 알림 배너 스크린샷 -->
-- 친구를 처음 만난 날로부터 매년 n주년에 알림을 보내고, 알림을 누르면 그 친구의 상세 화면으로 이동해요
+- 평소에는 가장 최근에 만난 친구를 보여 주고, 매달 마지막 7일에는 그달 가장 자주 만난 친구를 왕관과 함께 보여 줘요
+
+### 첫 만남 기념일 알림
+| 기념일 알림 | 알림을 탭하면 |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/15414e18-2c43-4d99-97f7-119b5d100ac8" width="200" alt="친구를 만난 지 1년이 되었다는 알림" /> | <img src="https://github.com/user-attachments/assets/19682334-4dbc-4692-9168-bad83668a8ec" width="200" alt="알림을 탭해 친구 상세 화면으로 이동하는 화면" /> |
+
+- 친구를 처음 만난 날마다 오전 10시에 알림을 보내요
+- 알림을 탭하면 그 친구의 상세 화면으로 바로 이동해요
 
 <br>
 
