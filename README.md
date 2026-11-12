@@ -64,6 +64,7 @@
 | <img src="https://github.com/user-attachments/assets/75dce4be-1958-4b3a-a447-9d829a8f5717" width="230" alt="친구 정보가 담긴 폴라로이드 공유 카드" /> | <img src="https://github.com/user-attachments/assets/8de49662-43ca-42c9-90e1-745e5bd847d9" width="230" alt="추억 사진과 일지가 담긴 폴라로이드 공유 카드" /> |
 
 - 친구와 추억을 폴라로이드 카드 이미지로 만들어, 공유 시트로 메시지나 SNS에 바로 보낼 수 있어요
+> 🛠 `ImageRenderer`로 SwiftUI 뷰를 이미지로 만들고, `Transferable` + `ShareLink`로 공유
 
 ### 홈 화면 위젯
 | 최근 만난 친구 | 이달의 TOP 친구 |
@@ -71,6 +72,7 @@
 | <img src="https://github.com/user-attachments/assets/b2e2c0c6-d2fa-42e1-9a06-7bc40218978f" width="200" alt="가장 최근에 만난 친구 사진이 표시된 위젯" /> | <img src="https://github.com/user-attachments/assets/029df8f6-6735-4c09-aa26-19ba4a5d99b9" width="200" alt="왕관과 함께 이번 달 가장 자주 만난 친구가 표시된 위젯" /> |
 
 - 평소에는 가장 최근에 만난 친구를 보여 주고, 매달 마지막 7일에는 그달 가장 자주 만난 친구를 왕관과 함께 보여 줘요
+> 🛠 `WidgetKit` · `App Group`으로 앱과 같은 SwiftData 저장소를 읽고, "이달의 TOP 친구" 계산 로직을 앱과 공유해 결과를 일치시킴
 
 ### 첫 만남 기념일 알림
 | 기념일 알림 | 알림을 탭하면 |
@@ -79,6 +81,7 @@
 
 - 친구를 처음 만난 날마다 오전 10시에 알림을 보내요
 - 알림을 탭하면 그 친구의 상세 화면으로 바로 이동해요
+> 🛠 `UserNotifications`로 기념일을 예약하고, 알림의 친구 정보로 상세 화면까지 딥링크 이동
 
 <br>
 
@@ -89,8 +92,37 @@
 | --- | --- |
 | **VoiceOver** | 아이콘 버튼 라벨, 카드 묶어 읽기, 모달 처리, 토스트·오류 음성 안내, 로터 머리말 이동 |
 | **Dynamic Type** | 텍스트 스타일 기준 크기 조절, 큰 글자에서 잘림·겹침 방지, 내비게이션 바 큰 콘텐츠 뷰어 |
-| **색상 대비** | Apple HIG 기준 점검, 대비 증가(Increase Contrast) 설정 대응 |
+| **색상 대비** | Apple HIG 대비 기준으로 점검, 기준에 못 미치는 일부 보조 요소는 대비 증가(Increase Contrast) 설정에서 보완 |
 | **터치 영역** | 아이콘 버튼 최소 44×44pt |
+
+### 이렇게 해결했어요
+- **카드를 한 번에 읽기**: 친구 카드의 사진, 이름, 즐겨찾기 상태를 하나로 묶어 "찐빵이, 즐겨찾는 친구"처럼 한 번에 읽어요. 작은 하트 버튼은 초점이 여러 번 멈추지 않도록 숨기고, 즐겨찾기는 친구 상세 화면에서 바꿀 수 있어요
+- **잠깐 떴다 사라지는 안내도 들리게**: 토스트와 중복 이름 안내는 VoiceOver 사용자가 놓치기 쉬워 같은 문구를 음성으로 따로 읽어 주고, 화면 전환이 끝난 뒤 읽도록 해 안내가 끊기지 않게 했어요
+- **알림창에 초점 가두기**: 알림창이 뜨면 VoiceOver 초점이 뒤 화면으로 빠져나가지 않게 하고, 두 손가락 문지르기로 닫을 수 있게 했어요
+- **큰 글자에서도 정보가 잘리지 않게**: 글자 크기에 따라 레이아웃을 바꾸고, 공간이 좁은 내비게이션 바는 크기를 제한하는 대신 길게 누르면 크게 보여 주는 큰 콘텐츠 뷰어를 지원했어요
+- **디자인과 대비 사이 균형 맞추기**: 주요 텍스트는 Apple HIG 대비 기준에 맞추고, 기준대로 바꾸면 디자인이 크게 흐트러지는 일부 보조 요소는 기본 색을 유지했어요. 대신 대비 증가 설정을 켠 사용자에게는 더 진한 색으로 바꿔 보여 줘요
+
+### 이렇게 확인했어요
+- 실기기에서 VoiceOver를 켜고 주요 흐름을 직접 사용
+- Accessibility Inspector로 라벨, 동작, 대비 점검
+- 가장 큰 글자 크기(AX5)와 iPhone SE에서 레이아웃 확인
+
+### VoiceOver
+
+| 홈 둘러보기 | 친구 등록하기 |
+| :---: | :---: |
+| <video src="https://github.com/user-attachments/assets/c1bd0b4f-ecb7-4898-b398-c892598c447f" width="230" controls></video> | <video src="https://github.com/user-attachments/assets/1179ac95-38ee-444c-bb77-53217983046a" width="230" controls></video> |
+| 로터로 섹션 사이를 이동하고,<br>친구 카드를 한 번에 읽어요 | 중복 이름과 저장 결과를<br>음성으로 안내해요 |
+
+### Dynamic Type
+| 홈 (기본) | 홈 (AX5) | 친구 상세 (기본) | 친구 상세 (AX5) |
+| :---: | :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/ed2b759f-e9f8-4b0b-af5a-d47d5c98d4c6" width="170" alt="기본 글자 크기의 홈 화면"> | <img src="https://github.com/user-attachments/assets/9a093acb-7aa0-4dc2-8531-d2dabcbb70a4" width="170" alt="가장 큰 글자 크기의 홈 화면"> | <img src="https://github.com/user-attachments/assets/f6ad77f1-6fca-459c-8f74-afdc6aa6b9e5" width="170" alt="기본 글자 크기의 친구 상세 화면"> | <img src="https://github.com/user-attachments/assets/30f50303-420c-4720-a119-aa277fa0d185" width="170" alt="가장 큰 글자 크기의 친구 상세 화면"> |
+
+| 큰 콘텐츠 뷰어 |
+| :---: |
+| <img src="https://github.com/user-attachments/assets/d51c4d62-cb49-472a-ab22-354cf75cc631" width="200" alt="내비게이션 버튼을 길게 눌러 크게 표시된 화면"> |
+| 크기를 제한한 내비게이션 버튼은<br>길게 누르면 크게 보여 줘요 |
 
 <br>
 
