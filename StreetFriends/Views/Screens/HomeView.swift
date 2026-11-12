@@ -20,6 +20,7 @@ struct HomeView: View {
             
             if viewModel.isEmptyState {
                 EmptyCatView()
+                    .accessibilityHidden(viewModel.isSearching)
             } else {
                 ScrollView {
                     VStack(spacing: 40) {
@@ -63,6 +64,7 @@ struct HomeView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 40)
                 } //: SCROLL
+                .accessibilityHidden(viewModel.isSearching)
             }
         } //: ZSTACK
         .background(EdgeSwipePopEnabler())
@@ -94,8 +96,8 @@ struct HomeView: View {
                         .barIconAccessibility("추억쌓기", image: .addCatData)
                 }
             })
+            .accessibilityHidden(viewModel.isSearching)
         }
-        .accessibilityHidden(viewModel.isSearching)
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,

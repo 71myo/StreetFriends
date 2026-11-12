@@ -214,11 +214,12 @@
 				};
 			};
 			buildConfigurationList = 97A20FD12E4B91D200F4F112 /* Build configuration list for PBXProject "StreetFriends" */;
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 97A20FCD2E4B91D200F4F112;
 			minimizedProjectReferenceProxies = 1;

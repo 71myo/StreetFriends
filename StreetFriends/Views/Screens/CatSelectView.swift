@@ -49,6 +49,7 @@ struct CatSelectView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
             } //: SCROLL
+            .accessibilityHidden(viewModel.isSearching)
         } //: ZSTACK
         .safeAreaInset(edge: .top) {
             NavigationBar(title: "추억쌓기",
@@ -62,8 +63,8 @@ struct CatSelectView: View {
                 label: { Image(.search).barIconTapArea() }
                     .barIconAccessibility("검색", image: .search)
             })
+            .accessibilityHidden(viewModel.isSearching)
         }
-        .accessibilityHidden(viewModel.isSearching)
         .overlay(alignment: .top) {
             CatSearchOverlay(isPresented: $viewModel.isSearching,
                              searchText: $viewModel.searchText,
