@@ -112,7 +112,7 @@
 
 | 홈 둘러보기 | 친구 등록하기 |
 | :---: | :---: |
-| <video src="https://github.com/user-attachments/assets/c1bd0b4f-ecb7-4898-b398-c892598c447f" width="230" controls></video> | <video src="https://github.com/user-attachments/assets/1179ac95-38ee-444c-bb77-53217983046a" width="230" controls></video> |
+| <video src="https://github.com/user-attachments/assets/c1bd0b4f-ecb7-4898-b398-c892598c447f" width="230" controls></video> | <video src="https://github.com/user-attachments/assets/b84ff601-02a2-4482-8aec-bf807e95832f" width="230" controls></video> |
 | 로터로 섹션 사이를 이동하고,<br>친구 카드를 한 번에 읽어요 | 중복 이름과 저장 결과를<br>음성으로 안내해요 |
 
 ### Dynamic Type
