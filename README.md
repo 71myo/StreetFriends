@@ -127,14 +127,22 @@
 <br>
 
 ## 🛠 기술 스택
-| 분류 | 기술 |
-| --- | --- |
-| UI | SwiftUI |
-| 데이터 | SwiftData, App Group (앱 · 위젯 데이터 공유) |
-| 위젯 | WidgetKit |
-| 알림 | UserNotifications (로컬 알림) |
-| 아키텍처 | MVVM, Repository 패턴 |
-| 협업 | Git, GitHub (Issue · PR 템플릿), Figma |
+
+**개발 환경**: iOS 18.5+ · Xcode 26 · Swift 5
+
+SwiftUI와 잘 어울리는 최신 Apple 프레임워크를 직접 써 보는 것을 목표로, 외부 라이브러리 없이 개발했어요.
+
+| 분류 | 기술 | 선택 이유 |
+| --- | --- | --- |
+| UI | SwiftUI | 최신 iOS 개발의 중심인 선언형 UI를 처음부터 끝까지 직접 다뤄 보기 위해 |
+| 상태 관리 | Observation (`@Observable`) | 기존 `ObservableObject`를 대신해 SwiftUI와 함께 쓰도록 나온 최신 방식을 직접 써 보며 차이를 익히기 위해 |
+| 데이터 | SwiftData | SwiftUI와 함께 쓰도록 설계된 최신 저장 프레임워크로, Swift 코드만으로 모델과 관계를 정의해 보기 위해 |
+| 위젯 | WidgetKit | 앱 밖에서 동작하는 확장(Extension)을 직접 만들어 보고 싶어서. App Group으로 앱과 데이터를 공유하는 방법까지 함께 익힘 |
+| 알림 | UserNotifications | 정해진 날짜에 보내는 간단한 알림이라, 서버 없이 기기에서 예약하는 로컬 알림으로 충분해서 |
+| 아키텍처 | MVVM, Repository 패턴 | 가장 널리 쓰이는 MVVM을 직접 적용하며 화면과 로직의 역할 나누기를 익히기 위해. Repository로 데이터 저장을 분리해 Preview에서는 가짜 데이터로 화면을 확인 |
+| 협업 | Git, GitHub (Issue · PR 템플릿), Figma | 모든 작업을 이슈와 PR 단위로 기록하고, 디자이너와 Figma로 협업 |
+
+**그 밖에 사용한 기술**: PhotosUI(사진 선택) · ImageRenderer, ShareLink(공유 카드) · Swift Concurrency(알림 권한 요청과 예약)
 
 <br>
 
