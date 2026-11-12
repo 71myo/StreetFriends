@@ -55,6 +55,8 @@ struct NoteEditorCard: View {
                     .accessibilityLabel("\(maxCount)자 중 \(text.count)자")
             }
         }
+        .contentShape(RoundedRectangle(cornerRadius: 8))
+        .onTapGesture { isFocused.wrappedValue = true }
     }
 }
 
