@@ -62,6 +62,6 @@ final class HomeViewModel {
     
     private static func topCatInThisMonth(from cats: [Cat]) -> MonthlyTopCat.Result? {
         guard let month = MonthlyTopCat.monthInterval() else { return nil }
-        return MonthlyTopCat.top(from: cats.flatMap(\.encounters), in: month)
+        return MonthlyTopCat.top(from: cats.flatMap(\.encounterList), in: month)
     }
 }

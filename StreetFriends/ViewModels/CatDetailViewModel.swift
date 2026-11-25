@@ -50,7 +50,7 @@ final class CatDetailViewModel {
     func prepareShareCard(scale: CGFloat, width: CGFloat) {
         guard #available(iOS 16.0, *) else { return }
 
-        let count = cat.encounters.count
+        let count = cat.encounterList.count
         let photo = cat.profilePhoto.flatMap(UIImage.init)
         let firstMetDate = cat.firstMetDate
         

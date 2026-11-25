@@ -41,7 +41,7 @@ struct CatDetailView: View {
             } content: {
                 // MARK: - CONTENT
                 VStack(spacing: 40) {
-                    let encounters = viewModel.cat.encounters.sorted { $0.date > $1.date }
+                    let encounters = viewModel.cat.encounterList.sorted { $0.date > $1.date }
                     
                     ForEach(encounters) { encounter in
                         PolaroidCardView(

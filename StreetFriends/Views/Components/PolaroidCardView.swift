@@ -186,7 +186,7 @@ struct PolaroidCardView<Destination: View>: View {
 }
 
 #Preview("detail") {
-    let encounter = Cat.previewOne.encounters.first!
+    let encounter = Cat.previewOne.encounterList.first!
     
     PolaroidCardView(
         info: .detail(

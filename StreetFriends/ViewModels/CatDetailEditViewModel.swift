@@ -37,8 +37,8 @@ final class CatDetailEditViewModel {
         self.cat = cat
         
         // 초기 편집값 세팅
-        let firstMetDate = cat.firstMetDate ?? cat.encounters.min(by: { $0.date < $1.date })?.date ?? .now
-        let photo = cat.profilePhoto ?? cat.encounters.min(by: { $0.date < $1.date })?.photo ?? Data()
+        let firstMetDate = cat.firstMetDate ?? cat.encounterList.min(by: { $0.date < $1.date })?.date ?? .now
+        let photo = cat.profilePhoto ?? cat.encounterList.min(by: { $0.date < $1.date })?.photo ?? Data()
         
         self.name = cat.name
         self.firstMetDate = firstMetDate

@@ -19,7 +19,12 @@ final class Cat: Identifiable {
     var isFavorite: Bool = false
     
     @Relationship(deleteRule: .cascade, inverse: \Encounter.cat)
-    var encounters: [Encounter] = []
+    var encounters: [Encounter]? = [] // 저장용
+
+    // 옵셔널을 풀어 둔 추억 목록(없으면 빈 배열) / 읽기용
+    var encounterList: [Encounter] {
+        encounters ?? []
+    }
 
     init(name: String,
          creationDate: Date = .now,
@@ -35,7 +40,8 @@ final class Cat: Identifiable {
     
     // MARK: - FUNCTION
     func addEncounter(_ encounter: Encounter) {
-        encounters.append(encounter)
+        if encounters == nil { encounters = [] }
+        encounters?.append(encounter)
         encounter.cat = self
         
         if profilePhoto == nil { profilePhoto = encounter.photo }
