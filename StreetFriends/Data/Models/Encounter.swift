@@ -12,9 +12,9 @@ import SwiftData
 final class Encounter: Identifiable {
     var id: UUID = UUID()
     
-    var date: Date
-    var note: String // 만남 일지
-    @Attribute(.externalStorage) var photo: Data
+    var date: Date = Date.now
+    var note: String = "" // 만남 일지
+    @Attribute(.externalStorage) var photo: Data = Data()
     var cat: Cat?
     
     init(date: Date, note: String, photo: Data, cat: Cat? = nil) {
