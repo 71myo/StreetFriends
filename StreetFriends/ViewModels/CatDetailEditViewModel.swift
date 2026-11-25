@@ -56,6 +56,7 @@ final class CatDetailEditViewModel {
     // 이름 중복 여부(빈 이름은 중복 X)
     var isDuplicate: Bool {
         let normalized = Cat.normalizedName(name)
+        guard normalized != initialName else { return false }
         return !normalized.isEmpty && existingNames.contains(normalized)
     }
     
