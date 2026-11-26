@@ -103,7 +103,7 @@ struct EncounterDetailEditView: View {
 
 #Preview {
     let cat = Cat.previewOne
-    let encounter = cat.encounters.first!
+    let encounter = cat.encounterList.first!
     let repo = PreviewCatRepository(cats: [cat])
     
     EncounterDetailEditView(encounterID: encounter.id)

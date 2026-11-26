@@ -76,9 +76,14 @@ final class SwiftDataCatRepository: CatRepository {
     
     func updateCat(_ cat: Cat, name: String, firstMetDate: Date, profilePhoto: Data) throws {
         let normalized = Cat.normalizedName(name)
-        guard try !catNames(excluding: cat.id).contains(normalized) else {
-            throw CatRepositoryError.duplicateName
+        
+        // 이름이 바뀌었을 때만 중복 검사
+        if normalized != cat.name {
+            guard try !catNames(excluding: cat.id).contains(normalized) else {
+                throw CatRepositoryError.duplicateName
+            }
         }
+        
         cat.name = normalized
         cat.firstMetDate = firstMetDate
         cat.profilePhoto = profilePhoto
